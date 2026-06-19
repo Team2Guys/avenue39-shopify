@@ -16,7 +16,7 @@
         // What's the search form?
         var form = $(this).closest('form');
         // What's the search URL?
-        var searchURL = '/search?type=product&q=' + term;
+        var searchURL = '/search?type=product&q=title:' + term + '*';
         // What's the search results list?
         var resultsList = form.find('.search-results');
         // If that's a new term and it contains at least 3 characters.
@@ -58,6 +58,15 @@
     // Clicking outside makes the results disappear.
     $('body').bind('click', function(){
       $('.search-results').hide();
+    });
+    
+    // Intercept form submissions to force title-only search
+    searchForms.bind('submit', function() {
+      var input = $(this).find('input[name="q"]');
+      var term = input.val();
+      if (term && term.indexOf('title:') === -1) {
+        input.val('title:' + term + '*');
+      }
     });
   });
 </script>

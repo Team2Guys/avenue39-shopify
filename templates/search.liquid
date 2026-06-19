@@ -7,6 +7,7 @@
         <div class="section-header empty-page-content text-center">
           <h1 class="h2">{{ 'general.search.title' | t }}</h1>
       {% else %}
+        {% assign clean_terms = search.terms | remove: 'title:' | remove: '*' | replace: ' AND ', ' ' %}
         <div class="section-header text-center">
           <h1 class="h2">{{ 'general.search.results_with_count' | t: terms: clean_terms, count: search.results_count }}</h1>
       {% endif %}
@@ -15,11 +16,13 @@
             <form action="/search" method="get" role="search" class="search">
               <div class="input-group">
                 <input type="hidden" name="type" value="product">
+                <input type="hidden" name="options[prefix]" value="last">
+                <input type="hidden" name="options[fields]" value="title">
                 <input type="search"
                   id="SearchInput"
                   class="form-control input-group__field search__input"
                   name="q"
-                  value="{{ search.terms | escape }}"
+                  value="{{ clean_terms | escape }}"
                   placeholder="{{ 'general.search.placeholder' | t }}"
                   aria-label="{{ 'general.search.placeholder' | t }}">
                 <span class="input-group__btn">
