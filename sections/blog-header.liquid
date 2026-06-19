@@ -1,0 +1,134 @@
+{% comment %} 
+  We add 'hero-hidden' class if on a tagged page OR on a single article page 
+{% endcomment %}
+<div class="blog-hero-wrapper {% if current_tags or template contains 'article' %}hero-hidden{% endif %}">
+  <div class="blog-breadcrumb-wrapper">
+    <div class="page-width blog-breadcrumb-Container">
+      <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+        <a href="/" title="Home">Home</a>
+
+        <span class="separator" aria-hidden="true">
+          <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+
+        {% if template contains 'blog' %}
+          {% if current_tags %}
+            <a href="{{ blog.url }}" title="Blogs">Blogs</a>
+            <span class="separator" aria-hidden="true">
+              <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="current-page">{{ current_tags | join: " & " }}</span>
+          {% else %}
+            <span class="current-page">Blogs</span>
+          {% endif %}
+
+        {% elsif template contains 'article' %}
+          <a href="{{ blog.url }}" title="Blogs">Blogs</a>
+          <span class="separator" aria-hidden="true">
+            <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="current-page">{{ article.title }}</span>
+        {% endif %}
+      </nav>
+    </div>
+  </div>
+
+  {% comment %} 
+    Hide banner if current_tags exist OR if we are viewing a single article 
+  {% endcomment %}
+  {% unless current_tags or template contains 'article' %}
+    <div class="blog-hero-banner" style="background-image: url('{{ section.settings.image | img_url: '1800x' }}');">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">{{ section.settings.title }}</h1>
+        <p class="hero-subtitle">{{ section.settings.subtitle }}</p>
+      </div>
+    </div>
+  {% endunless %}
+</div>
+
+<style>
+  .blog-hero-wrapper {
+    position: relative;
+  }
+
+  .blog-breadcrumb-wrapper {
+    background-color: #E9E9E9CC;
+    position: absolute;
+    top: 0px;
+    z-index: 2;
+    width: 100%;
+  }
+
+  /* When hero is hidden (on tags or articles), breadcrumb pushes content down */
+  .hero-hidden .blog-breadcrumb-wrapper {
+    position: relative;
+    background-color: #E9E9E9;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .blog-breadcrumb-Container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #000;
+    text-transform: capitalize;
+    padding: 10px 0px;
+    margin: 0;
+    background: transparent;
+  }
+
+  .breadcrumb a { text-decoration: none; color: #000; }
+  .breadcrumb .separator { margin: 0 10px; display: flex; align-items: center; color: #000; }
+
+  .blog-hero-banner {
+    position: relative;
+    height: 420px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #2B2E2B8A;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 46px 20px 0px 20px;
+  }
+
+  .hero-title { font-size: 40px; margin-bottom: 10px; color: #fff; }
+  .hero-subtitle { font-size: 20px; font-weight: 300; margin: 0; }
+
+  @media (max-width: 767px) {
+    .blog-hero-banner { height: 250px; }
+    .blog-breadcrumb-Container { padding-left: 15px; padding-right: 15px; }
+    .hero-title { font-size: 20px; }
+    .hero-subtitle { font-size: 16px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Blog Header (Hero)",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background Image" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Official Blog" },
+    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Luxury You Can Feel in Every Step" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,160 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nov-page-about-us",
+      "blocks": {
+        "1600139275347": {
+          "type": "image",
+          "disabled": true,
+          "settings": {}
+        },
+        "1600141333789": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "Our company",
+            "text_content": "<p>Having been established in the UAE for over a decade, the time was right to have a division solely focussed on sourcing and buying the best pieces of unique, modern furniture for your home. \n\nThe owners are passionate about furnishings and every item selected is something worthy of their own homes. \n\nOur buyers spend time hand testing each and every product. We visit the factories personally to ensure staff welfare. We take important steps in speaking to the factory staff to be certain that they are treated with respect and dignity and recieving their salaries on time. Any factory that doesn't adhere to our strict stipulations are struck off from our supply chain. \n\nEvery item is quality checked before being loaded onto containers bound for our warehouse in Dubai. Our team at source are paid bonuses to find faults, making it more stringent that goods don't pass this stage easily. \n\nOnce the products   arrive in the UAE, they are once again  meticulously checked for any flaws or faults. Only then are they assigned a shelf space and available to sell. \n\nAnother unique trait of ours is the Try Before You Buy guarantee. This allows you to order any item which we deliver and assemble in your home and give you 30 mins to really test and decide if you're satisfied with your selection. If you are, then great. If not, we will simply repack the item and refund your money by the next day (time taken for the money to reach your account varies from bank to bank). \n\nThe TBYB guarantee is available on the majority of items on our website. Those items not a part of this guarantee will be clearly marked. </p>",
+            "class": "mt-35"
+          }
+        },
+        "1600139586443": {
+          "type": "quote",
+          "disabled": true,
+          "settings": {
+            "text_content": "<p>I am quote block text, consectetur adipiscing elit. Ut ac ligula et mi semper viverra nec a tellus. Curabitur sed diam quis elit tempus venenatis sit amet a tellus. Sed id lectus laoreet, elementum metus at, sagittis sem. Sed ante velit, eleifend sit amet eros lacinia, lobortis vehicula dui. Vivamus fringilla mauris mauris. Aliquam lectus ligula porta a rhoncus sit amet consequat vel nibh. </p>",
+            "class": "mt-25 mb-25"
+          }
+        },
+        "1600141399342": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "Our team",
+            "text_content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac ligula et mi semper viverra nec a tellus. Curabitur sed diam quis elit tempus venenatis sit amet a tellus. Sed id lectus laoreet, elementum metus at, sagittis sem. Sed ante velit, eleifend sit amet eros lacinia, lobortis vehicula dui. Vivamus fringilla mauris mauris. Aliquam lectus ligula, porta a rhoncus sit amet, consequat vel nibh. Sed in est venenatis, dictum dui a, consequat quam.<br></p>\n<p><br></p>\n<p>Etiam consectetur accumsan odio sit amet sagittis. Aliquam erat volutpat. Maecenas eros lacus, commodo id leo ut, ullamcorper varius elit. Proin auctor quam convallis, iaculis odio non, iaculis tortor. In felis tortor, tristique at magna nec, pharetra posuere leo. Praesent ut felis ante. Pellentesque rutrum sed turpis at ornare. Nulla tincidunt enim vitae purus rhoncus pellentesque ut ac ligula. Vivamus vel gravida nulla, quis aliquam est. Proin ultrices semper tortor, at suscipit nibh imperdiet vel. Etiam quis velit viverra nisl lobortis imperdiet quis mollis metus. Integer nec felis at ligula finibus consequat at ut magna. Duis fermentum dignissim metus in pellentesque. Integer viverra iaculis quam vel convallis. Donec et leo non velit pharetra placerat. Donec condimentum enim vitae felis vulputate, non rhoncus leo fringilla.</p>",
+            "class": "mb-55"
+          }
+        },
+        "1600139715583": {
+          "type": "our_team",
+          "disabled": true,
+          "settings": {
+            "author": "KwangSang",
+            "job": "CEO- Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique vulputate enim.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": "",
+            "class": "col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-xs-30"
+          }
+        },
+        "1600139764692": {
+          "type": "our_team",
+          "disabled": true,
+          "settings": {
+            "author": "Rebecca Jenkins",
+            "job": "Developer",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique vulputate enim.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": "",
+            "class": "col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-xs-30"
+          }
+        },
+        "1600139797724": {
+          "type": "our_team",
+          "settings": {
+            "author": "WELCOME TO AVENUE39",
+            "job": "",
+            "decs": "<p>Having been established in the UAE for over a decade, the time was right to have a division solely focussed on sourcing and buying the best pieces of unique, modern furniture for your home. The owners are passionate about furnishings and every item selected is something worthy of their own homes. Our buyers spend time hand testing each and every product.</p><p> We visit the factories personally to ensure staff welfare. We take important steps in speaking to the factory staff to be certain that they are treated with respect and dignity and recieving their salaries on time. Any factory that doesn't adhere to our strict stipulations are struck off from our supply chain. Every item is quality checked before being loaded onto containers bound for our warehouse in Dubai. </p><p>Our team at source are paid bonuses to find faults, making it more stringent that goods don't pass this stage easily. Once the products arrive in the UAE, they are once again meticulously checked for any flaws or faults. </p><p>Only then are they assigned a shelf space and available to sell. Another unique trait of ours is the Try Before You Buy guarantee. This allows you to order any item which we deliver and assemble in your home and give you 30 mins to really test and decide if you're satisfied with your selection. If you are, then great. If not, we will simply repack the item and refund your money by the next day (time taken for the money to reach your account varies from bank to bank). The TBYB guarantee is available on the majority of items on our website. Those items not a part of this guarantee will be clearly marked.</p>",
+            "hotline": "",
+            "email": "",
+            "show_label": false,
+            "social_twitter_link": "",
+            "social_facebook_link": "",
+            "social_pinterest_link": "",
+            "social_instagram_link": "",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": "",
+            "class": "col-lg-7 col-md-4 col-sm-6 col-xs-12"
+          }
+        },
+        "1600139823748": {
+          "type": "our_team",
+          "settings": {
+            "author": "Address",
+            "job": "23 22nd St - Al Quoz Industrial Area 4 - Dubai",
+            "decs": "",
+            "hotline": "+971 50 597 4495",
+            "email": "cs@avenue39.com",
+            "show_label": false,
+            "social_twitter_link": "https://x.com/avenue39home",
+            "social_facebook_link": "https://www.facebook.com/avenue39home",
+            "social_pinterest_link": "https://www.pinterest.com/avenue39home/",
+            "social_instagram_link": "https://www.instagram.com/avenue39home/",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": "",
+            "class": "col-lg-5 col-md-4 col-sm-6 col-xs-12 mt-md-30"
+          }
+        }
+      },
+      "block_order": [
+        "1600139275347",
+        "1600141333789",
+        "1600139586443",
+        "1600141399342",
+        "1600139715583",
+        "1600139764692",
+        "1600139797724",
+        "1600139823748"
+      ],
+      "settings": {
+        "title": "",
+        "subheading": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

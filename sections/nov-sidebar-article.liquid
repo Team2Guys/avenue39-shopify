@@ -1,0 +1,162 @@
+<div id="BlogSidebarDrawer" class="blog-sidebar-modal">
+  <div class="modal-overlay" onclick="toggleBlogSidebar()"></div>
+  
+  <div class="modal-window">
+    <button class="close-modal" onclick="toggleBlogSidebar()">
+      <svg viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="3" fill="none">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="modal-content-scroll">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'block_categories' %}
+            <section class="sidebar-section" {{ block.shopify_attributes }}>
+              <h3 class="sidebar-title">{{ block.settings.sidebar_categories_title }}</h3>
+              <ul class="sidebar-list">
+                {% comment %} 
+                  On Tagged pages, blog.articles is filtered. 
+                  We use blog.all_tags which is NOT filtered to show all categories.
+                {% endcomment %}
+                {% for tag in blog.all_tags %}
+                  <li class="sidebar-list-item {% if current_tags contains tag %}active-cat{% endif %}">
+                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="sidebar-link">
+                      {{ tag }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </section>
+
+          {% when 'block_recentpost' %}
+            <section class="sidebar-section" {{ block.shopify_attributes }}>
+              <h3 class="sidebar-title">{{ block.settings.block_title }}</h3>
+              <ul class="sidebar-list">
+                {% assign numberLimit = block.settings.number_show | default: 5 %}
+                {% comment %} 
+                  Using blogs[blog.handle] ensures we get the latest posts 
+                  from the WHOLE blog, even when a tag filter is active.
+                {% endcomment %}
+                {% for article in blogs[blog.handle].articles limit: numberLimit %}
+                  <li class="sidebar-list-item">
+                    <a href="{{ article.url }}" class="sidebar-link recent-post-link">
+                      {{ article.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </section>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .sidebar-section { margin-bottom: 10px; }
+  .sidebar-title {
+    font-size: 22px;
+    text-align: start;
+    padding: 20px 10px;
+    margin: 0;
+    color: #000;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .sidebar-list { list-style: none; padding: 0; margin: 0; text-align: start; }
+  .sidebar-list-item { border-bottom: 1px solid #e0e0e0; }
+  .sidebar-link {
+    display: block;
+    padding: 18px 20px;
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .active-cat { background-color: #dbdbdb; }
+  
+  .modal-content-scroll {
+    border-left: 1px solid #e0e0e0;
+  }
+
+  @media (min-width: 992px) {
+    .modal-overlay, .close-modal { display: none; }
+    .blog-sidebar-modal { position: static; }
+    .sidebar-title { text-align: left; font-size: 30px; border-bottom: 1px solid #e0e0e0; }
+    .sidebar-list { text-align: left; }
+    .sidebar-link { padding: 15px 10px; }
+  }
+
+  @media (max-width: 991px) {
+    .blog-sidebar-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001;
+      display: flex; align-items: center; justify-content: center;
+      visibility: hidden; opacity: 0; transition: all 0.3s ease;
+    }
+    .sidebar-title { padding-left: 20px; }
+    .blog-sidebar-modal.active { visibility: visible; opacity: 1; }
+    .modal-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.4); }
+    .modal-window { 
+      position: relative; width: 90%; max-width: 400px; background: #fff; 
+      z-index: 2; box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+    }
+    .modal-content-scroll { padding: 20px 0; overflow-y: auto; max-height: 80vh; border-left: 0px; }
+    .close-modal {
+      position: absolute; top: -20px; right: -10px; background: #000; border: none;
+      width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 3;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Nov Sidebar Article",
+  "blocks": [
+    {
+      "type": "block_categories",
+      "name": "Categories",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "sidebar_categories_title",
+          "label": "Title",
+          "default": "Categories"
+        }
+      ]
+    },
+    {
+      "type": "block_recentpost",
+      "name": "Latest Posts",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": "Latest Posts"
+        },
+        {
+          "type": "range",
+          "id": "number_show",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "label": "Posts to show",
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nov Sidebar Article",
+      "blocks": [
+        { "type": "block_categories" },
+        { "type": "block_recentpost" }
+      ]
+    }
+  ]
+}
+{% endschema %}

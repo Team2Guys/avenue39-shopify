@@ -1,0 +1,29 @@
+{% if paginate.pages > 1 %}
+<nav class="custom-pagination" role="navigation">
+  <div class="pagination-flex">
+    
+    {% if paginate.previous %}
+      <a href="{{ paginate.previous.url }}" class="pagination-btn prev-next">PREV</a>
+    {% endif %}
+
+    <div class="pagination-numbers">
+      {% for part in paginate.parts %}
+        {% if part.is_link %}
+          <a href="{{ part.url }}" class="page-num">{{ part.title }}</a>
+        {% else %}
+          {% if part.title == paginate.current_page %}
+            <span class="page-num active">{{ part.title }}</span>
+          {% else %}
+            <span class="page-num dots">{{ part.title }}</span>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if paginate.next %}
+      <a href="{{ paginate.next.url }}" class="pagination-btn prev-next">NEXT</a>
+    {% endif %}
+    
+  </div>
+</nav>
+{% endif %}

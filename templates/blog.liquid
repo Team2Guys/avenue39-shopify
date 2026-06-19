@@ -1,0 +1,86 @@
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{% section 'blog-header' %}
+
+<div class="page-width">
+  <div class="blog-custom-layout container">
+    <div class="blog-grid-container">
+      
+      <!-- Mobile Toggle Bar -->
+      <div class="mobile-sidebar-trigger" onclick="toggleBlogSidebar()">
+        <span>Categories</span>
+        <div class="category-icon">
+          <!-- Icon updated to 28px -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6H21M3 12H21M3 18H21" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="7" cy="6" r="2" fill="black" stroke="black" stroke-width="1.5"/>
+            <circle cx="14" cy="12" r="2" fill="black" stroke="black" stroke-width="1.5"/>
+            <circle cx="7" cy="18" r="2" fill="black" stroke="black" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="blog-main-content">
+        {% section 'blog-template' %}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="blog-sidebar-sticky-desktop">
+         {% section 'nov-sidebar-article' %}
+      </aside>
+
+    </div>
+  </div>
+</div>
+
+{% section 'related-blogs' %}
+
+<!-- JavaScript moved here to fix "Not Defined" error -->
+<script>
+  window.toggleBlogSidebar = function() {
+    const modal = document.getElementById('BlogSidebarDrawer');
+    if (modal) {
+      modal.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+    } else {
+      console.error("Sidebar Modal element not found!");
+    }
+  };
+</script>
+
+<style>
+.blog-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding-top: 40px;
+}
+
+@media (min-width: 992px) {
+  .blog-grid-container { grid-template-columns: repeat(12, 1fr); }
+  .blog-main-content { grid-column: span 9; }
+  .blog-sidebar-sticky-desktop { grid-column: span 3; position: sticky; top: 0px; height: fit-content; }
+}
+
+.mobile-sidebar-trigger {
+  display: none;
+  justify-content: end;
+  align-items: center;
+  padding: 15px 10px;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  color: #000;
+}
+
+.mobile-sidebar-trigger span {
+  font-size: 16px;
+}
+
+@media (max-width: 991px) {
+  .mobile-sidebar-trigger { display: flex; }
+}
+
+.overflow-hidden { overflow: hidden; height: 100vh; }
+</style>

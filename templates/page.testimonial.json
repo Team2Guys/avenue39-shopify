@@ -1,0 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nov-page-testimonial",
+      "blocks": {
+        "1600049931659": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-1.jpg",
+            "author": "WILLIAM JAMES",
+            "job": "CEO - Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris augue mi, interdum ut purus id, blandit suscipit mauris. Sed tortor lorem, eleifend non urna non, congue bibendum libero. Duis sodales pellentesque sagittis. Fusce venenatis sagittis pellentesque. Nunc eu eros in ipsum semper condimentum in a risus.</p>"
+          }
+        },
+        "1600050018619": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-2.jpg",
+            "author": "WILLIAM JAMES",
+            "job": "CEO - Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris augue mi, interdum ut purus id, blandit suscipit mauris. Sed tortor lorem, eleifend non urna non, congue bibendum libero. Duis sodales pellentesque sagittis. Fusce venenatis sagittis pellentesque. Nunc eu eros in ipsum semper condimentum in a risus.</p>"
+          }
+        },
+        "1600050035985": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-3.jpg",
+            "author": "WILLIAM JAMES",
+            "job": "CEO - Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris augue mi, interdum ut purus id, blandit suscipit mauris. Sed tortor lorem, eleifend non urna non, congue bibendum libero. Duis sodales pellentesque sagittis. Fusce venenatis sagittis pellentesque. Nunc eu eros in ipsum semper condimentum in a risus.</p>"
+          }
+        },
+        "1600050044617": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-4.jpg",
+            "author": "WILLIAM JAMES",
+            "job": "CEO - Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris augue mi, interdum ut purus id, blandit suscipit mauris. Sed tortor lorem, eleifend non urna non, congue bibendum libero. Duis sodales pellentesque sagittis. Fusce venenatis sagittis pellentesque. Nunc eu eros in ipsum semper condimentum in a risus.</p>"
+          }
+        },
+        "1600050053794": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-5.jpg",
+            "author": "WILLIAM JAMES",
+            "job": "CEO - Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris augue mi, interdum ut purus id, blandit suscipit mauris. Sed tortor lorem, eleifend non urna non, congue bibendum libero. Duis sodales pellentesque sagittis. Fusce venenatis sagittis pellentesque. Nunc eu eros in ipsum semper condimentum in a risus.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "1600049931659",
+        "1600050018619",
+        "1600050035985",
+        "1600050044617",
+        "1600050053794"
+      ],
+      "settings": {
+        "title": "Testimonial"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

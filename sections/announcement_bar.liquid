@@ -1,0 +1,144 @@
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    { "type": "text", "id": "announcement_text_1", "label": "Announcement Text 1", "default": "Next Day Delivery in Dubai" },
+    { "type": "text", "id": "announcement_text_2", "label": "Announcement Text 2", "default": "Free Shipping above AED 1,000" },
+    { "type": "text", "id": "announcement_text_3", "label": "Announcement Text 3", "default": "Try Before You Buy" },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#ff0000" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "Announcement Bar" }]
+}
+{% endschema %}
+<style>
+.announcement-bar {
+  background: {{ section.settings.background_color }};
+  color: {{ section.settings.text_color }};
+  padding: 8px 0;
+  font-size: 16px;
+  font-weight: 700;
+  overflow: hidden;
+}
+.announce-box {
+  position: relative;
+  padding: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.announce-box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(#fff, transparent, #fff);
+  animation: rotateGlow 3s linear infinite;
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.announce-inner {
+  position: relative;
+  z-index: 3;
+  background: {{ section.settings.background_color }};
+  padding: 6px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .announce-box { margin-bottom: 10px; }
+}
+</style>
+
+<div class="container-fluid announcement-bar px-2">
+<div class="container">
+    <div class="row text-center justify-content-center">
+
+    <div class="col-12 col-md-4 announce-box">
+      <div class="announce-inner">{{ section.settings.announcement_text_1 }}</div>
+    </div>
+
+    <div class="col-12 col-md-4 announce-box">
+      <div class="announce-inner">{{ section.settings.announcement_text_2 }}</div>
+    </div>
+
+    <div class="col-12 col-md-4 announce-box">
+      <div class="announce-inner">{{ section.settings.announcement_text_3 }}</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+{% comment %} {% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Get 10% off on your first order!"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link (Optional)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .announcement-bar {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .announcement-bar a {
+    color: {{ section.settings.text_color }};
+    text-decoration: underline;
+  }
+</style>
+
+<div class="announcement-bar">
+  {% if section.settings.announcement_link != blank %}
+    <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_text }}</a>
+  {% else %}
+    {{ section.settings.announcement_text }}
+  {% endif %}
+</div> {% endcomment %}

@@ -1,0 +1,192 @@
+<div class="page-width distance{% if section.settings.has_fullwidth == true %} full_width{% endif %}">
+  <div class="block">
+  {% if section.settings.has_fullwidth == false %}
+  <div class="container">
+  {% endif %}
+
+    {% if section.settings.title != blank %}
+      <div class="title_block mb-35 {% if section.settings.has_fullwidth == true and section.settings.title_alignment == 'text-left' %} nv-pl-30 nv-pl-md-10{% endif %}{% if section.settings.has_fullwidth == true and section.settings.title_alignment == 'text-right' %} nv-pr-30 nv-pr-md-10{% endif %}">
+        <span>{{ section.settings.title }}</span>
+        {% if section.settings.subheading != blank %}
+        <span class="sub_title mt-10">{{ section.settings.subheading | escape }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- assign collection = collections[section.settings.collection] -%}
+    <div class="row grid grid--view-items position-relative">
+      <div class="col-md-6 block_left">
+      {% for product in collection.products limit: 1 %}
+        {% if forloop.index == 1 %}
+          <div class="item-product{% unless product.available %} product-price--sold-out{% endunless %}">
+            {% assign variantCount = product.variants | size %}
+            <div class="thumbnail-container{% if product.images.size > 2 %} has-multiimage{% endif %}{% if section.settings.show_variant_color and variantCount > 1 %} has_variants{% endif %}">
+              <a href="{{ product.url | within: collection }}">
+                <img class="w-100 img-fluid product__thumbnail lazyload" data-src="{{ product.featured_image | product_img_url: '570x' }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy" >
+                {% for image in product.images %}
+                  {% if forloop.first != true %}
+                    <img class="w-100 img-fluid product__thumbnail-second lazyload" data-src="{{ image.src | product_img_url: '570x' }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy" >
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+              </a>
+
+              {% if product.compare_at_price > product.price %}
+              <div class="badge_sale">
+                {% if product.compare_at_price > product.price %}
+                <div class="badge badge--sale-rt">{{ 'products.product.new' | t }}</div>
+                {% endif %}
+                {% if product.compare_at_price > product.price %}
+                <span class="badge badge--sale-pt">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round: 4 }}%</span>
+                {% endif %}
+              </div>
+              {% endif %}
+              <div class="group-buttons">
+                {% if settings.wishlist_enable %}
+                  {% include 'nov-wishlist' %}
+                {% endif %}
+                {% if settings.quickview_enable %}
+                  {% include 'nov-quickview' %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="product__info">
+              <div class="block_product_info">
+                <div class="product__title">
+                  <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                </div>
+                <div class="product__price{% if settings.show_rating == false %} pb-20{% endif %}">
+                  {% include 'product-price' %}
+                </div>
+                {% if template.name != 'index' %}
+                  {% if settings.show_rating %}
+                    <div class="product__review">
+                      <div class="rating"><span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span></div>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+              {% include 'group_buttons' %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+
+      <div class="col-md-6 block_right">
+        <div class="row">
+        {% for product in collection.products limit: 5 %}
+          {% if forloop.index != 1 %}
+            <div class="col-md-6 col-xs-6">
+              {% include 'product-card-grid' %}
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+
+      {% if section.settings.show_view_all %}
+        <a href="{{ collection.url }}" class="btn view_all">
+          {{ 'collections.general.view_all_grid_special' | t }}
+        </a>
+      {% endif %}
+    </div>
+
+  {% if section.settings.has_fullwidth == false %}
+  </div>
+  {% endif %}
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Vinova Products Special",
+    "class": "index-section section-product-grid-special",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Vinova product grid special"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Sub Heading",
+        "default": "Subtitle from happy customers"
+      },
+      {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "Heading alignment",
+        "default": "text-left",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      },
+      {
+        "type":  "header",
+        "content": "Design Option"
+      },
+      {
+        "type": "text",
+        "id": "class",
+        "label": "Class"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "has_fullwidth",
+        "label": "Full Width",
+        "default":   false
+      },
+      {
+        "type": "text",
+        "id": "distance_top",
+        "label": "Top Distance Section",
+        "default": "30px"
+      },
+      {
+        "type": "text",
+        "id": "distance_bottom",
+        "label": "Bottom Distance Section",
+        "default": "30px"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Vinova Products Grid Special",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
+
+<style>
+  #shopify-section-{{ section.id }} .distance {
+    padding-top: {{ section.settings.distance_top }};
+    padding-bottom: {{ section.settings.distance_bottom }};
+  }
+</style>

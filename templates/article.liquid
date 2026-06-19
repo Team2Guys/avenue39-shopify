@@ -1,0 +1,177 @@
+{%- liquid
+  assign new_comment = false
+  if comment and comment.created_at
+    assign new_comment = true
+    assign new_comment_id = comment.id
+  endif
+
+  if new_comment
+    assign duplicate_comment = false
+    for comment in article.comments
+      if comment.id == new_comment_id
+        assign duplicate_comment = true
+        break
+      endif
+    endfor
+
+    if duplicate_comment
+      assign number_of_comments = article.comments_count
+    else
+      assign number_of_comments = article.comments_count | plus: 1
+    endif
+  else
+    assign number_of_comments = article.comments_count
+  endif
+-%}
+
+{% comment %} Uses the same Hero/Breadcrumb logic we just updated {% endcomment %}
+{% section 'blog-header' %}
+
+<div class="page-width">
+  <div class="blog-custom-layout container">
+    <div class="blog-grid-container">
+      
+      <!-- Mobile Toggle Bar (Consistent with Blog Page) -->
+      <div class="mobile-sidebar-trigger" onclick="toggleBlogSidebar()">
+        <span>Categories</span>
+        <div class="category-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6H21M3 12H21M3 18H21" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="7" cy="6" r="2" fill="black" stroke="black" stroke-width="1.5"/>
+            <circle cx="14" cy="12" r="2" fill="black" stroke="black" stroke-width="1.5"/>
+            <circle cx="7" cy="18" r="2" fill="black" stroke="black" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Main Content Area (9 Columns) -->
+      <article class="blog-main-content" itemscope itemtype="http://schema.org/Article">
+        
+        {% section 'article-template' %}
+
+        {% if blog.comments_enabled? %}
+          <div class="article__comments-wrapper">
+             {% if number_of_comments > 0 %}
+                <div class="article__comments">
+                  <h3 class="title-block uppercase">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h3>
+                  {% paginate article.comments by 5 %}
+                    <div id="comments">
+                      {% if new_comment %}
+                        <p class="note form-success">
+                          {% if blog.moderated? %}{{ 'blogs.comments.success_moderated' | t }}{% else %}{{ 'blogs.comments.success' | t }}{% endif %}
+                        </p>
+                      {% endif %}
+                      <ul class="comments">
+                        {% if new_comment %}
+                          <li id="{{ comment.id }}" class="comment">{% include 'comment' %}</li>
+                        {% endif %}
+                        {% for comment in article.comments %}
+                          {% unless comment.id == new_comment_id %}
+                            <li id="{{ comment.id }}" class="comment">{% include 'comment' %}</li>
+                          {% endunless %}
+                        {% endfor %}
+                      </ul>
+                      {% if paginate.pages > 1 %}{% include 'pagination' %}{% endif %}
+                    </div>
+                  {% endpaginate %}
+                </div>
+             {% endif %}
+
+             <div class="comment-form-section">
+                {% form 'new_comment', article %}
+                  <h3 class="title_block mb-30">{{ 'blogs.comments.title' | t }}</h3>
+                  {{ form.errors | default_errors }}
+                  <div class="row">
+                    <div class="col-md-4 col-xs-12">
+                      <input type="text" name="comment[author]" id="CommentAuthor" placeholder="{{ 'blogs.comments.name' | t }} (*)" class="input-full" value="{{ form.author }}" required>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                      <input type="email" name="comment[email]" id="CommentEmail" placeholder="{{ 'blogs.comments.email' | t }} (*)" class="input-full" value="{{ form.email }}" required>
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                      <input type="tel" name="comment[phone]" id="CommentPhone" placeholder="{{ 'blogs.comments.phone' | t }}" class="input-full" value="{{ form.phone }}">
+                    </div>
+                  </div>
+                  <div class="mt-20">
+                    <textarea rows="6" name="comment[body]" id="CommentBody" placeholder="{{ 'blogs.comments.message' | t }}" class="input-full" required>{{ form.body }}</textarea>
+                  </div>
+                  <input type="submit" class="btn btn-send mt-20" value="{{ 'blogs.comments.post' | t }}">
+                {% endform %}
+             </div>
+          </div>
+        {% endif %}
+      </article>
+
+      <!-- Sticky Sidebar (3 Columns) -->
+      <aside class="blog-sidebar-sticky-desktop">
+        {% section 'nov-sidebar-article' %}
+      </aside>
+
+    </div>
+  </div>
+</div>
+{% section 'related-blogs' %}
+<script>
+  window.toggleBlogSidebar = function() {
+    const modal = document.getElementById('BlogSidebarDrawer');
+    if (modal) {
+      modal.classList.toggle('active');
+      document.body.classList.toggle('overflow-hidden');
+    }
+  };
+</script>
+
+<style>
+/* 1. Layout Grid Alignment */
+.blog-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding-top: 40px;
+}
+
+@media (min-width: 992px) {
+  .blog-grid-container { grid-template-columns: repeat(12, 1fr); }
+  .blog-main-content { grid-column: span 9; padding-right: 30px; }
+  .blog-sidebar-sticky-desktop { 
+    grid-column: span 3; 
+    position: sticky; 
+    top: 30px; 
+    height: fit-content; 
+  }
+}
+
+/* 2. Mobile Trigger Styles */
+.mobile-sidebar-trigger {
+  display: none;
+  justify-content: end;
+  align-items: center;
+  padding: 15px 10px;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+.mobile-sidebar-trigger span { color: #000; font-size: 16px; }
+
+@media (max-width: 991px) {
+  .mobile-sidebar-trigger { display: flex; }
+  .blog-hero-wrapper {
+    display: none;
+  }
+  .blog-grid-container {
+  padding-top: 10px;
+}
+}
+
+/* 3. Article specific UI tweaks */
+.article__comments-wrapper { margin-top: 50px; border-top: 1px solid #eee; padding-top: 40px; }
+.title-block { font-family: serif; font-size: 24px; margin-bottom: 25px; }
+.comment { list-style: none; padding: 20px 0; border-bottom: 1px solid #f9f9f9; }
+.input-full { width: 100%; padding: 12px; border: 1px solid #ddd; margin-bottom: 15px; }
+.btn-send { background: #000; color: #fff; padding: 12px 30px; border: none; cursor: pointer; text-transform: uppercase; }
+.mt-20 { margin-top: 20px; }
+.overflow-hidden { overflow: hidden; height: 100vh; }
+</style>

@@ -1,0 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nov-product-template",
+      "blocks": {
+        "16000593485861": {
+          "type": "block_text1",
+          "settings": {
+            "custom_title1": "Dimensions",
+            "custom_content1": ""
+          }
+        },
+        "1600059348586": {
+          "type": "block_text",
+          "settings": {
+            "custom_title": "Delivery policy",
+            "custom_content": "We offer <b> FREE NEXT DAY delivery </b> throughout Dubai city for any orders above AED 1,000. \n\nFor all other areas of mainland UAE, your order will reach you within 2 working days.\n\n\n<br><br>For items covered by the \"Try Before You Buy\" deal, our team will assemble the item and allow up to 20 minutes for you to decide if you wish to keep the purchase. Should you decide to decline the item, we will pack everything away again and begin issuing a full refund. This will be done within 24 hours from our end, after which it will depend on the time taken by your bank.\n\n\n\n<br><br> Please feel free to email the customer service team at <a class=\"editor-rtfLink\" style=\"color:#ff7800\" href=\"mailto:cs@avenue39.com\" target=\"_blank\"><b data-preserver-spaces=\"true\">cs@avenue39.com</b></a> if you have any questions."
+          }
+        },
+        "1600059475832": {
+          "type": "block_text",
+          "settings": {
+            "custom_title": "Returns & Exchanges Policy",
+            "custom_content": "Items may be returned within 7 days for a full refund. All items must be unused, unassembled and in the same condition as received. \n\n\n<br><br>Please contact <a class=\"editor-rtfLink\" style=\"color:#ff7800\" href=\"mailto:cs@avenue39.com\" target=\"_blank\"><b data-preserver-spaces=\"true\">cs@avenue39.com</b></a> to request a return. We will need your order number as well as the phone number used to place the initial order. Instructions will be provided within 1 working day. \n\n\n<br><br>Every item is checked before shipping, but on the rare occasion you receive a faulty or damaged product, please notify us within 24 hours. Any claims made outwith of this window cannot be accepted."
+          }
+        },
+        "1600059537168": {
+          "type": "block_img",
+          "disabled": true,
+          "settings": {
+            "custom_title": "Size Guide"
+          }
+        },
+        "1600066007720": {
+          "type": "block_video",
+          "settings": {
+            "custom_title": "Product Features",
+            "video_url": "https://www.youtube.com/watch?v=WAap_UHzIbc&feature=youtu.be"
+          }
+        },
+        "1600419079650": {
+          "type": "block_stepbuy",
+          "settings": {
+            "custom_title": "Find an item you like",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas luctus vehicula felis nec pellentesque."
+          }
+        },
+        "1600419120720": {
+          "type": "block_stepbuy",
+          "settings": {
+            "custom_title": "Adding a product to your cart",
+            "content": "There are two boxes next to the image one to choose the quantity that you want to buy and one to choose the colour that you want."
+          }
+        },
+        "1600419135495": {
+          "type": "block_stepbuy",
+          "settings": {
+            "custom_title": "Create an account before you buy",
+            "content": "On this website you have to create an account in order to buy your item. Click Create An Account."
+          }
+        },
+        "1600419150215": {
+          "type": "block_stepbuy",
+          "settings": {
+            "custom_title": "Finalise checking out",
+            "content": "You will need to complete all the boxes marked with an asterisk such as your email, name and address. If the item you are buying is a gift then complete the box with the address of the person you are sending it to"
+          }
+        },
+        "1600419161447": {
+          "type": "block_stepbuy",
+          "settings": {
+            "custom_title": "Shipping",
+            "content": "Orders typically ship within 5-20 business days. Shipping times vary based on the product and destination."
+          }
+        }
+      },
+      "block_order": [
+        "16000593485861",
+        "1600059348586",
+        "1600059475832",
+        "1600059537168",
+        "1600066007720",
+        "1600419079650",
+        "1600419120720",
+        "1600419135495",
+        "1600419150215",
+        "1600419161447"
+      ],
+      "custom_css": [
+        ".product-single__cat a {color: black;}",
+        ".group-single__sku .label-sku {font-weight: 500;}"
+      ],
+      "settings": {
+        "image_size": "medium",
+        "show_quantity_selector": true,
+        "product_swatch_enable": true,
+        "show_variant_labels": true,
+        "show_share": false,
+        "show_variant_color": true,
+        "show_vendor": false,
+        "show_sku": true,
+        "show_categories": true,
+        "show_tags": false,
+        "show_des": true,
+        "enable_zoom": true,
+        "show_related": true,
+        "show_description": true,
+        "show_review": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

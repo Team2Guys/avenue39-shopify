@@ -1,0 +1,171 @@
+<style>
+  #popupContentDesk {
+    display: none;
+    position: absolute;
+    top: 123%;
+    left: -170px;
+    z-index: 1000;
+    width: 400px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  #popupContentDesk.active {
+    display: block; /* Visible when active class is added */
+  }
+  .form-vertical input {
+    margin: 0px;
+  }
+  .flex-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #popupToggle1{
+        background: no-repeat;
+      color: black;
+      font-size: 24px;
+      padding: 0;
+      margin-right: 19px;
+  }
+  .flexinput {
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px;
+  }
+   .form-success{
+    text-align: center;
+     margin-bottom:12px;
+   }
+  .flexinput input {
+    height: 38px;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+
+<!-- Contact Popup Button -->
+<button class="btn bg-none" id="popupToggle1">
+  <i class="fa fa-headphones" aria-hidden="true"></i>
+</button>
+
+<!-- Contact Dropdown Content -->
+<div id="popupContentDesk">
+  <!-- Call Us Button -->
+  <a class="btn btn-primary w-100 mb-3" onclick="window.location.href='tel:+971505974495'" href="tel:+971505974495">
+    Call Us
+  </a>
+
+  <p class="text-center my-3"></p>
+
+  <!-- Email and Callback Forms -->
+  <div class="contact-form form-vertical mt-5 pt-5">
+    {% if form.posted_successfully? %}
+      <p class="note form-success">{{ 'contact.form.post_success' | t }}</p>
+    {% endif %}
+
+    {{ form.errors | default_errors }}
+
+    <!-- Email Us Section -->
+    <div class="flex-form">
+      <a href="mailto:orders@avenue39.com" class="btn btn-secondary w-100 mb-3 showEmailFormm">Email Us</a>
+    </div>
+
+    <!-- Callback Section -->
+    {% form 'contact' %}
+      <!-- Callback Section -->
+      <div class="flex-form">
+        <!-- Button to Show Callback Form -->
+        <button class="btn btn-secondary w-100 mb-3" id="showCallbackFormBtn">Request a Call Back</button>
+
+        <!-- Hidden Callback Form -->
+        <div class="callbackFormm hidden" id="callbackForm">
+          <div class="flexinput">
+            <!-- Hidden Input to Ensure Shopify Processes the Form -->
+            <input type="hidden" name="form_type" value="contact">
+            <!-- Custom Subject Line for Email -->
+            <input type="hidden" name="contact[body]" value="Callback Request">
+
+            <!-- Hidden Email Field (Required for Shopify to Send Notifications) -->
+            <input type="hidden" name="contact[email]" value="callback@avenue39.com">
+            <!-- Replace with a valid email -->
+
+            <!-- Phone Number Input Field -->
+            <input
+              type="tel"
+              id="ContactFormPhone"
+              name="contact[phone]"
+              pattern="[0-9\-]*"
+              value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+              class="{% if form.errors contains 'phone' %}input--error{% endif %}"
+              placeholder="{{ 'contact.form.phone' | t }}"
+              required
+            >
+
+            <!-- Submit Button -->
+            <button class="btn btn-success w-100" type="submit">
+              {{ 'contact.form.submit' | t }}
+            </button>
+          </div>
+        </div>
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+<script defer>
+  document.addEventListener("DOMContentLoaded", function () {
+    const popupToggle1 = document.getElementById("popupToggle1");
+    const popupContentDesk = document.getElementById("popupContentDesk");
+
+    const showEmailFormBtn = document.querySelector(".showEmailFormm");
+    const showCallbackFormBtn = document.querySelector(".showCallbackFormm");
+    const emailFormm = document.querySelector(".emailFormm");
+    const callbackFormm = document.querySelector(".callbackFormm");
+
+    // Toggle popup content
+    popupToggle1.addEventListener("click", function (event) {
+      event.stopPropagation(); // Prevent click from propagating
+      popupContentDesk.classList.toggle("active"); // Toggle visibility
+    });
+
+    // Close popup when clicking outside
+    document.addEventListener("click", function () {
+      popupContentDesk.classList.remove("active"); // Hide popup
+    });
+
+    // Prevent popup from closing when clicking inside it
+    popupContentDesk.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+
+    // Show Email Form
+    showEmailFormBtn.addEventListener("click", function () {
+      emailFormm.classList.toggle("hidden"); // Toggle Email Form
+      callbackFormm.classList.add("hidden"); // Hide Callback Form
+    });
+
+    // Show Callback Form
+    showCallbackFormBtn.addEventListener("click", function () {
+      callbackFormm.classList.toggle("hidden"); // Toggle Callback Form visibility
+      emailFormm.classList.add("hidden"); // Hide Email Form
+    });
+
+  });
+
+   document.addEventListener("DOMContentLoaded", function () {
+    // Get the button and form elements
+    const showCallbackFormBtn = document.getElementById("showCallbackFormBtn");
+    const callbackForm = document.getElementById("callbackForm");
+
+    // Event listener for showing the callback form
+    showCallbackFormBtn.addEventListener("click", function () {
+      // Toggle visibility of the callback form by toggling the 'hidden' class
+      callbackForm.classList.toggle("hidden");
+    });
+  });
+</script>

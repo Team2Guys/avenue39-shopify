@@ -1,0 +1,1794 @@
+<footer>
+  <style>
+        @media (max-width: 600px) and (min-width: 300px) {
+      .nov-footer .title-block {
+        margin-bottom: 0px !important;
+        margin-top: 20px !important;
+    }
+    }
+  .feedback-font-serif {
+    font-family: "Caslon", "Garamond", "Times New Roman", serif;
+  }
+  .feedback-font-sans {
+    font-family: "Helvetica", "Arial", sans-serif;
+  }
+
+  .feedback-trigger {
+    position: fixed;
+    right: 0;
+    top: 60%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    background-color: #EF1918; 
+    color: #fff;
+    padding: 11px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 4px 0 0 4px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transition: background 0.3s;
+  }
+  .feedback-trigger:hover {
+    background-color:#FE4848;
+  }
+
+  .feedback-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+  }
+
+  .feedback-box {
+    background: #fff;
+    width: 95%;
+    max-width: 500px; /* Matched width to look elegant */
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 2px;
+  }
+
+  .close-x {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
+  }
+  .feedback-logo {
+    font-size: 42px;
+    font-style: italic;
+    margin-bottom: 25px;
+    display: block;
+    font-weight: 400;
+    color: #000;
+    line-height: 1;
+  }
+
+  .feedback-intro {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
+
+  .feedback-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+    font-family: "Caslon", "Garamond", "Times New Roman", serif;
+  }
+  .required-mark { color: #b00; }
+
+  .rating-scale-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    border: 1px solid #999;
+    border-radius: 6px; 
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .rating-option {
+    flex: 1;
+    height: 45px;
+    border-right: 1px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.2s;
+  }
+  .rating-option:last-child {
+    border-right: none;
+  }
+  .rating-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .rating-option.selected {
+    background-color: #000 !important;
+  }
+  .rating-option.selected .rating-number {
+    color: #fff !important;
+  }
+  
+  .rating-number {
+    font-family: "Caslon", "Garamond", "Times New Roman", serif;
+    font-size: 18px;
+    color: #000;
+  }
+  
+  .rating-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .feedback-input, .feedback-select, .feedback-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333; 
+    border-radius: 6px;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 14px;
+    background: white;
+    color: #333;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  .feedback-textarea {
+    resize: vertical;
+    min-height: 100px;
+    border: 2px solid #000;
+  }
+  .privacy-text {
+    font-size: 12px;
+    color: #666;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-style: italic;
+    line-height: 1.4;
+  }
+  .privacy-text a {
+    text-decoration: underline;
+    color: #333;
+  }
+  .feedback-actions {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 30px; 
+    margin-top: 20px;
+  }
+
+  .btn-feedback-close {
+    background: transparent !important;
+    border: none !important;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #000 !important; 
+    padding: 10px 20px;
+  }
+
+  .btn-feedback-submit {
+    background-color: #000 !important; 
+    color: #fff !important; 
+    border: none;
+    padding: 14px 50px;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  .btn-feedback-submit:hover {
+    opacity: 0.8;
+  }
+</style>
+
+<div class="feedback-trigger" id="openFeedbackBtn">Feedback</div>
+<div class="feedback-overlay" id="feedbackModal">
+  <div class="feedback-box feedback-font-serif">
+    <span class="close-x" id="closeXBtn">&times;</span>
+    <div class="feedback-logo">Avenue39</div> 
+    <p class="feedback-intro">
+      On behalf of Avenue39, we value your interest in visiting our online Store. 
+      Your feedback is greatly appreciated and helps us to improve your online experience.
+    </p>
+
+    {% form 'contact' %}
+      
+      <label class="feedback-label">Please rate your online experience with Avenue39 <span class="required-mark">*</span></label>
+      <div class="rating-scale-container">
+        {% for i in (1..10) %}
+          <div class="rating-option" onclick="selectRating(this)">
+            <span class="rating-number">{{ i }}</span>
+            <input type="radio" name="contact[rating]" value="{{ i }}" required>
+          </div>
+        {% endfor %}
+      </div>
+
+      <label class="feedback-label">What is the reason for your rating? <span class="required-mark">*</span></label>
+      <select name="contact[reason]" class="feedback-select" required>
+        <option value="" disabled selected>Please Select Option</option>
+        <option value="Ease of Use">Ease of Use</option>
+        <option value="Navigation">Navigation</option>
+        <option value="Product Offering">Product Offering</option>
+        <option value="Services">Services</option>
+        <option value="Overall Design">Overall Design</option>
+        <option value="Site Information">Site Information</option>
+        <option value="Site slow to load">Site slow to load</option>
+        <option value="Other">Other</option>
+      </select>
+      <label class="feedback-label">Your Email</label>
+      <input type="email" name="contact[email]" class="feedback-input" placeholder="you@example.com" required>
+
+      <label class="feedback-label">Your Name</label>
+      <input type="text" name="contact[name]" class="feedback-input" placeholder="Enter your name">
+
+      <label class="feedback-label">Please share what other feedback you have</label>
+      <textarea name="contact[body]" class="feedback-textarea"></textarea>
+
+      <p class="privacy-text feedback-font-serif">
+        For details about how we use your personal information, please see our <a href="/pages/privacy-policy">Privacy Policy</a>.
+      </p>
+
+      <div class="feedback-actions">
+        <button type="button" class="btn-feedback-close" id="closeFooterBtn">CLOSE</button>
+        <button type="submit" class="btn-feedback-submit">SUBMIT</button>
+      </div>
+
+    {% endform %}
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('feedbackModal');
+  const openBtn = document.getElementById('openFeedbackBtn');
+  const closeFooterBtn = document.getElementById('closeFooterBtn');
+  const closeXBtn = document.getElementById('closeXBtn');
+  const ratingOptions = document.querySelectorAll('.rating-option');
+
+  openBtn.addEventListener('click', () => {
+    modal.style.display = 'flex';
+  });
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+  
+  closeFooterBtn.addEventListener('click', closeModal);
+  closeXBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  function selectRating(element) {
+    ratingOptions.forEach(opt => opt.classList.remove('selected'));
+
+    element.classList.add('selected');
+    const radioButton = element.querySelector('input');
+    radioButton.checked = true;
+  }
+</script>
+
+  {% if section.settings.show_p %}
+    <div class="f_p">
+      <div class="container">
+        <div class="row">
+          {% for block in section.blocks %}
+            {% if block.type == 'block_policy' %}
+              <div class="footer_policy {{ block.settings.grid_xl }} {{ block.settings.grid }} {{ block.settings.grid_tablet }} {{ block.settings.grid_mobile }} {{ block.settings.grid_mobiles }}{% if block.settings.block_class != blank %} {{ block.settings.block_class }}{% endif %}">
+                <div class="block d-flex align-items-center">
+                  {% if block.settings.img != blank %}
+                    <img class="nv-mr-20" width="42px" src="{{ block.settings.img | img_url: '190x' }}" loading="lazy">
+                  {% endif %}
+                  <div>
+                    {% if block.settings.block_title != blank %}
+                      <span class="title-policy">
+                        {{ block.settings.block_title }}
+                      </span>
+                    {% endif %}
+
+                    {% if block.settings.content != blank %}
+                      <span class="block-content">{{ block.settings.content }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="footer-layout pt-100 pb-60">
+    <div class="container">
+      <div class="row">
+        {% for block in section.blocks %}
+          {% if block.type == 'block_menu' %}
+            {%- assign footer_linklist = block.settings.menu_handle -%}
+            <div class="footer_menu {{ block.settings.grid_xl }} {{ block.settings.grid }} {{ block.settings.grid_tablet }} {{ block.settings.grid_mobile }} {{ block.settings.grid_mobiles }}{% if block.settings.block_class != blank %} {{ block.settings.block_class }}{% endif %}">
+              {% if block.settings.menu_title != blank %}
+                <div class="title-block">
+                  {{ block.settings.menu_title }}
+                </div>
+              {% endif %}
+
+              {% if linklists[footer_linklist].links.size > 0 %}
+                <ul class="site-footer__linklist list-unstyled">
+                  {% for link in linklists[footer_linklist].links %}
+                    <li class="site-footer__linklist-item">
+                      <a href="{{ link.url }}">{{ link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endif %}
+          {% if block.type == 'block_html' %}
+            <div class="footer_html {{ block.settings.grid_xl }} {{ block.settings.grid }} {{ block.settings.grid_tablet }} {{ block.settings.grid_mobile }} {{ block.settings.grid_mobiles }}{% if block.settings.block_class != blank %} {{ block.settings.block_class }}{% endif %}">
+              <div class="block">
+                {% if block.settings.block_title != blank %}
+                  <div class="title-block">
+                    {{ block.settings.block_title }}
+                  </div>
+                {% endif %}
+                {% if block.settings.img != blank %}
+                  <img src="{{ block.settings.img | img_url: '190x' }}" loading="lazy">
+                {% endif %}
+                {% if block.settings.html_content != blank %}
+                  <div class="block-content mt-10 ">{{ block.settings.html_content }}</div>
+                {% endif %}
+                {% if block.settings.social == true %}
+                  {% include 'nov-social' %}
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          {% if block.type == 'block_newsletter' %}
+            <div class="footer_newsletter {{ block.settings.grid_xl }} {{ block.settings.grid }} {{ block.settings.grid_tablet }} {{ block.settings.grid_mobile }} {{ block.settings.grid_mobiles }}{% if block.settings.block_class != blank %} {{ block.settings.block_class }}{% endif %}">
+              {% if block.settings.block_title != blank %}
+                <div class="title-block mb-10">
+                  {{ block.settings.block_title }}
+                </div>
+              {% endif %}
+              {% if block.settings.newsletter_des != blank %}
+                <div class="des mb-10">{{ block.settings.newsletter_des }}</div>
+              {% endif %}
+              <div class="block-content">
+                {% form 'customer' %}
+                  {{ form.errors | default_errors }}
+                  {% if form.posted_successfully? %}
+                    <p class="form--success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                  {% else %}
+                    <div class="input-group">
+                      <i class="zmdi zmdi-email"></i>
+                      <input type="hidden" name="contact[tags]" value="newsletter">
+                      <input
+                        type="email"
+                        name="contact[email]"
+                        id="Email_Footer"
+                        class="input-group__field newsletter__input form-control"
+                        value="{% if customer %}{{ customer.email }}{% endif %}"
+                        placeholder="{{ 'general.newsletter_form.email_newsletter' | t }}"
+                      >
+                    </div>
+                    <div class="input-group__btn">
+                      <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe_footer">
+                        <span class="newsletter__submit-text--large">{{ 'general.newsletter_form.submit' | t }}</span>
+                      </button>
+                    </div>
+                  {% endif %}
+                {% endform %}
+              </div>
+              {% if block.settings.img != blank %}
+                <img class="mt-20" src="{{ block.settings.img | img_url: '300x' }}" alt="image" loading="lazy">
+              {% endif %}
+            <div class="footer-map" style="margin-top: 20px;">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4322.815012384894!2d55.235669!3d25.117513999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x27703bd589852dd3%3A0x1c9f5ebb389dfd9e!2sAvenue39%20Furniture's%20LLC!5e1!3m2!1sen!2s!4v1749728426717!5m2!1sen!2s" 
+    width="100%" 
+    height="150" 
+    style="border:0;" 
+    allowfullscreen 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+              
+
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="footer_copyright pb-sm-80">
+    <div class="container">
+      <div class="d-flex align-items-center {% if section.settings.currency == true %}justify-content-between{% else %}justify-content-center{% endif %} d-xs-block text-xs-center">
+        <div class="copyright mb-sm-20">{{ section.settings.copyright }}</div>
+        {% if section.settings.currency == true and settings.show_multiple_currencies == true %}
+          {% include 'nov-block-currency', type: 'dropdown' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+{%- assign bg_image = section.settings.background_image -%}
+<style>
+  {% if section.settings.background_color != blank or bg_image.src != blank %}
+    .footer-layout {
+      {% if section.settings.background_color != blank %}
+        background-color: {{ section.settings.background_color }};
+      {% endif %}
+      {% if bg_image.src != blank %}
+        background-image: url("{{ bg_image | img_url: '1920x' }}");
+        background-repeat: no-repeat;
+      {% endif %}
+    }
+  {% endif %}
+  .nov-footer {
+    color: {{ section.settings.color }};
+  }
+  .footer-layout .title-block {
+    color: {{ section.settings.color_t }};
+  }
+  .footer_menu li a {
+    color: {{ section.settings.color }};
+  }
+  {% if section.settings.bg_copy != blank %}
+    .footer_copyright {
+      background-color: {{ section.settings.bg_copy }};
+    }
+  {% endif %}
+  {% if section.settings.show_p %}
+    .f_p {
+      background-color: {{ section.settings.background_color_p }};
+    }
+    .footer_policy .title-policy {
+      color: {{ section.settings.color_t_p }};
+    }
+    .footer_policy .block-content {
+      color: {{ section.settings.color_c_p }};
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "nov-footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Policy"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_p",
+      "label": "Show Policy"
+    },
+    {
+      "type": "color",
+      "id": "color_t_p",
+      "label": "Policy title colors",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "color_c_p",
+      "label": "Policy content colors",
+      "default": "#909090"
+    },
+    {
+      "type": "color",
+      "id": "background_color_p",
+      "label": "Policy Background colors"
+    },
+    {
+      "type": "header",
+      "content": "Footer style"
+    },
+    {
+      "type": "color",
+      "id": "color_t",
+      "label": "Footer title colors",
+      "default": "#222"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Footer text colors",
+      "default": "#666"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colors"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "bg_copy",
+      "label": "Background Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright"
+    },
+    {
+      "type": "checkbox",
+      "id": "currency",
+      "label": "Show Currency"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block_menu",
+      "name": "Block Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Title"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_handle",
+          "label": "Choose Menu",
+          "info": "Choose menu for block. Add new menu: Admin -> Navigation"
+        },
+        {
+          "type": "text",
+          "id": "block_class",
+          "label": "Class"
+        },
+        {
+          "type": "select",
+          "id": "grid_xl",
+          "label": "Width item Large Desktop",
+          "default": "col-xl-3",
+          "options": [
+            {
+              "value": "col-xl-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xl-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xl-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xl-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xl-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xl-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xl-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xl-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xl-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xl-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xl-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xl-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid",
+          "label": "Width item",
+          "default": "col-lg-3",
+          "options": [
+            {
+              "value": "col-lg-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-lg-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-lg-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-lg-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-lg-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-lg-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-lg-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-lg-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-lg-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-lg-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-lg-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-lg-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_tablet",
+          "label": "Width item tablet",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-md-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-md-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-md-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-md-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-md-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-md-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-md-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-md-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-md-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-md-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-md-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobile",
+          "label": "Width item mobile",
+          "default": "col-sm-3",
+          "options": [
+            {
+              "value": "col-sm-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-sm-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-sm-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-sm-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-sm-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-sm-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-sm-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-sm-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-sm-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-sm-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-sm-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-sm-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobiles",
+          "label": "Width item small mobile",
+          "default": "col-xs-3",
+          "options": [
+            {
+              "value": "col-xs-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xs-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xs-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xs-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xs-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xs-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xs-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xs-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xs-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xs-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xs-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xs-12",
+              "label": "12/12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "block_html",
+      "name": "Block HTML",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "html_content",
+          "label": "Content",
+          "placeholder": "You can input code html for content.",
+          "info": "You can input code html for content."
+        },
+        {
+          "type": "checkbox",
+          "id": "social",
+          "label": "Show Social"
+        },
+        {
+          "type": "text",
+          "id": "block_class",
+          "label": "Class"
+        },
+        {
+          "type": "select",
+          "id": "grid_xl",
+          "label": "Width item Large Desktop",
+          "default": "col-xl-3",
+          "options": [
+            {
+              "value": "col-xl-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xl-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xl-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xl-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xl-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xl-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xl-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xl-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xl-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xl-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xl-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xl-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid",
+          "label": "Width item",
+          "default": "col-lg-3",
+          "options": [
+            {
+              "value": "col-lg-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-lg-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-lg-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-lg-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-lg-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-lg-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-lg-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-lg-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-lg-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-lg-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-lg-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-lg-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_tablet",
+          "label": "Width item tablet",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-md-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-md-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-md-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-md-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-md-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-md-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-md-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-md-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-md-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-md-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-md-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobile",
+          "label": "Width item mobile",
+          "default": "col-sm-3",
+          "options": [
+            {
+              "value": "col-sm-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-sm-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-sm-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-sm-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-sm-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-sm-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-sm-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-sm-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-sm-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-sm-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-sm-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-sm-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobiles",
+          "label": "Width item small mobile",
+          "default": "col-xs-3",
+          "options": [
+            {
+              "value": "col-xs-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xs-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xs-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xs-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xs-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xs-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xs-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xs-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xs-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xs-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xs-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xs-12",
+              "label": "12/12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "block_newsletter",
+      "name": "Block Newsletter",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title"
+        },
+        {
+           "type": "textarea",
+           "id": "newsletter_des",
+           "label": "Newsletter Description",
+           "placeholder": "You can input code html for content.",
+           "info": "You can input code html for description."
+        },
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "block_class",
+          "label": "Class"
+        },
+        {
+          "type": "select",
+          "id": "grid_xl",
+          "label": "Width item Large Desktop",
+          "default": "col-xl-3",
+          "options": [
+            {
+              "value": "col-xl-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xl-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xl-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xl-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xl-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xl-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xl-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xl-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xl-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xl-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xl-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xl-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid",
+          "label": "Width item",
+          "default": "col-lg-3",
+          "options": [
+            {
+              "value": "col-lg-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-lg-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-lg-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-lg-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-lg-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-lg-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-lg-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-lg-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-lg-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-lg-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-lg-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-lg-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_tablet",
+          "label": "Width item tablet",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-md-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-md-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-md-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-md-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-md-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-md-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-md-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-md-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-md-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-md-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-md-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobile",
+          "label": "Width item mobile",
+          "default": "col-sm-3",
+          "options": [
+            {
+              "value": "col-sm-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-sm-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-sm-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-sm-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-sm-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-sm-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-sm-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-sm-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-sm-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-sm-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-sm-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-sm-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobiles",
+          "label": "Width item small mobile",
+          "default": "col-xs-3",
+          "options": [
+            {
+              "value": "col-xs-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xs-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xs-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xs-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xs-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xs-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xs-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xs-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xs-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xs-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xs-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xs-12",
+              "label": "12/12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "block_policy",
+      "name": "Block Policy",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "select",
+          "id": "grid_xl",
+          "label": "Width item Large Desktop",
+          "default": "col-xl-3",
+          "options": [
+            {
+              "value": "col-xl-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xl-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xl-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xl-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xl-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xl-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xl-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xl-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xl-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xl-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xl-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xl-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid",
+          "label": "Width item",
+          "default": "col-lg-3",
+          "options": [
+            {
+              "value": "col-lg-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-lg-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-lg-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-lg-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-lg-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-lg-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-lg-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-lg-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-lg-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-lg-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-lg-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-lg-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_tablet",
+          "label": "Width item tablet",
+          "default": "col-md-3",
+          "options": [
+            {
+              "value": "col-md-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-md-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-md-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-md-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-md-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-md-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-md-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-md-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-md-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-md-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-md-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-md-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobile",
+          "label": "Width item mobile",
+          "default": "col-sm-3",
+          "options": [
+            {
+              "value": "col-sm-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-sm-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-sm-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-sm-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-sm-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-sm-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-sm-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-sm-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-sm-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-sm-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-sm-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-sm-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "grid_mobiles",
+          "label": "Width item small mobile",
+          "default": "col-xs-3",
+          "options": [
+            {
+              "value": "col-xs-1",
+              "label": "1/12"
+            },
+            {
+              "value": "col-xs-2",
+              "label": "2/12"
+            },
+            {
+              "value": "col-xs-3",
+              "label": "3/12"
+            },
+            {
+              "value": "col-xs-4",
+              "label": "4/12"
+            },
+            {
+              "value": "col-xs-5",
+              "label": "5/12"
+            },
+            {
+              "value": "col-xs-6",
+              "label": "6/12"
+            },
+            {
+              "value": "col-xs-7",
+              "label": "7/12"
+            },
+            {
+              "value": "col-xs-8",
+              "label": "8/12"
+            },
+            {
+              "value": "col-xs-9",
+              "label": "9/12"
+            },
+            {
+              "value": "col-xs-10",
+              "label": "10/12"
+            },
+            {
+              "value": "col-xs-11",
+              "label": "11/12"
+            },
+            {
+              "value": "col-xs-12",
+              "label": "12/12"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "block_class",
+          "label": "Class"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

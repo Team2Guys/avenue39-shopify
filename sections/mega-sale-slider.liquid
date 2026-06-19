@@ -1,0 +1,402 @@
+{%- assign limit = section.settings.products_per_page -%}
+{% if template == 'collection.leftsidebar' %}
+  {% assign viewtype = 'leftsidebar' %}
+{% elsif template == 'collection.rightsidebar' %}
+  {% assign viewtype = 'rightsidebar' %}
+{% elsif template == 'collection.full_width' %}
+  {% assign viewtype = 'full_width' %}
+{% elsif template == 'collection.canvas' %}
+  {% assign viewtype = 'canvas' %}
+{% else %}
+  {% if settings.type_sidebar == 'sidebar_left' %}
+    {% assign viewtype = 'leftsidebar' %}
+  {% elsif settings.type_sidebar == 'sidebar_right' %}
+    {% assign viewtype = 'rightsidebar' %}
+  {% elsif settings.type_sidebar == 'full_width' %}
+    {% assign viewtype = 'full_width' %}
+  {% else %}
+    {% assign viewtype = 'canvas' %}
+  {% endif %}
+{% endif %}
+<style>
+    .slick-slider .slick-track, .slick-slider .slick-list{
+      width:100% !important;
+    }
+        .mega-sale-slider {
+               position: relative;
+                width: 100%;
+                height: 100%;
+                /* background: url(https://cdn.shopify.com/s/files/1/0673/1838/2821/t/5/assets/banner%202.jpg?v=1720098075) no-repeat center center / cover; */
+                color: white;
+                display: flex;
+                justify-content: left;
+                padding: 68px 0px;
+        }
+        .sale-details {
+            /* background: rgba(0, 0, 0, 0.5); */
+            padding: 40px;
+            border-radius: 10px;
+        }
+    .sale-details .later {
+      font-size:18px;
+      letter-spacing: 7px;
+    }
+        .countdown {
+            display: flex;
+            justify-content: left;
+            margin: 20px 0;
+        }
+    #countdown .span{
+     background: white;
+    color: black !important;
+    /* padding: 10px 12px; */
+    border-radius: 37px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+        .countdown div {
+            margin: 0 10px;
+            text-align: center;
+        }
+        .countdown span {
+            display: block;
+        }
+        .hidden {
+            display: none !important;
+        }
+    .sale-details.slick-slide.slick-current h2{
+      font-size:80px;
+      font-weight:bold;
+      color:#FF0000;
+    }
+    .slick-dots{
+      display:none !important
+    }
+    .banner_card_img{
+      float:left;
+    }
+     @media screen and (max-width: 600px){
+       .mega-sale-slider {
+            height: auto;
+        }
+       .banner_card_img{
+      float:unset;
+    }
+    }
+  .product-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-image {
+  position: relative;
+}
+
+.product-image img {
+  transition: opacity 0.3s ease;
+}
+
+.product-image img.img-hover {
+  opacity: 0;
+}
+
+.product-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-item:hover .product-image img.img-default {
+  opacity: 0;
+}
+
+.product-item:hover .product-image img.img-hover {
+  opacity: 1;
+}
+
+.product-item:hover .product-button {
+  opacity: 1;
+}
+</style>
+
+<div class="container mb-4" style="background-image: url({{ section.settings.background_image | img_url: 'master' }}); background-size: cover; background-position: center;">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="mega-sale-slider" id="megaSaleSlider">
+        <div class="sale-details">
+          <p>{{ section.settings.discount_text }}</p>
+          <h2>{{ section.settings.main_heading }}</h2>
+          <p>{{ section.settings.description_text }}</p>
+          <div class="countdown" id="countdown">
+            <div>
+              <span id="days" class="span">00</span>
+              <span>Days</span>
+            </div>
+            <div>
+              <span id="hours" class="span">00</span>
+              <span>Hours</span>
+            </div>
+            <div>
+              <span id="minutes" class="span">00</span>
+              <span>Minute</span>
+            </div>
+            <div>
+              <span id="seconds" class="span">00</span>
+              <span>Sec</span>
+            </div>
+          </div>
+          <p class="later">{{ section.settings.buy_now_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container px-0">
+  {% if section.settings.title != blank %}
+{% assign name = section.settings.title | escape %}
+{% else %}
+{% assign name = 'Collections' %}
+
+{% endif %}
+<!-- {% include 'nov-breadcrumb', custom_pagetitle : name %} -->
+  
+
+<div class="page-width">
+
+  {%- assign collection = collections[section.settings.collection] -%}
+
+  {% case section.settings.grid %}
+    {% when 2 %}
+      {%- assign max_height = 530 -%}
+      {%- assign grid_item_width = 'col-lg-6 col-md-6' -%}
+    {% when 3 %}
+      {%- assign max_height = 345 -%}
+      {%- assign grid_item_width = 'col-lg-4 col-md-4' -%}
+    {% when 4 %}
+      {%- assign max_height = 250 -%}
+      {%- assign grid_item_width = 'col-lg-3 col-md-3' -%}
+    {% when 5 %}
+      {%- assign max_height = 195 -%}
+      {%- assign grid_item_width = 'col-lg-cus-5 col-md-cus-5' -%}
+  {% endcase %}
+
+  {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
+
+  <div class="grid grid--view-items row">
+    <div class="side_banner_image">
+  <img src="{{ section.settings.image | img_url: '600x600' }}" alt="{{ section.settings.alt_text }}" loading="lazy" >
+</div>
+    {% for product in collection.products limit: product_limit %}
+      <div class="grid__item {{ grid_item_width }}">
+        {% include 'product-card-grid', max_height: max_height %}
+      </div>
+    {% else %}
+
+      {% for i in (1..product_limit) %}
+        <div class="grid__item {{ grid_item_width }}">
+          <div class="grid-view-item">
+            <a href="#" class="grid-view-item__link">
+              <div class="grid-view-item__image">
+                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6, 7, %}{% endcapture %}
+                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="h4 grid-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
+              <div class="grid-view-item__meta">
+                {% include 'product-price' %}
+              </div>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
+  {% if section.settings.show_view_all %}
+    <hr class="hr--invisible"></hr>
+    <div class="text-center">
+      <a href="{{ collection.url }}" class="btn">
+        {{ 'collections.general.view_all' | t }}
+      </a>
+    </div>
+  {% endif %}
+
+</div>
+</div>>
+
+ <!--<div class="col-lg-6">
+      {% if section.settings.collection %}
+        <div class="mega-sale-collection">
+          {% assign collection = collections[section.settings.collection] %}
+          {% if collection.products_count > 0 %}
+            <div class="row product-grid">
+            {% for product in collection.products %}
+                <div class="col-md-3">
+                  <div class="product-item">
+                    <a href="{{ product.url }}">
+                      <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}" class="img-fluid" loading="lazy" >
+                      <h3>{{ product.title }}</h3>
+                      <p>{{ product.price | money }}</p>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %} 
+               
+            </div>
+          {% else %}
+            <p>No products found in this collection.</p>
+          {% endif %}
+        </div>
+      {% else %}
+        <p>Please select a collection.</p>
+      {% endif %}
+    </div> -->
+
+
+
+
+ <script>
+        // Function to add leading zeros
+        function pad(value) {
+            return value < 10 ? '0' + value : value;
+        }
+
+        // Set the date we're counting down to
+        var countdownDate = new Date("Jul 18, 2024 15:37:25").getTime();
+
+        // Update the count down every 1 second
+        var countdownFunction = setInterval(function() {
+            // Get today's date and time
+            var now = new Date().getTime();
+            
+            // Find the distance between now and the count down date
+            var distance = countdownDate - now;
+            
+            if (distance >= 0) {
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Display the result in the element with id="countdown" with leading zeros
+                document.getElementById("days").innerHTML = pad(days);
+                document.getElementById("hours").innerHTML = pad(hours);
+                document.getElementById("minutes").innerHTML = pad(minutes);
+                document.getElementById("seconds").innerHTML = pad(seconds);
+            } else {
+                // When the countdown is over, show 00 and hide the slider after 1 second
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+                clearInterval(countdownFunction);
+                setTimeout(function() {
+                    document.getElementById("megaSaleSlider").classList.add("hidden");
+                }, 1000);
+            }
+        }, 1000);
+    </script>
+    
+{% schema %}
+{
+  "name": "Mega Sale Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Discount Text",
+      "default": "Get Discount Up to 50%"
+    }, {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Alt Text",
+      "default": "Side Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Mega Sale"
+    },
+    {
+      "type": "textarea",
+      "id": "description_text",
+      "label": "Description Text",
+      "default": "Get up to 50% off for this week and get offer. Don't miss this chance!"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_text",
+      "label": "Buy Now Pay Later Text",
+      "default": "Buy Now Pay Later"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    }, {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+  
+      {
+        "type": "range",
+        "id": "grid",
+        "label": "Products per row",
+        "min": 2,
+        "max": 5,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "rows",
+        "label": "Rows",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendors",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": "Show 'View all' button",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Mega Sale Slider",
+        "category": "Collection"
+      }
+  ]
+}
+{% endschema %}
+

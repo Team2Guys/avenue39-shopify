@@ -1,0 +1,30 @@
+<div class="productWishList" id="cart-addtowishlist">
+  <a
+    class="wishlist btn btnProduct btnProductWishlist"
+    data-icon-wishlist
+    id="cart-addtowishlist"
+    href="#"
+     onclick="toggleWishlist(this, '{{ product.handle }}'); return false;"
+    data-product-handle="{{ product.handle }}"
+    data-id="{{ product.id | json }}"
+  >
+    <i class="zmdi zmdi-favorite"></i>
+    <span class="wishlist-text" id="cart-addtowishlist">{{ 'products.product.wishlist' | t }}</span>
+  </a>
+</div>
+
+
+
+
+<!-- <div class="productWishList">
+  <a
+    class="wishlist btn btnProduct btnProductWishlist"
+    href="#"
+    data-product-handle="{{ product.handle }}"
+    data-id="{{ product.id | json }}"
+  >
+    <i class="zmdi zmdi-favorite-outline"></i>
+    <span class="wishlist-text">Add to Wishlist</span>
+  </a>
+</div>
+ -->

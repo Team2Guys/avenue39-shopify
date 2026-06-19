@@ -1,0 +1,362 @@
+{%- assign spacing = section.settings.spacing -%}
+
+<div
+  class="distance my-5 {{ section.id }} section-card-overlay {% if section.settings.class_section != blank %} {{ section.settings.class_section }}{% endif %}"
+  data-section-id="{{ section.id }}"
+>
+  <!-- 1. SINGLE FULL WIDTH BACKGROUND IMAGE -->
+  <div class="section-bg-container">
+    {% if section.settings.background_image != blank %}
+      <img
+        class="section-bg-img lazyload"
+        data-src="{{ section.settings.background_image | img_url: '1920x' }}"
+        alt="{{ section.settings.title }}"
+        loading="lazy"
+      >
+    {% else %}
+      <!-- Placeholder Gray Background if no image -->
+      <div class="section-bg-placeholder" style="background-color: #f4f4f4;"></div>
+    {% endif %}
+    <!-- Dark Overlay -->
+    <div
+      class="section-bg-overlay"
+      style="background-color: rgba(0,0,0, {{ section.settings.overlay_opacity }});"
+    ></div>
+  </div>
+
+  <!-- 2. CONTENT CONTAINER -->
+  <div class="container content-container">
+    {% if section.settings.title != blank %}
+      <div class="{{ section.settings.title_alignment }} mb-40">
+        <div class="title_block">
+          <h2 style="color: {{ section.settings.heading_color }}; margin-bottom: 5px;">{{ section.settings.title }}</h2>
+          {% if section.settings.subheading != blank %}
+            <span class="sub_title" style="color: {{ section.settings.heading_color }}">
+              {{- section.settings.subheading | escape -}}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- BOOTSTRAP ROW -->
+    <div class="row spacing-{{ spacing }}">
+      <!-- Logic to determine column width based on number of blocks -->
+      {% case section.blocks.size %}
+        {% when 1 %}
+          {%- assign column_size = 'col-lg-12 col-md-12 col-12' -%}
+        {% when 2 %}
+          {%- assign column_size = 'col-lg-6 col-md-6 col-12' -%}
+          <!-- This ensures 2 cards are side by side -->
+        {% when 3 %}
+          {%- assign column_size = 'col-lg-4 col-md-4 col-12' -%}
+        {% else %}
+          {%- assign column_size = 'col-lg-6 col-md-6 col-12' -%}
+      {% endcase %}
+
+      {% for block in section.blocks %}
+        <div class="{{ column_size }} mb-30">
+          <!-- THE WHITE CARD -->
+          <div class="info-card {{ section.settings.card_alignment }}">
+            {% if block.settings.title != blank %}
+              <h1 class="card-title">{{ block.settings.title }}</h1>
+            {% endif %}
+
+            {% if block.settings.des != blank %}
+              <div class="card-description">{{ block.settings.des }}</div>
+            {% endif %}
+
+            {% if block.settings.cta_label != blank %}
+              <div class="card-footer">
+                <a href="https://maps.app.goo.gl/uTQfVnaP3pwAS5Dp8" target="_blank" class="btn-card">
+                  {{- block.settings.cta_label | escape -}}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+    /* Section Positioning */
+    #shopify-section-{{ section.id }} .distance {
+    position: relative;
+    padding-top: {{ section.settings.distance_top }};
+    padding-bottom: {{ section.settings.distance_bottom }};
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    background-size: contain;
+    background-position: center;
+  }
+  
+    .section-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+    }
+
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .distance {
+      min-height: 480px !important;
+    }
+    .section-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+
+    /* Absolute Background Image */
+    .section-bg-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+  
+    .section-bg-placeholder {
+      width: 100%;
+      height: 100%;
+    }
+
+    .section-bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Content needs to be above the image */
+    .content-container {
+      position: relative;
+      z-index: 2;
+    }
+
+  .info-card {
+    background: rgba(255, 255, 255, 0.29);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(255, 254, 254, 0.09);
+    padding: 60px 40px;
+    border-radius: 30px 10px 30px 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0px auto;
+  }
+
+    /* Text Alignments */
+    .info-card.text-left { text-align: left; align-items: flex-start; }
+    .info-card.text-center { text-align: center; align-items: center; }
+    .info-card.text-right { text-align: right; align-items: flex-end; }
+
+    /* Typography */
+    .card-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-description {
+      font-size: 16px;
+      color: black;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    /* Button Styling */
+    .btn-card {
+      display: inline-block;
+      padding: 14px 40px;
+      background-color: #000;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-card:hover {
+      background-color: #333;
+      opacity: 0.9;
+      color: #fff;
+    }
+
+    /* Spacing Utility */
+    .mb-30 { margin-bottom: 30px; }
+    .mb-40 { margin-bottom: 40px; }
+
+    /* Responsive Mobile */
+    @media (max-width: 767px) {
+      .info-card { padding: 30px 20px; }
+      #shopify-section-{{ section.id }} .distance { padding-top: 60px; padding-bottom: 60px; }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "One Image - Two Cards",
+  "class": "index-section",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Full Width Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 0.9,
+      "step": 0.1,
+      "label": "Dark Overlay Opacity",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "text",
+      "id": "distance_top",
+      "label": "Top Padding",
+      "default": "100px"
+    },
+    {
+      "type": "text",
+      "id": "distance_bottom",
+      "label": "Bottom Padding",
+      "default": "100px"
+    },
+    {
+      "type": "header",
+      "content": "Card Styles"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "card_alignment",
+      "label": "Text Alignment inside Card",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Gap Between Cards",
+      "default": "30",
+      "options": [
+        { "label": "10px", "value": "10" },
+        { "label": "30px", "value": "30" },
+        { "label": "50px", "value": "50" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section Heading (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Heading Alignment",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "class_section",
+      "label": "Extra CSS Class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Info Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "CARD TITLE HERE"
+        },
+        {
+          "type": "textarea",
+          "id": "des",
+          "label": "Description",
+          "default": "Add your description text here. Explain your service or product."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Button Label",
+          "default": "DISCOVER MORE"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "One Image - Two Cards",
+      "category": "Image",
+      "blocks": [{ "type": "card" }, { "type": "card" }]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1201 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="TopContent mb-95 mb-xs-60{% if variantCount > 1 and viewtype == 'type7' %} thumb_all_variant{% endif %}">
+  <style>
+                                              .slick-slider .slick-prev,
+                        .slick-slider .slick-next {
+                          font-size: 0; /* hides the default arrow */
+                          line-height: 0;
+                          position: absolute;
+                          top: 50%;
+                          width: 20px;
+                          height: 20px;
+                          -webkit-transform: translate(0,-50%);
+                          -ms-transform: translate(0,-50%);
+                          transform: translate(0,-50%);
+                          cursor: pointer;
+                          color: transparent;
+                          border: none;
+                          outline: none;
+                          background: transparent;
+                        }
+
+                        .slick-slider .slick-prev::before,
+                        .slick-slider .slick-next::before {
+                          font-size: 24px; /* this sets the size of the arrow */
+                          line-height: 1;
+                          font-family: 'slick'; /* Use slick's font family if available or your own */
+                          color: black; /* Arrow color */
+                        }
+
+                        .slick-slider .slick-prev::before {
+                          content: '←'; /* This is your left arrow character */
+                        }
+
+                        .slick-slider .slick-next::before {
+                          content: '→'; /* This is your right arrow character */
+                        }
+
+                        /* Adjust the position of the arrows */
+                        .slick-slider .slick-prev {
+                              left: 0px;
+                    background: white;
+                    width: 39px;
+                    height: 40px;
+                    border-radius: 33px;
+                        }
+
+                        .slick-slider .slick-next {
+                           right: 0px;
+                    background: white;
+                    width: 39px;
+                    height: 40px;
+                    border-radius: 33px;
+                        }
+                    .slick-slider .slick-prev,
+            .slick-slider .slick-next {
+              transition: background-color 0.3s ease, color 0.3s ease;
+            }
+             .slick-slider .slick-prev:hover::before,
+             .slick-slider .slick-next:hover::before,
+            .slick-slider .slick-next:hover,
+            .slick-slider .slick-prev:hover{
+                          /* opacity: 1; */
+                          /* visibility: visible; */
+                          background:#ff7800;
+                          color:white;
+                        }
+
+            /* Flexbox container to hold both payment boxes */
+    .flex-container {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+          /* margin-top: -82px; */
+    }
+
+    /* Common styles for both boxes */
+    .flex-container .box {
+      position: relative;
+      width: 50%;
+      border: 4px solid;
+      padding: 20px 16px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Styles specific to Tabby */
+    .tabby-box {
+      border-color: #00FFBC !important;
+    }
+
+    .tabby-label {
+      background-color: #00FFBC;
+      color: white;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      position: absolute;
+      top: -12px;
+      left: 8px;
+      border-radius: 8px;
+    }
+
+    /* Styles specific to Tamara */
+    .tamara-box {
+      border-color: #D47C84;
+    }
+
+    .tamara-label {
+      background: linear-gradient(to right, #7dd3fc, #fbbf24, #f472b6);
+      color: black;
+      font-weight: bold;
+      padding: 4px 8px;
+      font-size: 12px;
+      position: absolute;
+      top: -12px;
+      left: 8px;
+      border-radius: 8px;
+    }
+
+    /* Common text styles */
+    .payment-info {
+      font-size: 12px;
+      color:black;
+    }
+
+    /* Learn more link */
+    .flex-container .learn-more {
+      color: red;
+      text-decoration: underline;
+      cursor: pointer;
+      border:none;
+      outline:none;
+      background:none;
+      padding:0px;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+      z-index: 1000; /* Ensure it's on top */
+      display: none; /* Initially hidden */
+    }
+
+    .overlay.hidden {
+      display: none; /* Hide when the hidden class is added */
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%; /* Adjust as needed */
+      max-width: 600px; /* Optional max-width */
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1001; /* Above the overlay */
+      padding: 20px;
+      display: none; /* Initially hidden */
+      opacity: 0; /* Start invisible for animation */
+      transition: opacity 0.3s ease; /* Smooth transition */
+    }
+
+    .popup:not(.hidden) {
+      display: block; /* Show when not hidden */
+      opacity: 1; /* Fade in */
+    }
+
+    .hidden {
+      display: none;
+    }
+    .modal-body  {
+    font-size:20px;}
+    .modal-dialog .modal-body{
+      padding:  40px;
+    }
+           #tabbyModal .modal-title{
+               padding: 17px 29px;
+        font-size: 25px;
+        color: black;
+        font-weight: 600;
+            }
+           .tamara_modal .modal-content {
+
+    }
+
+    .tamara_modal .modal-header {
+          color: #000000;
+        border-bottom: 1px solid black;
+        padding: 20px 20px;
+    }
+
+    .tamara_modal .modal-title {
+      font-weight: bold;
+      font-size:20px;
+    }
+    #tabbyModal .modal-header {
+      border-bottom:1px solid black;
+    }
+          #tabbyModal  .modal-header button{
+                  background: #ff7800;
+        position: absolute;
+        right: -9px;
+        top: -11px;
+        z-index: 99;
+        padding: 0;
+        margin: 0;
+        padding: 4px 11px;
+        border-radius: 50%;
+        color: black;
+        border: none;
+            }
+    .tamara_modal .modal-body {
+      color: #343a40; /* Dark text color for body */
+      padding:40px;
+    }
+
+    .tamara_modal .modal-footer {
+      background-color: #f1f1f1; /* Light grey footer */
+    }
+
+    .tamara_modal .btn-secondary {
+      background-color: #007bff; /* Primary color for buttons */
+      border-color: #007bff; /* Matching border */
+    }
+
+    .tamara_modal .btn-secondary:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+      border-color: #0056b3;
+    }
+
+    /* Badge colors */
+    body a{
+      text-decoration:none;
+    }
+             .tabbyModal .modal-body h4{
+          font-size: 25px;
+        font-weight: 600;
+        color: black;
+        background: #3bffc1;
+        width: fit-content;
+        padding: 5px 9px;
+        border-radius: 30px;
+          }
+          .tabbyModal .modal-body h5 {
+          color: #3bffc1;
+        font-size: 18px;
+        padding: 4px 10px;
+          }
+          .tabbyModal .modal-body p {
+          color: black;
+            padding: 4px 0px;
+        font-weight: 600;
+          }
+          .tabbyModal .modal-body h2{
+              font-size: 25px;
+        font-weight: 600;
+        color: black;
+        padding: 11px 0px;
+          }
+          .tabbyModal .modal-body ol li {
+          color: black;
+        padding: 6px 0px;
+          }
+            .tamara_gradient_top {
+                  background: linear-gradient(to right, #fdba74, #93c5fd, #f9a8d4);
+        border-radius: 85px;
+        margin-top: 20px;
+            }
+            .tamara_gradient_inner{
+                  background: linear-gradient(to right, #ffedd5, #dbeafe, #fce7f3);
+        border-radius: 102px;
+        padding: 27px 57px;
+            }
+            .tamara_gradient_inner p{
+              font-size:12px;
+            }
+            .why_tamara h3{
+              font-size: 23px;
+        font-weight: bold;
+        color: black;
+        margin-top: 35px;
+            }.why_tamara .badge{
+              background: #ff914e;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+              margin-top:12px;
+            }
+            .why_tamara ul li {
+             font-size: 14px;
+        color: black;
+        padding: 5px 0;
+            }
+            .tamara_modal .modal-header button {
+        background: #ff7800;
+        position: absolute;
+        right: -9px;
+        top: -10px;
+        z-index: 99;
+        padding: 0;
+        margin: 0;
+        border: navajowhite;
+        padding: 3px 9px;
+        border-radius: 16px;
+    }
+            .product-icon-list.vstar-star {
+      visibility: hidden !important;
+    }
+    /* .nov-accordion .nov-accordion__item:nth-child(6) .nov-accordion__title {
+      background: blue;
+    } */
+
+            .payment_card{
+              display:flex;
+              align-items:center;
+              justify-content:end;
+              gap:20px;
+             padding: 20px 69px
+            }
+            .payment_card img{
+              width:70px;
+            }
+            @media (max-width: 480px) {
+              .modal-dialog.modal-lg .modal-content{
+                min-width:100%;
+              }
+            }
+
+
+            .payment-options {
+      font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 0px;
+        max-width: 400px;
+        margin: 24px auto;
+    }
+
+    .payment-option {
+      margin-bottom: 20px;
+    }
+
+    .payment-header {
+      /* display: flex; */
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .payment-logo {
+      width: 40px;
+      height: auto;
+      margin-right: 12px;
+    }
+
+    .payment-title {
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .payment-info {
+      font-size: 12px;
+      color: #666;
+      margin-left: auto;
+    }
+
+    .payment-schedule {
+      display: flex;
+      gap: 5px;
+      margin-top: 12px;
+      flex-wrap:wrap;
+    }
+
+    .payment-item {
+      text-align: center;
+      flex: 1;
+    }
+
+    .amount {
+      font-weight: bold;
+      font-size: 12px;
+      color: #333;
+    }
+
+    .date {
+      font-size: 10px;
+      color: #777;
+      margin-top: 4px;
+          width: fit-content;
+        display: flex;
+            margin:4px auto;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background-color: #00FFBC;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar .filled {
+      height: 100%;
+      background-color: ##00FFBC; /* Green */
+      width: 100%; /* Adjust this width dynamically if needed */
+    }
+
+    .payment-option.tabby .filled {
+      background-color: ##00FFBC; /* Green */
+    }
+
+    .payment-option.tamara .filled {
+         background: linear-gradient(to right, #7dd3fc, #fbbf24, #f472b6);
+    }
+      @media (max-width: 600px) {
+            .flex-container {
+        flex-wrap: wrap;
+    }
+        .flex-container .box {
+        width: 100%;
+    }
+            }
+  </style>
+
+  <div class="product-single row position-static">
+    <div class="col-md-6 col-xs-12 position-static">
+      <div class="product-single__photos pro_sticky">
+        <div class="proFeaturedImage">
+          <div class="block_content d-flex">
+            {% assign featured_image = product.selected_or_first_available_variant.featured_image
+              | default: product.featured_image
+            %}
+            <img
+              id="ProductPhotoImg"
+              class="img-fluid image-zoom img-responsive lazyload"
+              data-src="{{ featured_image | img_url: product_image }}"
+              alt="{{ featured_image.alt | escape }}"
+              data-zoom="{{ featured_image | img_url: '1024x', scale: 2 }}"
+            >
+          </div>
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div id="productThumbs">
+            <div class="thumblist row" data-pswp-uid="1">
+              {% for image in product.images %}
+                <div class="thumbItem mt-10" data-image-id="{{ variant.id }}">
+                  <a
+                    href="javascript:void(0)"
+                    data-image="{{ image.src | img_url: product_image }}"
+                    data-zoom-image="{{ image.src | img_url: product_image_zoom_size }}"
+                    class="product-single__thumbnail"
+                  >
+                    <img src="{{ image.src | img_url: '104x130' }}" alt="{{ image.alt | escape }}">
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="block_information position-static col-md-6 col-xs-12 mt-xs-30 pro_sticky ">
+      <div class="info_content">
+        <h1 itemprop="name" class="product-single__title">{{ product.title }}</h1>
+        <div class="product-single__meta">
+          <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+            <link
+              itemprop="availability"
+              href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+            >
+
+            {% if settings.show_rating %}
+              <div class="group-reviews has-border d-flex align-items-center mb-25">
+                <div class="detail-reviews">
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </div>
+              </div>
+            {% endif %}
+
+            {% unless product.available %}
+              <div class="available_product d-flex align-items-center">
+                <div class="available_name control-label">
+                  {{ 'products.product.available' | t }}
+                </div>
+                <span class="product__available sold-out" style="color:red">
+                  <span>{{ 'products.product.sold_out' | t }}</span>
+                  <i class="fa fa-ban" aria-hidden="true"></i>
+                </span>
+              </div>
+            {% else %}
+              <div class="available_product d-flex align-items-center">
+                <div class="available_name control-label">
+                  {{ 'products.product.available' | t }}
+                </div>
+                <span class="product__available in-stock">
+                  <span>{{ 'products.product.in_stock' | t }}</span>
+                  <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                </span>
+              </div>
+            {% endunless %}
+
+            <div class="group-single__sku has-border">
+              {% if section.settings.show_vendor %}
+                <p itemprop="brand" class="product-single__vendor">
+                  <span class="label">{{ 'products.product.lable_vendor' | t }}:</span>{{ product.vendor }}
+                </p>
+              {% endif %}
+              {% if section.settings.show_sku %}
+                <p itemprop="sku" class="product-single__sku">
+                  <span class="label control-label">{{ 'Dimensions' }}:</span>
+                  <span class="label-sku">{{ product.metafields.custom.dimension }}</span>
+                </p>
+              {% endif %}
+              {% if section.settings.show_categories %}
+                <p itemprop="cat" class="product-single__cat">
+                  <span class="label control-label">{{ 'products.product.lable_category' | t }}:</span>
+                  {% for collection in product.collections %}
+                    {% if forloop.last == true %}
+                      <a href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a>
+                    {% else %}
+                      <a href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a>,
+                    {% endif %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+              {% if section.settings.show_tags %}
+                <p itemprop="tags" class="product-single__tags">
+                  <span class="label control-label">{{ 'products.product.lable_tags' | t }}:</span>
+                  {% for tag in product.tags %}
+                    {% if tag != 'upsell' %}
+                      {% capture url %}/collections/all/{{ tag | handle }}{% endcapture %}
+                      {% if forloop.last == true %}
+                        {{ tag | link_to: url }}
+                      {% else %}
+                        {{ tag | link_to: url }},
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </p>
+              {% endif %}
+              {% if section.settings.show_des %}
+                <div class="product-single__shortdes mb-40" itemprop="description">
+                  {{ product.description | strip_html | truncatewords: 30 }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <p class="product-single__price product-single__price-{{ section.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %} d-flex align-items-center">
+          {% if current_variant.compare_at_price > current_variant.price %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <span class="product-price__price product-price__price-{{ section.id }} product-price__sale product-price__sale--single">
+              <span
+                id="ProductPrice-{{ section.id }}"
+                itemprop="price"
+                content="{{ current_variant.price | divided_by: 100.00 }}"
+                class="money mr-10"
+              >
+                {{ current_variant.price | money }}
+              </span>
+              <span class="money product-price__sale-label product-price__sale-label-{{ section.id }} d-none">
+                {{- 'products.product.on_sale' | t -}}
+              </span>
+            </span>
+            <s id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
+          {% else %}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <span class="product-price__price product-price__price-{{ section.id }}">
+              <span
+                id="ProductPrice-{{ section.id }}"
+                itemprop="price"
+                content="{{ current_variant.price | divided_by: 100.00 }}"
+                class="money mr-10"
+              >
+                {{ current_variant.price | money }}
+              </span>
+              <span class="money product-price__sale-label product-price__sale-label-{{ section.id }} d-none">
+                {{- 'products.product.on_sale' | t -}}
+              </span>
+            </span>
+            <s id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
+          {% endif %}
+        </p>
+
+        <form
+          action="/cart/add"
+          method="post"
+          enctype="multipart/form-data"
+          class="product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}"
+          data-section="{{ section.id }}"
+        >
+          <div class="selectorVariants">
+            {% if section.settings.product_swatch_enable %}
+              {% if variantCount > 1 %}
+                {% for option in product.options %}
+                  {% include 'nov-swatch' with option %}
+                {% endfor %}
+              {% endif %}
+            {% endif %}
+
+            <select
+              name="id"
+              id="productSelect"
+              data-section="{{ section.id }}"
+              {% if section.settings.product_swatch_enable %}
+                class="enable_swatch hide"
+              {% endif %}
+            >
+              {% for variant in product.variants %}
+                {% if variant.available %}
+                  <option
+                    {% if variant == product.selected_or_first_available_variant %}
+                      selected="selected"
+                    {% endif %}
+                    value="{{ variant.id }}"
+                  >
+                    {{ variant.title }}
+                  </option>
+                {% else %}
+                  <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="group-quantity">
+            {% if section.settings.show_quantity_selector %}
+              <span class="control-label">{{ 'products.product.quantity' | t }}</span>
+              <div class="product-form__item product-form__item--quantity align-items-center mb-30">
+                <label for="Quantity" class="quantity-selector"></label>
+                <div class="quick_view_qty">
+                  <a href="javascript:void(0);" class="quick_view-qty quick_view-qty-minus">-</a>
+                  <input
+                    type="number"
+                    id="Quantity"
+                    name="quantity"
+                    value="1"
+                    min="1"
+                    max="{{ current_variant.inventory_quantity }}"
+                    step="1"
+                    class="quantity-selector product-form__input"
+                    pattern="[0-9]*"
+                  >
+                  <a href="javascript:void(0);" class="quick_view-qty quick_view-qty-plus">+</a>
+                </div>
+                {% if settings.wishlist_enable %}
+                  <div class="productWishList">
+                    <a
+                      class="wishlist btnProductWishlist"
+                      data-icon-wishlist
+                      href="#"
+                      data-product-handle="{{ product.handle }}"
+                      data-id="{{ product.id | json }}"
+                    >
+                      <i class="zmdi zmdi-favorite"></i>
+                      <span class="wishlist-text">{{ 'products.product.wishlist' | t }}</span>
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            <div class="product_option_sub">
+              <div class="product-form__item product-form__item--submit">
+                <button
+                  data-handle="{{ product.handle }}"
+                  type="submit"
+                  name="add"
+                  id="AddToCart"
+                  {% unless current_variant.available %}
+                    disabled="disabled"
+                  {% endunless %}
+                  class="btnAddToCart btn product-form__cart-submit mb-15{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}"
+                >
+                  <span id="AddToCartText">
+                    {% unless current_variant.available %}
+                      {{ 'products.product.sold_out' | t }}
+
+                    {% else %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% endunless %}
+                  </span>
+                </button>
+              </div>
+              {% if settings.payment_button_enable %}
+                <div class="product-form__item product-form__item--checkout">
+                  {% form 'product', product, class: form_classes, novalidate: 'novalidate', data-product-form: '' %}
+                    {{ form | payment_button }}
+                  {% endform %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+
+        {% if section.settings.show_share %}
+          <div class="productbuttons d-flex align-items-center mt-15 pb-80 pb-xs-60">
+            {% if settings.share_facebook %}
+              <a
+                target="_blank"
+                href="//www.facebook.com/sharer.php?u={{ shop.url | append: product.url }}"
+                class="btn--share share-facebook"
+                title="{{ 'general.social.alt_text.share_on_facebook' | t }}"
+              >
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <span class="share-title" aria-hidden="true">{{ 'general.social.share_on_facebook' | t }}</span>
+                <span class="visually-hidden">{{ 'general.social.alt_text.share_on_facebook' | t }}</span>
+              </a>
+            {% endif %}
+
+            {% if settings.share_twitter %}
+              <a
+                target="_blank"
+                href="//twitter.com/share?text={{ article.title | url_param_escape }}&amp;url={{ shop.url | append: product.url }}"
+                class="btn--share share-twitter"
+                title="{{ 'general.social.alt_text.share_on_twitter' | t }}"
+              >
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <span class="share-title" aria-hidden="true">{{ 'general.social.share_on_twitter' | t }}</span>
+                <span class="visually-hidden">{{ 'general.social.alt_text.share_on_twitter' | t }}</span>
+              </a>
+            {% endif %}
+
+            {% if settings.share_pinterest %}
+              <a
+                target="_blank"
+                href="//pinterest.com/pin/create/button/?url={{ shop.url | append: product.url }}&amp;media={{ product.featured_image | img_url: '1024x1024' }}"
+                class="btn--share share-pinterest"
+                title="{{ 'general.social.alt_text.share_on_pinterest' | t }}"
+              >
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                <span class="share-title" aria-hidden="true">{{ 'general.social.share_on_pinterest_pt' | t }}</span>
+                <span class="visually-hidden">{{ 'general.social.alt_text.share_on_pinterest' | t }}</span>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <p class="product-single__price product-single__price-{{ section.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %} d-flex align-items-center">
+        {% assign raw_price = current_variant.price %}
+        {% assign divided_price = raw_price | divided_by: 4 %}
+        {% assign rounded_divided_price = divided_price | ceil %}
+        <!-- Rounds up to the nearest integer -->
+
+        <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+
+        {% if current_variant.compare_at_price > current_variant.price %}
+          <span class="product-price__price product-price__price-{{ section.id }} product-price__sale product-price__sale--single d-none">
+            <span
+              id="ProductPrice-{{ section.id }}"
+              itemprop="price"
+              content="{{ raw_price | divided_by: 100.00 }}"
+              class="money mr-10"
+            >
+              {{ raw_price | divided_by: 100.0 | ceil }}
+              <!-- Rounds up and removes decimals -->
+            </span>
+            <span class="money product-price__sale-label product-price__sale-label-{{ section.id }} d-none">
+              {{- 'products.product.on_sale' | t -}}
+            </span>
+          </span>
+          <s class="d-none" id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
+        {% else %}
+          <span class="product-price__price product-price__price-{{ section.id }} d-none">
+            <span
+              id="ProductPrice-{{ section.id }}"
+              itemprop="price"
+              content="{{ raw_price | divided_by: 100.00 }}"
+              class="money mr-10"
+            >
+              {{ raw_price | divided_by: 100.0 | ceil }}
+              <!-- Rounds up and removes decimals -->
+            </span>
+            <span class="money product-price__sale-label product-price__sale-label-{{ section.id }} d-none">
+              {{- 'products.product.on_sale' | t -}}
+            </span>
+          </span>
+          <s class="d-none" id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
+        {% endif %}
+
+        <div>
+          <p class="d-none">
+            Divided Price (Raw Price / 4): AED {{ rounded_divided_price | divided_by: 100.0 | ceil }}
+          </p>
+
+          <div id="interest-free-payments" class="mt-2 d-none"></div>
+          <div class="flex-container">
+            <!-- Tabby Box -->
+            <div class="box tabby-box">
+              <span class="label tabby-label">tabby</span>
+              <p class="payment-info">
+                <div class="payment-options">
+                  <!-- Tabby Section -->
+                  <div class="payment-option tabby">
+                    <div class="payment-header">
+                      <span class="payment-title">Pay 4 interest-free payments of AED</span>
+                      <span id="tamara-payment" class="payment-amount">
+                        {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                        {% assign floored_value = payment_value | floor %}
+                        {% if payment_value == floored_value %}
+                          {{ floored_value }}
+                        {% else %}
+                          {{ payment_value | round: 2 }}
+                        {% endif %}
+                      </span>
+
+                      <button class="btn btn-link learn-more" data-bs-toggle="modal" data-bs-target="#tabbyModal">
+                        Learn more
+                      </button>
+                      <!-- <span class="payment-info">4 interest-free payments of AED 19.04</span> -->
+                    </div>
+                    <div class="payment-schedule">
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <span class="date">Today</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <br>
+                        <span class="date">In 1 month</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <br>
+                        <span class="date">In 2 months</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <br>
+                        <span class="date">In 3 months</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p>
+            </div>
+
+            <!-- Tamara Box -->
+            <div class="box tamara-box">
+              <span class="label tamara-label">tamara</span>
+              <p class="payment-info">
+                <div class="payment-options">
+                  <!-- Tabby Section -->
+                  <div class="payment-option tabby">
+                    <div class="payment-header">
+                      <span class="payment-title">Pay 4 interest-free payments of AED</span>
+                      <span id="tamara-payment" class="payment-amount">
+                        {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                        {% assign floored_value = payment_value | floor %}
+                        {% if payment_value == floored_value %}
+                          {{ floored_value }}
+                        {% else %}
+                          {{ payment_value | round: 2 }}
+                        {% endif %}
+                      </span>
+
+                      <button class="btn btn-link learn-more" data-bs-toggle="modal" data-bs-target="#tamaraModal">
+                        Learn more
+                      </button>
+                      <!-- <span class="payment-info">4 interest-free payments of AED 19.04</span> -->
+                    </div>
+                    <div class="payment-schedule">
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <span class="date">Today</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <br>
+                        <span class="date">In 1 month</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <br>
+                        <span class="date">In 2 months</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                      <div class="payment-item">
+                        <span class="amount"
+                          >AED
+                          <span id="tamara-payment" class="payment-amount">
+                            {% assign payment_value = rounded_divided_price | divided_by: 100.0 %}
+                            {% assign floored_value = payment_value | floor %}
+                            {% if payment_value == floored_value %}
+                              {{ floored_value }}
+                            {% else %}
+                              {{ payment_value | round: 2 }}
+                            {% endif %}
+                          </span>
+                        </span>
+                        <br>
+                        <span class="date">In 3 months</span>
+                        <div class="progress-bar"><div class="filled"></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </p>
+
+      <!-- Tabby Modal -->
+      <div
+        class="modal fade tabbyModal"
+        id="tabbyModal"
+        tabindex="-1"
+        aria-labelledby="tabbyModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tabbyModalLabel">Easy Monthly Installments</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <img class="mb-3" src="{{ 'tabby-transparent.png' | asset_url }}" alt="Your Image Description">
+
+              <h4>Shop now,</h4>
+              <h5>pay over time.</h5>
+              <p>- No interest. No fees.</p>
+              <p>-Trusted by 4,5m+ customers.</p>
+              <p>-Shariah-compliant.</p>
+              <h2>How it works</h2>
+              <ol>
+                <li>Choose Tabby at checkout</li>
+                <li>Enter your information and add your debit or credit card.</li>
+                <li>Your first payment is taken when the order is made.</li>
+                <li>We will send you a reminder when your next payment is due</li>
+              </ol>
+            </div>
+            <div class="payment_card">
+              <img class="mb-3" src="{{ 'googlepay-logo.png' | asset_url }}" alt="Your Image Description">
+              <img class="mb-3" src="{{ 'Mastercard-Logo.png' | asset_url }}" alt="Your Image Description">
+              <img class="mb-3" src="{{ 'visacard-logo.png' | asset_url }}" alt="Your Image Description">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tamara Modal -->
+      <div
+        class="modal fade tamara_modal"
+        id="tamaraModal"
+        tabindex="-1"
+        aria-labelledby="tamaraModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tamaraModalLabel">Easy Monthly Installments</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <div class="text-center mb-4">
+                <img class="mb-3" src="{{ 'tamara-transparent.png' | asset_url }}" alt="Your Image Description">
+              </div>
+              <h2 class="text-center font-bold text-2xl mt-4">Pay easier with Tamara</h2>
+              <div class="py-3 px-3 bg-gradient-to-r from-orange-300 via-blue-300 to-pink-300 rounded-lg tamara_gradient_top">
+                <div class=" tamara_gradient_inner">
+                  <div class="mb-3">
+                    <h4 class="font-bold">Split in 4</h4>
+                    <p class="text-sm font-light">
+                      Pay a fraction now and the rest in 3 payments over the next 3 months. No late fees,
+                      shariah-compliant!*
+                    </p>
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Pay in Full</h4>
+                    <p class="text-sm font-light">Pay the full amount today and enjoy exclusive perks with Tamara!*</p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 why_tamara">
+                <h3 class="font-bold text-2xl">Why Tamara?</h3>
+                <div class="d-flex justify-content-between flex-wrap gap-3 mt-3">
+                  <div class="badge">Sharia-compliant</div>
+                  <div class="badge">No late fees</div>
+                  <div class="badge">Quick and easy</div>
+                </div>
+                <ul class="list-unstyled mt-4">
+                  <li>(1) Payment options availability may vary based on your order value and Tamara record.</li>
+                  <li>(2) Subject to terms and conditions.</li>
+                  <li>(3) Tamara is Sharia-compliant.</li>
+                  <li>(4) Eligible for customers in United Arab Emirates.</li>
+                  <li>(5) Your final payment plan may vary depending on your credit history.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% comment %} Tab {% endcomment %}
+      <div class="block_accordion">
+        <div class="nov-accordion">
+          {% if section.settings.show_description %}
+            <div class="product-single__tabs">
+              <div class="nov-accordion__title">{{ 'products.product.tabdes' | t }}</div>
+              <div class="nov-accordion__content1">
+                <div class="block">
+                  <div class="product-description" id="proTabs1">{{ product.description }}</div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% for block in section.blocks %}
+            {% if block.type == 'block_text' %}
+              <div class="block_custom product-single__tabs">
+                <div class="nov-accordion__title">{{ block.settings.custom_title }}</div>
+                <div class="nov-accordion__content">
+                  <div class="block">
+                    <div class="product-description">{{ block.settings.custom_content }}</div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+            {% if block.type == 'block_img' %}
+              <div class="block_custom">
+                <div class="nov-accordion__title">{{ block.settings.custom_title }}</div>
+                <div class="nov-accordion__content">
+                  <div class="block" data-toggle="modal" data-target="#ImageModal{{ forloop.index }}">
+                    <img src="{{ block.settings.custom_content | img_url: '1290x' }}" alt="img">
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.type == 'block_video' %}
+              <div class="product-single__tabs">
+                <div class="nov-accordion__title">{{ block.settings.custom_title }}</div>
+                <div class="nov-accordion__content">
+                  <div class="block">
+                    <div class="product-description" id="proTabs3">
+                      {{ product.metafields.custom.product_features }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--
+                <div class="block_custom">
+                  <div class="nov-accordion__title" aria-expanded="false">{{ block.settings.custom_title }}</div>
+                  <div class="nov-accordion__content">
+                    <div class="block">
+                      <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="{%- if block.settings.video_url.type == 'youtube' -%}https://www.youtube.com/embed/{{ block.settings.video_url.id }}{%- else -%}https://player.vimeo.com/video/{{ block.settings.video_url.id }}{%- endif -%}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              -->
+            {% endif %}
+          {% endfor %}
+          {% if section.settings.show_review %}
+            <div class="block_detail">
+              <div class="nov-accordion__title">{{ 'products.product.lable_review' | t }}</div>
+              <div class="nov-accordion__content">
+                <div class="block">
+                  <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% comment %} End Tab {% endcomment %}
+    </div>
+  </div>
+</div>
+
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+    // Show overlay and popup on "Learn more" button click
+    document.querySelectorAll('.learn-more').forEach(function(element) {
+      element.addEventListener('click', function() {
+        var targetPopup = document.querySelector(this.getAttribute('data-target'));
+        if (targetPopup) {
+          targetPopup.classList.remove('hidden');
+          document.getElementById('overlay').classList.remove('hidden'); // Show overlay
+          // Allow the popup to display after showing the overlay
+          setTimeout(() => {
+            targetPopup.classList.remove('hidden'); // Make sure popup is visible
+          }, 10); // Small timeout to trigger CSS transition
+        }
+      });
+    });
+
+    // Close popup and hide overlay on "Close" button click
+    document.querySelectorAll('.close-popup').forEach(function(element) {
+      element.addEventListener('click', function() {
+        var targetPopup = document.querySelector(this.getAttribute('data-target'));
+        if (targetPopup) {
+          targetPopup.classList.add('hidden');
+          document.getElementById('overlay').classList.add('hidden'); // Hide overlay
+        }
+      });
+    });
+
+    // Close popup when clicking outside of the popup content
+    document.getElementById('overlay').addEventListener('click', function() {
+      document.querySelectorAll('.popup').forEach(function(popup) {
+        popup.classList.add('hidden');
+      });
+      this.classList.add('hidden'); // Hide overlay
+    });
+  });
+</script>

@@ -1,0 +1,729 @@
+{%- assign limit = section.settings.products_per_page -%}
+{% if template == 'collection.leftsidebar' %}
+  {% assign viewtype = 'leftsidebar' %}
+{% elsif template == 'collection.rightsidebar' %}
+  {% assign viewtype = 'rightsidebar' %}
+{% elsif template == 'collection.full_width' %}
+  {% assign viewtype = 'full_width' %}
+{% elsif template == 'collection.canvas' %}
+  {% assign viewtype = 'canvas' %}
+{% else %}
+  {% if settings.type_sidebar == 'sidebar_left' %}
+    {% assign viewtype = 'leftsidebar' %}
+  {% elsif settings.type_sidebar == 'sidebar_right' %}
+    {% assign viewtype = 'rightsidebar' %}
+  {% elsif settings.type_sidebar == 'full_width' %}
+    {% assign viewtype = 'full_width' %}
+  {% else %}
+    {% assign viewtype = 'canvas' %}
+  {% endif %}
+{% endif %}
+<!-- Ramadan Sale Banner -->
+{% comment %}
+  {%- if collection.title == 'Ramadan Sale' -%}
+    <section class="collection-banner" style="width: 100%;">
+      <a
+        href="{{ section.settings.banner_link }}"
+        style="width: 100%; {% if section.settings.banner_link == blank %}pointer-events: none;{% endif %}"
+      >
+        <!-- Desktop Banner -->
+        <img
+          src="{{ section.settings.banner_image | img_url: 'master' }}"
+          alt="{{ collection.title }}"
+          class="banner-desktop"
+          style="width: 100%; height: auto; display: block;"
+        >
+
+        <!-- Mobile Banner -->
+        <img
+          src="{{ section.settings.banner_image_mobile | img_url: 'master' }}"
+          alt="{{ collection.title }}"
+          class="banner-mobile"
+          style="width: 100%; height: auto; display: none;"
+        >
+      </a>
+    </section>
+
+    <style>
+      @media (max-width: 768px) {
+        .banner-desktop { display: none !important; }
+        .banner-mobile { display: block !important; }
+      }
+    </style>
+  {%- else -%}
+    {% include 'nov-breadcrumb' %}
+  {%- endif -%}
+{% endcomment %}
+{% comment %}
+  {%- if collection.metafields.custom.collection_banner_image != blank -%}
+    <section class="collection-banner" style="width: 100%;">
+      <a
+        href="{{ collection.metafields.custom.collection_banner_link }}"
+        style="width: 100%; {% if collection.metafields.custom.collection_banner_link == blank %}pointer-events: none;{% endif %}"
+      >
+        <!-- Banner (Same for Desktop and Mobile) -->
+        <img
+          src="{{ collection.metafields.custom.collection_banner_image | img_url: 'master' }}"
+          alt="{{ collection.title }}"
+          style="width: 100%; height: auto; display: block;"
+        >
+      </a>
+    </section>
+  {%- endif -%}
+{% endcomment %}
+{%- if collection.metafields.custom.collection_banner_image != blank
+  or collection.metafields.custom.collection_slider != blank
+-%}
+  <section class="collection-banner" style="width: 100%;">
+    {%- if collection.handle == 'summer-sale' and collection.metafields.custom.collection_banner_image != blank -%}
+      <!-- 🌞 Summer Sale page -->
+      <img
+        src="{{ collection.metafields.custom.collection_banner_image | img_url: 'master' }}"
+        alt="{{ collection.title }}"
+        style="width: 100%; height: auto; display: block;"
+      >
+
+    {%- elsif collection.handle == 'summer-sale' and collection.metafields.custom.collection_slider != blank -%}
+      <!-- 🛍️ 11.11 Day Sale page with slider -->
+      {%- assign slider_images = collection.metafields.custom.collection_slider.value -%}
+
+      <div class="collection-slider-container">
+        {%- if slider_images and slider_images.size > 0 -%}
+          {%- for image in slider_images -%}
+            <div class="collection-slide {% if forloop.first %}active{% endif %}">
+              <!-- Desktop Image -->
+              <img
+                src="{{ image | img_url: '2000x' }}"
+                alt="{{ collection.title }} slide {{ forloop.index }}"
+                class="slider-image desktop-image"
+                loading="lazy"
+              >
+              <!-- Mobile Image (same image but different styling) -->
+              <img
+                src="{{ image | img_url: '800x' }}"
+                alt="{{ collection.title }} slide {{ forloop.index }}"
+                class="slider-image mobile-image"
+                loading="lazy"
+              >
+            </div>
+          {%- endfor -%}
+
+          <!-- Navigation arrows -->
+          {%- if slider_images.size > 1 -%}
+            <button class="slider-arrow slider-prev" aria-label="Previous slide">‹</button>
+            <button class="slider-arrow slider-next" aria-label="Next slide">›</button>
+          {%- endif -%}
+        {%- else -%}
+          <!-- Fallback if no images -->
+          <div style="text-align: center; padding: 50px; background: #f5f5f5;">
+            <p>No slider images configured</p>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <style>
+        .collection-slider-container {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+          background: #f9f9f9;
+          /* Aspect ratio - adjust this value based on your banner proportions */
+          aspect-ratio: 14 / 4; /* Common banner ratio (16:6 = 2.67:1) */
+        }
+
+        .collection-slide {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          transition: opacity 0.8s ease-in-out;
+          pointer-events: none;
+        }
+
+        .collection-slide.active {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .slider-image {
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          display: block;
+        }
+
+        /* Show desktop image by default, hide mobile */
+        .desktop-image {
+          display: block;
+        }
+        .mobile-image {
+          display: none;
+        }
+
+        .slider-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(244, 244, 244, 0.41);
+          color: white;
+          border: none;
+          width: 50px;
+          height: 80px;
+          font-size: 40px;
+          cursor: pointer;
+          z-index: 10;
+          transition: background 0.3s ease;
+        }
+
+        .slider-arrow:hover {
+          background: #FF7800;
+        }
+
+        .slider-prev {
+          left: 0px;
+        }
+
+        .slider-next {
+          right: 0px;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .collection-slider-container {
+            /* Different aspect ratio for mobile - taller/more square */
+            aspect-ratio: 5 / 2; /* 4:5 = 0.8:1 - good for mobile */
+          }
+
+          /* Switch to mobile images on small screens */
+          .desktop-image {
+            display: none;
+          }
+          .mobile-image {
+            display: block;
+          }
+
+          .slider-arrow {
+            width: 40px;
+            height: 60px;
+            font-size: 30px;
+          }
+
+          .slider-prev {
+            left: 5px;
+          }
+
+          .slider-next {
+            right: 5px;
+          }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .collection-slider-container {
+            /* Slightly different ratio for tablets */
+            aspect-ratio: 16 / 7; /* 16:7 = 2.29:1 */
+          }
+        }
+
+        /* Extra small mobile devices */
+        @media (max-width: 480px) {
+          .collection-slider-container {
+            /* Even taller for very small screens */
+            aspect-ratio: 2 / 1; /* 3:4 = 0.75:1 */
+          }
+
+          .slider-arrow {
+            width: 35px;
+            height: 50px;
+            font-size: 25px;
+          }
+        }
+
+        /* Fallback for older browsers that don't support aspect-ratio */
+        @supports not (aspect-ratio: 16 / 6) {
+          .collection-slider-container::before {
+            float: left;
+            padding-top: 37.5%; /* 6/16 = 0.375 = 37.5% */
+            content: '';
+          }
+
+          .collection-slider-container::after {
+            display: block;
+            content: '';
+            clear: both;
+          }
+
+          @media (max-width: 768px) {
+            .collection-slider-container::before {
+              padding-top: 125%; /* 5/4 = 1.25 = 125% */
+            }
+          }
+
+          @media (min-width: 769px) and (max-width: 1024px) {
+            .collection-slider-container::before {
+              padding-top: 43.75%; /* 7/16 = 0.4375 = 43.75% */
+            }
+          }
+
+          @media (max-width: 480px) {
+            .collection-slider-container::before {
+              padding-top: 133.33%; /* 4/3 = 1.3333 = 133.33% */
+            }
+          }
+        }
+      </style>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const slides = document.querySelectorAll('.collection-slide');
+          const prevButton = document.querySelector('.slider-prev');
+          const nextButton = document.querySelector('.slider-next');
+
+          if (!slides.length) return;
+
+          let currentIndex = 0;
+          let slideInterval;
+
+          function showSlide(index) {
+            // Hide all slides
+            slides.forEach((slide) => slide.classList.remove('active'));
+
+            // Show the selected slide
+            slides[index].classList.add('active');
+            currentIndex = index;
+          }
+
+          function nextSlide() {
+            let nextIndex = (currentIndex + 1) % slides.length;
+            showSlide(nextIndex);
+          }
+
+          function prevSlide() {
+            let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+          }
+
+          function startSlider() {
+            if (slides.length > 1) {
+              slideInterval = setInterval(nextSlide, 500000000);
+            }
+          }
+
+          function stopSlider() {
+            if (slideInterval) {
+              clearInterval(slideInterval);
+            }
+          }
+
+          // Initialize slider
+          showSlide(0);
+          startSlider();
+
+          // Add navigation if multiple slides
+          if (slides.length > 1) {
+            // Arrow navigation
+            if (prevButton) {
+              prevButton.addEventListener('click', function () {
+                stopSlider();
+                prevSlide();
+                startSlider();
+              });
+            }
+
+            if (nextButton) {
+              nextButton.addEventListener('click', function () {
+                stopSlider();
+                nextSlide();
+                startSlider();
+              });
+            }
+
+            // Pause on hover
+            const sliderContainer = document.querySelector('.collection-slider-container');
+            if (sliderContainer) {
+              sliderContainer.addEventListener('mouseenter', stopSlider);
+              sliderContainer.addEventListener('mouseleave', startSlider);
+            }
+          }
+
+          // Handle window resize for better mobile experience
+          window.addEventListener('resize', function () {
+            // Force reflow to ensure proper image sizing
+            slides.forEach((slide) => {
+              slide.style.display = 'none';
+              setTimeout(() => {
+                slide.style.display = '';
+              }, 10);
+            });
+          });
+        });
+      </script>
+
+    {%- elsif collection.metafields.custom.collection_banner_image != blank -%}
+      <!-- Other collections → link to Summer Sale -->
+      <a href="/collections/summer-sale" style="width: 100%; display: block;">
+        <img
+          src="{{ collection.metafields.custom.collection_banner_image | img_url: 'master' }}"
+          alt="{{ collection.title }}"
+          style="width: 100%; height: auto; display: block;"
+        >
+      </a>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+<div id="main-collection-filters" data-id="{{ section.id }}">
+  <div class="collection-{{ viewtype }}">
+    {% if viewtype != 'full_width' %}
+      <div class="container">
+    {% endif %}
+    {% if viewtype == 'canvas' and collection.handle != '11-11-day-sale' %}
+      <h1 class="collection_title d-none d-lg-block mt-4 mb-4">{{ collection.title }}</h1>
+    {% endif %}
+    <div class="row">
+      {% if section.settings.banner != blank %}
+        <div class="col-12 ">
+          <div class="text-center">
+            <img
+              class="lazyload"
+              data-src="{{ section.settings.banner | img_url: '1920x' }}"
+              alt="banner"
+              loading="lazy"
+              width="auto"
+              height="auto"
+            >
+          </div>
+          <div class="collection_banner"></div>
+        </div>
+      {% endif %}
+    </div>
+    <div class="d-flex align-items-center pt-60 pb-60 pb-lg-30 ">
+      {% if viewtype != 'canvas' %}
+        <div class="collection_title d-none d-lg-block">{{ collection.title }}</div>
+      {% endif %}
+      <div class="filter_button{% if viewtype != 'canvas' %} d-lg-none{% endif %}">
+        <i class="zmdi zmdi-tune"></i>
+        <span class="d-none d-md-inline-block">{{ 'collections.filters.button' | t }}</span>
+      </div>
+      <div class="bl_right d-flex align-items-center">
+        <div class="gridlist-toggle order-2 order-md-0">
+          {% if viewtype == 'canvas' %}
+            <a href="#" id="grid-4" title="Grid View 4" data-type="grid-4" class="active d-none d-lg-block"
+              ><i class="zmdi zmdi-view-comfy"></i
+            ></a>
+          {% endif %}
+          <a
+            href="#"
+            id="grid-3"
+            title="Grid View 3"
+            data-type="grid-3"
+            class="{% if viewtype != 'canvas' %}active{% endif %}"
+            ><i class="fa fa-th" aria-hidden="true"></i
+          ></a>
+          <a href="#" id="grid-2" title="Grid View 2" data-type="grid-2"
+            ><i class="fa fa-th-large" aria-hidden="true"></i
+          ></a>
+          <a href="#" id="list" title="List View" data-type="list"><i class="fa fa-bars" aria-hidden="true"></i></a>
+        </div>
+        {% if section.settings.sort_enable %}
+          <div data-sortby-filter>
+            <div
+              class="dropdown-toggle d-flex align-items-center"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span class="sort-by__label"></span>
+              <i class="zmdi zmdi-caret-down"></i>
+            </div>
+            <div class="dropdown-menu dropdown-menu-right text-start">
+              {%- for option in collection.sort_options -%}
+                <div value="{{ option.value | escape }}" data-sortby-item>{{ option.name | escape }}</div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 sidebar-filter{% if viewtype == 'rightsidebar' %} order-0 order-md-2{% endif %}">
+        {% include 'collection-filters', results: collection %}
+      </div>
+      <div class="{% if viewtype == 'canvas' %}col-lg-12 col-md-12{% else %}col-xl-9 col-lg-8{% endif %}">
+        <div
+          class="collection__product-content collection--product-{{ viewtype }}"
+          {% if viewtype == 'canvas' %}
+            data-grid="grid-4"
+          {% else %}
+            data-grid="grid-3"
+          {% endif %}
+        >
+          <div id="ProductGridContainer">
+            {%- paginate collection.products by 100 -%}
+              {%- if collection.products.size == 0 -%}
+                <div id="product-grid" data-id="{{ section.id }}" class="text-center pt-60">
+                  <h2 class="mb-20">{{ 'collections.filters.empty' | t }}</h2>
+                  <h4>{{ 'collections.filters.use_fewer_filters_html' | t: link: collection.url }}</h4>
+                </div>
+              {%- else -%}
+                <div id="product-grid" data-id="{{ section.id }}" class="row grid--view-items spacing-md-15">
+                  {%- for product in collection.products -%}
+                    <div class="product--item col">
+                      <div class="item-product">
+                        {% assign variantCount = product.variants | size %}
+                        {%- assign img_size = settings.img_size_large -%}
+                        <div class="thumbnail-container{% if product.images.size > 2 %} has-multiimage{% endif %}{% if section.settings.show_variant_color and variantCount > 1 %} has_variants{% endif %}">
+                          <a href="{{ product.url | within: collection }}">
+                            <img
+                              class="w-100 img-fluid product__thumbnail lazyload"
+                              data-src="{{ product.featured_image | product_img_url: '570x705' }}"
+                              alt="{{ product.featured_image.alt | escape }}"
+                              loading="lazy"
+                              width="auto"
+                              height="auto"
+                            >
+                            {% for image in product.images %}
+                              {% if forloop.first != true %}
+                                <img
+                                  class="w-100 img-fluid product__thumbnail-second lazyload"
+                                  data-src="{{ image.src | product_img_url: '570x705' }}"
+                                  alt="{{ product.featured_image.alt | escape }}"
+                                  loading="lazy"
+                                  width="auto"
+                                  height="auto"
+                                >
+                                {% break %}
+                              {% endif %}
+                            {% endfor %}
+                          </a>
+                          <div class="group-buttons">
+                            {% if settings.wishlist_enable %}
+                              {% include 'nov-wishlist' %}
+                            {% endif %}
+                            {% if settings.quickview_enable %}
+                              {% include 'nov-quickview' %}
+                            {% endif %}
+                          </div>
+                          {% if settings.show_new or settings.show_compare_price %}
+                            <div class="badge_sale">
+                              {% assign date_created = product.created_at | date: '%s' %}
+                              {% assign date_now = 'now' | date: '%s' %}
+                              {% assign difference = date_now | minus: date_created %}
+                              {% assign date_end = settings.time_newproduct | times: 86400 %}
+                              {% if difference < date_end and settings.show_new %}
+                                <div class="badge badge--sale-rt">{{ 'products.product.new' | t }}</div>
+                              {% endif %}
+                              {% if product.compare_at_price > product.price and settings.show_compare_price %}
+                                <span class="badge badge--sale-pt"
+                                  >-
+                                  {{-
+                                    product.compare_at_price
+                                    | minus: product.price
+                                    | times: 100
+                                    | divided_by: product.compare_at_price
+                                    | round: 4
+                                  -}}
+                                  %</span
+                                >
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                        </div>
+                        <div class="product__info">
+                          <div class="block_product_info">
+                            <div class="cate">
+                              {% for collection in product.collections %}
+                                {% if forloop.first == true %}
+                                  <a href="{{ collection.url }}" title="{{ collection.title }}">
+                                    {{- collection.title -}}
+                                  </a>
+                                {% endif %}
+                              {% endfor %}
+                            </div>
+                            <div class="product__title">
+                              <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                            </div>
+                            <div class="product__price{% if settings.show_rating == false %} pb-20{% endif %}">
+                              {% include 'product-price' %}
+                            </div>
+                            {% if section.settings.show_variant_color == true %}
+                              <div class="selectorVariants">
+                                {% include 'nov-swatch-color' with 'Color' %}
+                              </div>
+                            {% endif %}
+                            {% unless product.available %}
+                              <div class="available_product d-flex"></div>
+                            {% else %}
+                              <div class="available_product d-flex">
+                                <span class="product__available in-stock mt-15">
+                                  <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                  <span>{{ 'products.product.in_stock' | t }}</span>
+                                </span>
+                              </div>
+                            {% endunless %}
+                            <div class="desc mt-15">{{ product.description | strip_html | truncate: 230 }}</div>
+                            <div class="group_buttons_bottom">
+                              {% include 'group_buttons' %}
+                              {% if settings.wishlist_enable %}
+                                {% include 'nov-wishlist' %}
+                              {% endif %}
+                              {% if settings.quickview_enable %}
+                                {% include 'nov-quickview' %}
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+
+                {%- if paginate.pages > 1 -%}
+                  <div class="nov-pagination d-flex align-items-center">
+                    {% render 'pagination', paginate: paginate, anchor: '', class: '' %}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endpaginate -%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if viewtype != 'full_width' %}
+      </div>
+    {% endif %}
+  </div>
+  <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
+  <div class="product-count light d-none" role="status">
+    <h2 class="product-count__text text-body">
+      <span id="ProductCount">
+        {%- if collection.collection_count -%}
+          {{
+            'templates.search.collection_with_count'
+            | t: terms: collection.terms, count: collection.collection_count
+          }}
+        {%- elsif collection.products_count == collection.all_products_count -%}
+          {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+        {%- else -%}
+          {{
+            'products.facets.product_count'
+            | t: product_count: collection.products_count, count: collection.all_products_count
+          }}
+        {%- endif -%}
+      </span>
+    </h2>
+  </div>
+</div>
+
+<!--
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const grid = document.querySelector("#product-grid");
+      if (!grid) return;
+
+      const items = Array.from(grid.querySelectorAll(".product--item"));
+
+      const inStock = [];
+      const outOfStock = [];
+
+      items.forEach((item) => {
+        const inStockLabel = item.querySelector(".product__available");
+        if (inStockLabel) {
+          inStock.push(item);
+        } else {
+          outOfStock.push(item);
+        }
+      });
+
+      grid.innerHTML = "";
+      inStock.forEach((el) => grid.appendChild(el));
+      outOfStock.forEach((el) => grid.appendChild(el));
+    });
+  </script>
+-->
+
+<script>
+  function reorderProducts() {
+    const grid = document.querySelector('#product-grid');
+    if (!grid) return;
+
+    const items = Array.from(grid.querySelectorAll('.product--item'));
+
+    const inStock = [];
+    const outOfStock = [];
+
+    items.forEach((item) => {
+      const inStockLabel = item.querySelector('.product__available');
+      if (inStockLabel) {
+        inStock.push(item);
+      } else {
+        outOfStock.push(item);
+      }
+    });
+
+    grid.innerHTML = '';
+    inStock.forEach((el) => grid.appendChild(el));
+    outOfStock.forEach((el) => grid.appendChild(el));
+  }
+
+  document.addEventListener('DOMContentLoaded', reorderProducts);
+  document.addEventListener('shopify:section:load', reorderProducts); // re-apply after section reload
+</script>
+
+{% schema %}
+{
+  "name": "Collection pages",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Desktop Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mobile",
+      "label": "Mobile Banner Image"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 100,
+      "step": 1,
+      "label": "Products per page",
+      "default": 100,
+      "info": "Select number of products per page"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_variant_color",
+      "label": "Show Variant Color",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "sort_enable",
+      "label": "Enable sorting",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show tags",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

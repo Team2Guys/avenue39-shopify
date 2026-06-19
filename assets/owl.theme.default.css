@@ -1,0 +1,100 @@
+.owl-theme .owl-nav {
+  margin-top: 10px;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.owl-theme .owl-nav [class*="owl-"] {
+  color: #fff;
+  font-size: 14px;
+  margin: 5px;
+  padding: 4px 7px;
+  background: #d6d6d6;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.owl-theme .owl-nav [class*="owl-"]:hover {
+  background: #869791;
+  color: #fff;
+  text-decoration: none;
+}
+.owl-theme .owl-nav .disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.owl-theme .owl-nav.disabled + .owl-dots {
+  margin-top: 10px;
+}
+.owl-theme .owl-dots {
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.owl-theme .owl-dots .owl-dot {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+.slick-prev,
+.slick-next {
+  display: block !important; /* Ensure arrows are not set to display: none */
+  z-index: 25; /* Adjust z-index if needed */
+}
+
+/* Optional: Increase arrow size for visibility */
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+  width: 10px;
+  height: 10px;
+  margin: 5px 7px;
+  background: #d6d6d6;
+  display: block;
+  -webkit-backface-visibility: visible;
+  transition: opacity 200ms ease;
+  border-radius: 30px;
+}
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background: #869791;
+}
+@media (max-width: 768px) {
+  .owl-carousel .owl-nav.disabled {
+    display: block !important;
+  }
+  .prev_custom,
+  .next_custom {
+    font-family: "Material Icons";
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px; /* Change as needed */
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: "liga";
+  }
+
+  .prev_custom::before {
+    content: "prev"; /* Use the correct keyword or Unicode for the icon */
+  }
+
+  .next_custom::before {
+    content: "next"; /* Use the correct keyword or Unicode for the icon */
+  }
+}

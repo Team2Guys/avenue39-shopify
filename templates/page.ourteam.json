@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nov-page-ourteam",
+      "blocks": {
+        "1600050778859": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-1.jpg",
+            "author": "William James",
+            "job": "CEO - Vinova",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "#",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        },
+        "1600052142747": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-2.jpg",
+            "author": "Rebecca Jenkins",
+            "job": "Developer",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+312) 2531 5600",
+            "email": "minimart@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        },
+        "1600052223293": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-3.jpg",
+            "author": "Alex Nguyen",
+            "job": "Designer",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        },
+        "1600052264590": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-4.jpg",
+            "author": "Lucy Watson",
+            "job": "Designer",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        },
+        "1600052287299": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-5.jpg",
+            "author": "Rebecca Sang",
+            "job": "Account manager",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        },
+        "1600052318804": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-4_64475a12-5c22-4ebf-bc79-5742ded1c533.jpg",
+            "author": "William Quang",
+            "job": "Account manager",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        },
+        "1600052368020": {
+          "type": "quote",
+          "settings": {
+            "avatar": "shopify://shop_images/testirmonial-5_cf30df91-935a-4757-b134-9cedf734a038.jpg",
+            "author": "William Trong",
+            "job": "Support Team",
+            "decs": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabi tur velit sem, egestas sit amet dolor nec, tris tique.</p>",
+            "hotline": "(+612) 2531 5600",
+            "email": "sonata@domain.com",
+            "show_label": false,
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_dribbble_link": "",
+            "social_google_link": "",
+            "social_linkedin_link": "",
+            "social_tumblr_link": "",
+            "social_snapchat_link": "",
+            "social_youtube_link": "",
+            "social_vimeo_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "1600050778859",
+        "1600052142747",
+        "1600052223293",
+        "1600052264590",
+        "1600052287299",
+        "1600052318804",
+        "1600052368020"
+      ],
+      "settings": {
+        "title": "Meet Our Team",
+        "subheading": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac pretium metus. Curabitur velit sem, egestas sit amet dolor nec, tristique vulputate enim. Etiam a lorem libero. In egestas ultricies convallis. Sed iaculis arcu id justo dapibus pharetra. Maecenas et aliquam eros, sit amet volutpat nisi. Duis feugiat mattis maximus. Nulla sollicitudin lorem vitae neque ultricies efficitur. Sed pulvinar tellus enim, non tincidunt nisl imperdiet quis. Maecenas maximus lorem eu justo tincidunt mollis. Quisque vulputate, leo nec elementum rutrum, risus diam rhoncus nulla, ac sollicitudin dui augue convallis sem. Sed sit amet nulla lorem. Ut fringilla justo nisi, nec interdum diam pretium ac. In iaculis porttitor sem.",
+        "spacing": "30",
+        "class": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

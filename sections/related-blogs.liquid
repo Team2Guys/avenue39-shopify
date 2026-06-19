@@ -1,0 +1,120 @@
+<div class="related-blogs-slider-wrapper page-width container">
+  <h2 class="related-blogs-title">Related Blogs</h2>
+
+  {%- liquid 
+    assign current_article = article
+    assign article_count = 0 
+  -%}
+
+  <div class="related-posts-carousel" id="RelatedPosts-{{ section.id }}">
+    {%- for related_article in blog.articles limit: 9 -%}
+      {%- if related_article.id != current_article.id -%}
+        {%- if article_count < 8 -%}
+          <div class="related-blog-item">
+            <a href="{{ related_article.url }}" class="related-blog-link">
+              <div class="related-blog-image">
+                <img src="{{ related_article.image | img_url: '600x600', crop: 'center' }}" alt="{{ related_article.title }}" loading="lazy">
+              </div>
+              <div class="related-blog-content">
+                <h3 class="related-item-title">{{ related_article.title }}</h3>
+                <p class="related-item-excerpt">
+                  {{ related_article.excerpt_or_content | strip_html | truncate: 150 }}
+                  <span class="read-more-text">Read More...</span>
+                </p>
+                <div class="related-item-footer">
+                  <span class="category">
+                    {% if related_article.metafields.custom.category != blank %}
+                      {{ related_article.metafields.custom.category }}
+                    {% else %}
+                      {{ blog.title }}
+                    {% endif %}
+                  </span>
+                  <span class="date">{{ related_article.published_at | date: "%d/%m/%Y" }}</span>
+                </div>
+              </div>
+            </a>
+          </div>
+          {%- assign article_count = article_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  /* ... Your existing styles stay exactly the same ... */
+  .related-blogs-slider-wrapper { padding-top: 40px; padding-bottom: 40px; overflow: hidden; }
+  .related-blogs-title { font-size: 42px; font-weight: 700; text-align: center; margin-bottom: 50px; color: #000; }
+  .related-blog-item { padding: 0 6px; outline: none; }
+  .related-blog-link { text-decoration: none; color: inherit; display: block; }
+  .related-blog-image { aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: 20px; background-color: #f5f5f5; }
+  .related-blog-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .related-blog-item:hover .related-blog-image img { transform: scale(1.05); }
+  .related-item-title { font-size: 20px; font-weight: 700; margin: 0 0 15px 0; color: #000; line-height: 1.3; }
+  .related-item-excerpt { font-size: 14px; line-height: 1.6; color: #000; margin-bottom: 20px; }
+  .read-more-text { font-weight: 700; color: #000; }
+  .related-item-footer { display: flex; justify-content: space-between; font-size: 13px; color: #000; }
+  .related-posts-carousel .slick-dots { display: flex !important; justify-content: center; list-style: none; padding: 0; margin: 50px 0 0 0; align-items: center; }
+  .related-posts-carousel .slick-dots li { margin: 0 6px; width: 10px; height: 10px; display: inline-block; }
+  .related-posts-carousel .slick-dots li button { font-size: 0; line-height: 0; display: block; width: 12px; height: 12px; padding: 0; cursor: pointer; color: transparent; border: 0; outline: none; border-radius: 50%; background: #c7c7c7; transition: all 0.3s ease; position: relative; }
+  .related-posts-carousel .slick-dots li button:before { display: none !important; content: "" !important; }
+  .related-posts-carousel .slick-dots li.slick-active button { background: #9e8e75; transform: scale(1.1); }
+  @media (max-width: 767px) { .related-blogs-title { font-size: 30px; } }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slideCount = {{ article_count }}; // Injected from Liquid
+
+    function initSlider() {
+      if (window.jQuery && jQuery.fn.slick) {
+        $('#RelatedPosts-{{ section.id }}').slick({
+          // Dots only show if slides are more than slidesToShow (3)
+          dots: slideCount > 3,
+          infinite: true,
+          speed: 500,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          arrows: false,
+          responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+                dots: slideCount > 2 // Hide dots if 2 or fewer posts on Tablet
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1,
+                dots: slideCount > 1 // Hide dots if 1 post on Mobile
+              }
+            }
+          ]
+        });
+      } else {
+        setTimeout(initSlider, 50);
+      }
+    }
+    
+    // Only initialize if we actually have articles to show
+    if(slideCount > 0) {
+      initSlider();
+    } else {
+      document.querySelector('.related-blogs-slider-wrapper').style.display = 'none';
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Related Blogs Slider",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Related Blogs Slider"
+    }
+  ]
+}
+{% endschema %}

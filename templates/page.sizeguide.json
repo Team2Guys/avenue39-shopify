@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "nov-page-size-guide",
+      "blocks": {
+        "1598498117201": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "SLEEVE",
+            "desc_detail": "Measure from shoulder tip to cuff with a gentle bend in the arm."
+          }
+        },
+        "1598498126123": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "SHOULDER",
+            "desc_detail": "Measure from shoulder tip to shoulder tip across the back."
+          }
+        },
+        "1598498138539": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "BUST",
+            "desc_detail": "Measure around the fullest part of your bust."
+          }
+        },
+        "1598498141361": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "WAIST",
+            "desc_detail": "The natural waist is found by measuring the slimmmest part of the waist."
+          }
+        },
+        "1598498143865": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "TROUSER RISE",
+            "desc_detail": "Measure from your natural waist line (centre front), going through your legs to your natural waist line at centre back."
+          }
+        },
+        "1598498145914": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "HIP",
+            "desc_detail": "Measure around the fullest part of your hip, normally 2-3cm below the natural waistline."
+          }
+        },
+        "1598498147840": {
+          "type": "detail_chart",
+          "settings": {
+            "title_detail": "INSIDE LEG",
+            "desc_detail": "Measure from top of inside leg at crotch to ankle bone."
+          }
+        }
+      },
+      "block_order": [
+        "1598498117201",
+        "1598498126123",
+        "1598498138539",
+        "1598498141361",
+        "1598498143865",
+        "1598498145914",
+        "1598498147840"
+      ],
+      "settings": {
+        "title": "Size Guide",
+        "subheading": "Please note this is for reference only. Please refer to the product description for a more accurate size guidance.",
+        "image_detail_chart": "shopify://shop_images/size_guide.jpg"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

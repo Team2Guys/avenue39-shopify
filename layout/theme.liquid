@@ -1,0 +1,795 @@
+<!-- crazy-load LOAD CONFIG -->
+{% include '__clspeedapp-theme-config' %}
+
+<!-- crazy-load BEGIN CAPTURE -->
+{%- capture __clspeedapp-html -%}
+<!doctype html>
+<!-- Minimart Home 27 -->
+<html
+  class="no-js{% if settings.enable_rtl == true %} lang-rtl{% endif %}"
+  lang="{{ shop.locale }}"
+  {% if settings.enable_rtl == true %}
+    dir="rtl"
+  {% endif %}
+>
+  <head>
+
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-16745195334/i04sCJXageEZEMbO3bA-',
+      'value': 1.0,
+      'currency': 'AED',
+      'transaction_id': ''
+  });
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{% include 'avada-seo' %}
+	<!-- /Added by AVADA SEO Suite -->
+<!-- crazy-load BEGIN HEAD TOP -->
+{% include '__clspeedapp-theme-preload' %}
+{% include '__clspeedapp-html-css' %}
+{% include '__clspeedapp-html-css-critical' %}
+
+{% include '__clspeedapp-js-init' %}
+{% include '__clspeedapp-js-functions' %}
+
+{%- unless is_admin_interface -%}
+  {% include '__clspeedapp-js-frontend' %}
+{%- endunless -%}
+
+{%- unless is_admin_interface -%}
+  {% include '__clspeedapp-js-scripts' %}
+{%- endunless -%}
+    
+<!-- crazy-load END HEAD TOP -->
+
+    
+    <!-- Google tag (gtag.js) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-SGFY1WT2ZW"></script> -->
+    <!--
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SGFY1WT2ZW');
+      </script>
+    -->
+    <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '548519410929159');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "mgy3jsx4mu");
+</script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TCNZZ8XP');
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="zWttI0koSPy3RVDUFeuucyAT02aJoEnX5ZTO_BM_0H0" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    >
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% if settings.favicon != blank %}
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="path/to/slick.css">
+    <!-- Add the new line below for slick-theme.css -->
+    <link rel="stylesheet" type="text/css" href="path/to/slick-theme.css">
+
+    {% capture seo_title %}
+      {{ page_title }}
+      {% if current_tags %}
+        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {% endif %}
+      {% if current_page != 1 %}
+        &ndash; {{ 'general.meta.page' | t: page: current_page }}
+      {% endif %}
+      {% unless page_title contains shop.name %}
+        {% comment %} &ndash; {{ shop.name }} {% endcomment %}
+      {% endunless %}
+    {% endcapture %}
+    <title>{{ seo_title }}</title>
+
+    {% if request.path == '/collections' %}
+      <meta name="description" content="Browse all furniture collections at Avenue 39 Dubai. Shop dining, living, bedroom, lighting & home office. Modern designs with next-day delivery. Shop now.">
+    {% elsif page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% comment %} {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %} {% endcomment %}
+    
+    {% include 'social-meta-tags' %}
+    {% include 'google-fonts' %}
+    {% include 'icon-fonts' %}
+
+    {% include 'nov-head-css' %}
+    {% include 'nov-head-js' %}
+    <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
+    <meta name="google-site-verification" content="p7gCvlwPjb78FdS5ZUtnDCYLs1z3vbTrjt7BlM39fhc">
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "mgy3jsx4mu");
+</script>
+
+
+
+
+<!-- Fixed Avenue39 Thank You Page Detection -->
+<script>
+// Avenue39 Thank You Page Detection - Fixed Version
+(function() {
+    console.log('Avenue39 tracking script loaded');
+    
+    function detectThankYouPage() {
+        try {
+            var url = window.location.href;
+            console.log('Checking URL:', url);
+            
+            // Multiple detection methods for Avenue39
+            var isThankYou = url.includes('thank-you') || 
+                            url.includes('/checkouts/') ||
+                            document.querySelector('.order-summary') ||
+                            document.querySelector('[data-order-status]') ||
+                            document.querySelector('.checkout-step-complete') ||
+                            document.querySelector('.thank-you') ||
+                            document.querySelector('.confirmation-number') ||
+                            document.title.toLowerCase().includes('thank') ||
+                            document.body.innerHTML.includes('Your order is confirmed') ||
+                            document.body.innerHTML.includes('Confirmation #');
+
+            console.log('Thank you page detected:', isThankYou);
+            console.log('DataLayer available:', !!window.dataLayer);
+            console.log('GTM available:', !!window.google_tag_manager);
+
+            if (isThankYou) {
+                console.log('✅ THANK YOU PAGE DETECTED!');
+                console.log('URL:', url);
+                console.log('Page Title:', document.title);
+                
+                // Check if dataLayer exists, if not create it
+                if (!window.dataLayer) {
+                    console.log('Creating dataLayer...');
+                    window.dataLayer = [];
+                }
+                
+                // Push to GTM dataLayer
+                console.log('Pushing event to dataLayer...');
+                window.dataLayer.push({
+                    'event': 'custom_purchase_complete',
+                    'page_type': 'thank-you',
+                    'page_url': url,
+                    'page_title': document.title,
+                    'detection_method': getDetectionMethod(url),
+                    'timestamp': new Date().getTime()
+                });
+                
+                console.log('✅ GTM Event fired: custom_purchase_complete');
+                console.log('Current dataLayer:', window.dataLayer);
+                
+                // Also trigger GA4 directly as backup (only if gtag is available)
+                if (window.gtag) {
+                    console.log('Firing GA4 direct event...');
+                    gtag('event', 'purchase', {
+                        transaction_id: 'avenue39_' + Date.now(),
+                        value: 1.0,
+                        currency: 'AED',
+                        page_title: 'Avenue39 Thank You Page',
+                        page_location: url,
+                        custom_parameter_1: 'avenue39_thankyou'
+                    });
+                    console.log('✅ GA4 direct event fired');
+                } else {
+                    console.log('⚠️ gtag not available, skipping direct GA4 event');
+                }
+                
+                return true; // Stop further attempts
+            } else {
+                console.log('❌ Not a thank you page');
+                return false;
+            }
+            
+        } catch (error) {
+            console.error('Error in detectThankYouPage:', error);
+            return false;
+        }
+    }
+    
+    function getDetectionMethod(url) {
+        if (url.includes('thank-you')) return 'url_thank_you';
+        if (url.includes('/checkouts/')) return 'url_checkout';
+        if (document.querySelector('.order-summary')) return 'element_order_summary';
+        if (document.querySelector('.confirmation-number')) return 'element_confirmation';
+        if (document.title.toLowerCase().includes('thank')) return 'title_thank';
+        return 'other';
+    }
+    
+    // Function to run detection with multiple attempts
+    function runDetectionWithRetry() {
+        console.log('Running detection attempt...');
+        var detected = detectThankYouPage();
+        
+        if (!detected) {
+            console.log('Not detected, will retry...');
+            // Try again after DOM elements load
+            setTimeout(function() {
+                console.log('Retry attempt 1...');
+                detectThankYouPage();
+            }, 2000);
+            
+            setTimeout(function() {
+                console.log('Retry attempt 2...');
+                detectThankYouPage();
+            }, 4000);
+            
+            setTimeout(function() {
+                console.log('Final retry attempt...');
+                detectThankYouPage();
+            }, 6000);
+        }
+    }
+    
+    // Run on page load
+    console.log('Document ready state:', document.readyState);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            runDetectionWithRetry();
+        });
+    } else {
+        console.log('Document already loaded');
+        runDetectionWithRetry();
+    }
+    
+    // Run on navigation changes (Shopify checkout uses navigation)
+    var originalPushState = history.pushState;
+    var originalReplaceState = history.replaceState;
+    
+    history.pushState = function() {
+        originalPushState.apply(history, arguments);
+        console.log('History push state detected');
+        setTimeout(runDetectionWithRetry, 1000);
+    };
+    
+    history.replaceState = function() {
+        originalReplaceState.apply(history, arguments);
+        console.log('History replace state detected');
+        setTimeout(runDetectionWithRetry, 1000);
+    };
+    
+    // Listen for URL changes
+    window.addEventListener('popstate', function() {
+        console.log('Pop state event detected');
+        setTimeout(runDetectionWithRetry, 1000);
+    });
+    
+    // Additional detection when window gains focus
+    window.addEventListener('focus', function() {
+        console.log('Window focus detected');
+        setTimeout(detectThankYouPage, 500);
+    });
+    
+    console.log('Avenue39 tracking script initialization complete');
+})();
+</script>
+
+    <style>
+#whatsapp-link svg {
+  height: 46px !important;
+    width: 47px !important;
+    background: #25b43c;
+    padding: 8px;
+    border-radius: 50%;
+}
+@media (min-width: 1400px) and (max-width: 1900px) {
+
+    .site-nav > li > a {
+        font-size: 1.3rem ;
+       padding:4px;
+    }
+}
+@media (min-width: 1900px) and (max-width: 2880px) {
+   .site-nav > li > a {
+        font-size: 1.4rem ;
+      padding:4px;
+    }
+}
+@media (max-width: 1440px) {
+    .col-md-7.position-static {
+        padding: 0px ;
+    }
+    .site-nav > li > a {
+        font-size: 1.0rem ;
+    }
+}
+
+@media (max-width: 1600px) {
+    .site-nav > li > a {
+        font-size: 1.1rem ;
+      padding:4px;
+    }
+}
+/* Popup Style */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex; /* Always use flex, hide via JS if needed */
+    justify-content: center;
+    align-items: center;
+    animation: slideInFromTop 0.6s ease-out;
+    box-sizing: border-box;
+}
+
+/* Content wrapper */
+.popup-content {
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 537px;
+    position: relative;
+  padding: 10px;
+    overflow: hidden;
+}
+
+/* Responsive Image */
+.popup-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Close icon styles */
+.close-popup-icon {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 32px;
+    color: #ff7800;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.close-popup-icon:hover {
+    color: #ff7800;
+}
+
+/* Animation */
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .popup-content {
+        max-width: 95%;
+   
+    }
+
+    .close-popup-icon {
+        font-size: 28px;
+        top: 6px;
+        right: 10px;
+    }
+}
+
+
+    </style>
+    
+<style>
+/* Floating WhatsApp Button */
+.whatsapp-float{
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  {% comment %} background: radial-gradient(circle at 30% 30%, #4ade80, #22c55e); {% endcomment %}
+  border-radius: 50%;
+  {% comment %} box-shadow: 0 6px 18px rgba(0,0,0,0.25); {% endcomment %}
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.whatsapp-float:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+.whatsapp-icon{
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+
+@media (max-width: 420px){
+  .whatsapp-float{ width: 54px; height: 54px; }
+  .whatsapp-icon{ width: 28px; height: 28px; }
+}
+</style>
+
+
+
+
+
+
+  </head>
+
+  <body class="template-{{ template | split: '.' | first }}">
+
+
+ <!-- <div id="popup" class="popup-container">
+    <div class="popup-content">
+<a href="https://avenue39.com/collections/summer-sale" target="_blank" rel="noopener noreferrer">
+  <img src="{{ 'popupbanner.png' | asset_url }}" alt="Ramadan Banner" class="popup-image" />
+</a>
+
+
+        <span id="close-popup" class="close-popup-icon">×</span>
+    </div>
+</div>  -->
+<!-- <script>
+    // Check if the user has already seen the pop-up in this session
+    if (!localStorage.getItem('popupShown')) {
+        // Show the pop-up after 8 seconds
+        setTimeout(function() {
+            document.getElementById('popup').style.display = 'flex';
+        }, 1000); // 8000ms = 8 seconds
+
+        // Mark that the pop-up has been shown in this session
+        localStorage.setItem('popupShown', 'true');
+    }
+  
+
+    // Close the pop-up when the close icon is clicked
+    document.getElementById('close-popup').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+    });
+</script> -->
+
+
+<a 
+  href="https://wa.me/+971505974495" 
+  target="_blank" 
+  class="whatsapp-float" 
+  aria-label="Chat on WhatsApp"
+>
+  <img 
+    src="{{ 'whatsapp.svg' | asset_url }}" 
+    alt="WhatsApp" 
+    class="whatsapp-icon"
+  >
+</a>
+    <a class="in-page-link visually-hidden skip-link" href="#MainContent">
+      {{- 'general.accessibility.skip_to_content' | t -}}
+    </a>
+    {% section 'announcement_bar' %}
+
+    {% section 'nov-header' %}
+    <main class="main-content" id="MainContent">
+      <section class="page-container" id="PageContainer">
+        {{ content_for_layout }}
+      </section>
+    </main>
+    {% section 'nov-footer' %}
+
+    <div class="canvas-menu drawer-left">
+      <div class="canvas-header-box d-flex justify-content-center align-items-center">
+        <div class="close-box"><i class="zmdi zmdi-close"></i></div>
+      </div>
+    </div>
+    <div class="canvas-overlay"></div>
+
+    <div class="sidebar-overlay"></div>
+    {% include 'nov-formsearch' %}
+
+    {% include 'nov-stickymenu-mobile' %}
+
+    {% include 'nov-popup-newsletter' %}
+    <div id="_mobile_vertical_menu" class="vertical_menu"></div>
+    {% if settings.wishlist_enable %}
+      {% include 'nov-popup-wishlist' %}
+    {% endif %}
+
+    <div id="_desktop_back_top">
+      <div id="back-top">
+        <span>
+          <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+      </div>
+    </div>
+
+    {% unless customer %}
+      <div id="AlertRequestLogin" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered justify-content-center" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="zmdi zmdi-hc-fw zmdi-close"></i>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <p>You must be logged in to manage your wishlist.</p>
+              <a href="{{ shop.secure_url }}/account/login" class="btn btn-default">Login in here</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endunless %}
+
+    {% include 'nov-currency' %}
+    <script>
+      jQuery(function() {
+        jQuery('.swatch :radio').change(function() {
+          var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+          var optionValue = jQuery(this).val();
+          jQuery(this)
+            .closest('form')
+            .find('.single-option-selector')
+            .eq(optionIndex)
+            .val(optionValue)
+            .trigger('change');
+
+          jQuery(this).parents('.watch_availabel').find('span.variant_current').text(optionValue);
+        });
+
+      });
+    </script>
+
+    <script type="text/javascript">
+  $(document).ready(function(){
+    $('.mega-sale-slider').slick({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      arrows: true
+    });
+  });
+</script>
+
+<script>
+(function () {
+  const WISHLIST_KEY = 'wishListsArr';
+
+  // Get cleaned wishlist from localStorage
+  function getWishlist() {
+    const raw = localStorage.getItem(WISHLIST_KEY) || '[]';
+    let list = [];
+    try {
+      list = JSON.parse(raw);
+    } catch (e) {
+      list = [];
+    }
+    return Array.isArray(list)
+      ? list.filter(item => typeof item === 'string' && item.trim() !== '')
+      : [];
+  }
+
+  // Save cleaned wishlist to localStorage
+  function saveWishlist(list) {
+    const cleanedList = list.filter(item => typeof item === 'string' && item.trim() !== '');
+    localStorage.setItem(WISHLIST_KEY, JSON.stringify(cleanedList));
+    updateWishlistCount();
+  }
+
+  // Update wishlist counter everywhere
+  function updateWishlistCount() {
+    const count = getWishlist().length;
+    document.querySelectorAll('#WishlistCount, .WishlistCount, [data-wishlist-count]').forEach(el => {
+      el.textContent = count;
+    });
+  }
+
+  // Toggle wishlist (add/remove)
+  window.toggleWishlist = function (element, productHandle) {
+    if (!productHandle || typeof productHandle !== 'string' || productHandle.trim() === '') return;
+
+    let wishlist = getWishlist();
+    const index = wishlist.indexOf(productHandle);
+    const icon = element.querySelector('i');
+    const text = element.querySelector('.wishlist-text');
+
+    if (index === -1) {
+      wishlist.push(productHandle.trim());
+      icon?.classList.remove('zmdi-favorite-outline');
+      icon?.classList.add('zmdi-favorite');
+      if (text) text.textContent = 'Added';
+
+      document.dispatchEvent(new CustomEvent('wishlist:added', { detail: { productHandle } }));
+    } else {
+      wishlist.splice(index, 1);
+      icon?.classList.remove('zmdi-favorite');
+      icon?.classList.add('zmdi-favorite-outline');
+      if (text) text.textContent = 'Add to Wishlist';
+
+      document.dispatchEvent(new CustomEvent('wishlist:removed', { detail: { productHandle } }));
+    }
+
+    saveWishlist(wishlist);
+  };
+
+  // Remove item (used in trash icon or after Add to Cart)
+  window.removeFromWishlist = function (element, productHandle) {
+    if (!productHandle) return;
+    let wishlist = getWishlist();
+    wishlist = wishlist.filter(item => item !== productHandle);
+    saveWishlist(wishlist);
+
+    // Visually remove product container
+    const productContainer = element.closest('.row') || element.closest('.wishlist-product');
+    if (productContainer) {
+      productContainer.style.transition = 'opacity 0.3s ease';
+      productContainer.style.opacity = '0';
+      setTimeout(() => productContainer.remove(), 300);
+    }
+
+    document.dispatchEvent(new CustomEvent('wishlist:removed', { detail: { productHandle } }));
+  };
+
+  // Add to cart and then remove from wishlist
+  window.addToCartAndRemoveFromWishlist = function (element, productHandle, variantId = null) {
+    const form = element.closest('form');
+    if (form) {
+      form.submit(); // fallback form submission
+    }
+
+    // Optional: AJAX cart logic goes here
+
+    // Remove from wishlist
+    removeFromWishlist(element, productHandle);
+  };
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    updateWishlistCount();
+
+    const wishlist = getWishlist();
+    document.querySelectorAll('[data-product-handle]').forEach(btn => {
+      const handle = btn.getAttribute('data-product-handle');
+      const icon = btn.querySelector('i');
+      const text = btn.querySelector('.wishlist-text');
+
+      if (wishlist.includes(handle)) {
+        icon?.classList.remove('zmdi-favorite-outline');
+        icon?.classList.add('zmdi-favorite');
+        if (text) text.textContent = 'Added';
+      } else {
+        icon?.classList.remove('zmdi-favorite');
+        icon?.classList.add('zmdi-favorite-outline');
+        if (text) text.textContent = 'Add to Wishlist';
+      }
+    });
+  });
+})();
+</script>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'purchase',
+  transaction_id: '{{ order.order_number }}',
+  value: {{ order.subtotal_price | money_without_currency }},
+  currency: '{{ order.currency }}',
+  items: [
+    {% for line in order.line_items %}
+      {
+        item_id: '{{ line.variant_id }}',
+        item_name: '{{ line.title }}',
+        quantity: {{ line.quantity }},
+        price: {{ line.price | money_without_currency }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+});
+</script>
+
+
+<script>
+  document.addEventListener("click", function(e){
+  const target = e.target;
+  if (!target) return;
+
+  if (target.name === "checkout" || target.id === "checkout" || target.innerText.includes("Pay Now")) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "initiated_checkout",
+      value: window.CartTotal || 0,
+      currency: "AED"
+    });
+    console.log("Initiated Checkout tracked");
+  }
+});
+
+</script>
+
+
+
+    
+    {{ 'nuranium.js' | asset_url | script_tag }}
+    <!-- {{ 'wishlist-ajax.js' | asset_url | script_tag }} -->
+
+  <!-- crazy-load BEGIN BODY -->
+{% include '__clspeedapp-html-fonts' %}
+<!-- crazy-load END BODY -->
+{{'tiny-img-link-preloader.js' | asset_url | script_tag }}
+</body>
+
+</html>
+
+    {% if request.path == '/comments' %}
+  <script>
+    window.location.replace('/404');
+  </script>
+{% endif %}
+{% assign error_codes = '400,401,403,404,410,416,419,500,502,503' | split: ',' %}
+{% if error_codes contains request.path | remove: '/' %}
+  <script>
+    window.location.replace('/404');
+  </script>
+{% endif %}
+
+<!-- crazy-load END CAPTURE -->
+{%- endcapture -%}
+
+<!-- crazy-load LOAD HTML -->
+{% include '__clspeedapp-theme-html' %}
