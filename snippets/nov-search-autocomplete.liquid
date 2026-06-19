@@ -22,7 +22,9 @@
           var form = $(this).closest('form');
           // What's the search URL?
           var words = $.trim(term).split(/\\s+/);
-          var ajaxTerm = $.map(words, function(w) { return 'title:' + w + '*'; }).join(' ');
+          var ajaxTerm = $.map(words, function (w) {
+            return 'title:' + w + '*';
+          }).join(' ');
           var searchURL = '/search?type=product&q=' + encodeURIComponent(ajaxTerm);
           // What's the search results list?
           var resultsList = form.find('.search-results');
@@ -85,7 +87,7 @@
       var term = $.trim(input.val());
       if (term && term.indexOf('title:') === -1) {
         var words = term.split(/\\s+/);
-        var newTerm = $.map(words, function(w) {
+        var newTerm = $.map(words, function (w) {
           return 'title:' + w + '*';
         }).join(' ');
         input.val(newTerm);
