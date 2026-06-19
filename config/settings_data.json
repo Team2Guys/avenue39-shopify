@@ -873,7 +873,7 @@
             "type": "block_html",
             "settings": {
               "block_title": "policies",
-              "html_content": "<a href=\"https://avenue39.com/pages/terms-conditions\">Terms & Conditions</a><br><a href=\"https://avenue39.com/pages/privacy-policy\">Privacy Policy</a><br>\n<a href=\"https://avenue39.com/pages/shipping-policy\">Shipping Policy</a><br>\n<a href=\"https://avenue39.com/pages/return-policy\">Return Policy</a><br>\n<br>\n<br>\n<br>\n<br>\n<h2>Timing</h2>\n<p>( 9.00am to 11.00pm )</p>",
+              "html_content": "<a href=\"https://avenue39.com/pages/terms-conditions\">Terms & Conditions</a><br><a href=\"https://avenue39.com/pages/privacy-policy\">Privacy Policy</a><br>\n<a href=\"https://avenue39.com/pages/shipping-policy\">Shipping Policy</a><br>\n<a href=\"https://avenue39.com/pages/return-policy\">Return Policy</a><br>\n<br>\n<br>\n<br>\n<br>\n<h2>Timing</h2>\n<p>( 9.00am to 10.00pm )</p>",
               "social": false,
               "block_class": "",
               "grid_xl": "col-xl-2",
