@@ -10,7 +10,7 @@
 {
   "current": {
     "theme_color_default": "#666666",
-    "theme_color_primary": "#ff7800",
+    "theme_color_primary": "#afa183",
     "color_body": "#ffffff",
     "heading_text": "#222222",
     "second_heading_text": "#444444",
@@ -24,7 +24,7 @@
     "color_body_text": "#666666",
     "color_borders": "#e0e0e0",
     "color_button": "#000000",
-    "color_button_hover": "#ff6700",
+    "color_button_hover": "#afa183",
     "color_button_text": "#ffffff",
     "type_header_family": "Google_Poppins_400_sans",
     "type_header_base_size": "2.6rem",
@@ -88,7 +88,7 @@
     "cart_vendor_enable": false,
     "ajax_cart_method": "pop_up",
     "theme_color_success": "#046b41",
-    "theme_color_hover": "#fc8f2f",
+    "theme_color_hover": "#afa183",
     "color_input": "#cccbcb",
     "color_default": "#000000",
     "sub_heading_menu": "#222222",
@@ -96,6 +96,7 @@
     "color_body_bg": "#ffffff",
     "mobile_mainmenu_type": "canvas",
     "color_sale_text": "#000000",
+    "color_badge_sale": "#afa183",
     "heading_hover": "#fd6666",
     "color_small_button": "#878787",
     "color_small_button_text": "#ffffff",
@@ -703,7 +704,7 @@
           "1530844882073": {
             "type": "html",
             "settings": {
-              "code": "<div>\n<p><b>Monday To Friday :</b></p> \n<p>8.00 AM - 8.00 PM</p>\n</div>\n<p><b>Satuday - Sunday :</b></p> \n<p>7.30 AM - 9.30 PM</p>\n\n<div>\n</div>",
+              "code": "<div>\n<p><b>Monday To Friday :</b></p> \n<p>9.00 AM - 10.00 PM</p>\n</div>\n<p><b>Satuday - Sunday :</b></p> \n<p>9.00 AM - 10.00 PM</p>\n\n<div>\n</div>",
               "width": "col-md-12",
               "width_lg": "col-lg-6",
               "width_md": "col-md-6",
@@ -845,7 +846,7 @@
             "type": "block_html",
             "settings": {
               "block_title": "Furniture",
-              "html_content": "<style>\na {\n  color: White;\n}\n</style>\n<a href=\"https://avenue39.com/collections/living-room-furniture\">Living Room</a><br>\n<a href=\"https://avenue39.com/collections/bedroom-furniture\">Bedroom</a><br>\n<a href=\"https://avenue39.com/collections/armchairs\"> Armchairs</a><br>\n<a href=\"https://avenue39.com/collections/coffee-table\">Coffee Tables</a><br>\n<a href=\"https://avenue39.com/collections/tv-stand\">TV Cabinets</a><br>\n\n<a href=\"https://avenue39.com/collections/office-tables\">Office Table</a><br>\n<a href=\"https://avenue39.com/collections/new-arrivals\">New Arrivals</a>",
+              "html_content": "<style>\na {\n  color: White;\n}\n</style>\n<a href=\"https://avenue39.com/collections/living-room-furniture\">Living Room</a><br>\n<a href=\"https://avenue39.com/collections/bedroom-furniture\">Bedroom</a><br>\n<a href=\"https://avenue39.com/collections/accent-chairs\"> Accent Chairs</a><br>\n<a href=\"https://avenue39.com/collections/coffee-table\">Coffee Tables</a><br>\n<a href=\"https://avenue39.com/collections/tv-stand\">TV Cabinets</a><br>\n\n<a href=\"https://avenue39.com/collections/office-tables\">Office Table</a><br>\n<a href=\"https://avenue39.com/collections/new-arrivals\">New Arrivals</a>",
               "social": false,
               "block_class": "",
               "grid_xl": "col-xl-2",
@@ -1979,7 +1980,7 @@
               "width_image_1_mobiles": "col-sm-12",
               "width_image_1_mobile": "col-xs-12",
               "image_1": "shopify://shop_images/Portivo_side_console_1080_-_700.webp",
-              "title_1": "Side Console",
+              "title_1": "Console Table",
               "link_1": "shopify://collections/side-console",
               "class_1": "",
               "width_image_2": "col-lg-12",
