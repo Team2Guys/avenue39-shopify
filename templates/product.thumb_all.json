@@ -88,7 +88,7 @@
       ],
       "custom_css": [
         ".product-icon-list.vstar-star {display: none;}",
-        ".group-quantity .productWishList .btnProductWishlist {background: #ff7800; color: white;}",
+        ".group-quantity .productWishList .btnProductWishlist {background: #afa183; color: white;}",
         ".group-quantity .productWishList .btnProductWishlist .wishlist-text {color: white;}",
         ".group-quantity .productWishList .btnProductWishlist i {color: white;}",
         ".group-single__sku .product-single__cat a {color: black;}",

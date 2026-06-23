@@ -19,7 +19,7 @@
     top: 60%;
     transform: translateY(-50%);
     z-index: 9999;
-    background-color: #EF1918; 
+    background-color: #afa183;
     color: #fff;
     padding: 11px 8px;
     cursor: pointer;
@@ -32,7 +32,20 @@
     transition: background 0.3s;
   }
   .feedback-trigger:hover {
-    background-color:#FE4848;
+    background-color:#afa183;
+  }
+
+  .feedback-thankyou {
+    background: #f6f4ef;
+    border: 1px solid #afa183;
+    color: #5a5346;
+    border-radius: 6px;
+    padding: 30px 20px;
+    margin: 20px 0;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+    font-family: "Caslon", "Garamond", "Times New Roman", serif;
   }
 
   .feedback-overlay {
@@ -225,7 +238,16 @@
     </p>
 
     {% form 'contact' %}
-      
+      {% if form.posted_successfully %}
+      <div class="feedback-thankyou">
+        Thank you for your feedback!<br>
+        We truly appreciate you taking the time to help us improve your experience.
+      </div>
+      <div class="feedback-actions">
+        <button type="button" class="btn-feedback-close" id="closeFooterBtn">CLOSE</button>
+      </div>
+      {% else %}
+
       <label class="feedback-label">Please rate your online experience with Avenue39 <span class="required-mark">*</span></label>
       <div class="rating-scale-container">
         {% for i in (1..10) %}
@@ -265,6 +287,7 @@
         <button type="button" class="btn-feedback-close" id="closeFooterBtn">CLOSE</button>
         <button type="submit" class="btn-feedback-submit">SUBMIT</button>
       </div>
+      {% endif %}
 
     {% endform %}
   </div>
@@ -280,6 +303,10 @@
   openBtn.addEventListener('click', () => {
     modal.style.display = 'flex';
   });
+
+  if (window.location.search.indexOf('contact_posted=true') !== -1) {
+    modal.style.display = 'flex';
+  }
 
   function closeModal() {
     modal.style.display = 'none';
