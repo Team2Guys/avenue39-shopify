@@ -780,7 +780,7 @@ window.dataLayer.push({
   </script>
 {% endif %}
 {% assign error_codes = '400,401,403,404,410,416,419,500,502,503' | split: ',' %}
-{% if error_codes contains request.path | remove: '/' %}
+{% if error_codes contains request.path %}
   <script>
     window.location.replace('/404');
   </script>
@@ -791,3 +791,13 @@ window.dataLayer.push({
 
 <!-- crazy-load LOAD HTML -->
 {% include '__clspeedapp-theme-html' %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% if error_codes contains request.path | remove: '/' %}"
+  to: "{% if error_codes contains request.path %}"
+  position: 24548..24590
+{% endcomment %}
