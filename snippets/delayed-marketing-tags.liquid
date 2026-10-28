@@ -52,7 +52,9 @@
   }
 
   var events = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click', 'wheel', 'pointerdown'];
-  function onFirstInteraction() {
+  function onFirstInteraction(e) {
+    /* only real user input counts; events dispatched by scripts (isTrusted === false) are ignored */
+    if (e && e.isTrusted === false) return;
     for (var i = 0; i < events.length; i++) w.removeEventListener(events[i], onFirstInteraction);
     loadTags();
   }
