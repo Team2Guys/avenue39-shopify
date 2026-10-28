@@ -18,9 +18,13 @@
             <div class="item image">
               <figure>
                 <div class="slide-image slide-media{% if section.settings.zoomImg == true %} ani_img{% endif %}">
-                  <a href="{{ block.settings.slider_link }}" style="width: 100%;">
+                  {% if block.settings.slider_link != blank %}
+                    <a href="{{ block.settings.slider_link }}" style="width: 100%;">
+                      <img src="{{ block.settings.image | img_url: '1920x' }}" class="image-entity" alt="slidershow">
+                    </a>
+                  {% else %}
                     <img src="{{ block.settings.image | img_url: '1920x' }}" class="image-entity" alt="slidershow">
-                  </a>
+                  {% endif %}
                 </div>
 
                 <figcaption class="caption">
