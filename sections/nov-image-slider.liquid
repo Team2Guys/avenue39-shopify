@@ -121,6 +121,10 @@
           {% for block in section.blocks %}
             <div class="image-slider__item" {{ block.shopify_attributes }}>
               {% if block.settings.image != blank %}
+                {%- if forloop.first -%}
+                  {%- comment -%} Marker read by layout/theme.liquid to emit a <link rel="preload"> for this (mobile LCP) image in <head> {%- endcomment -%}
+                  <!--LCPM|{{ block.settings.image | image_url: width: 1920 }}|{% render 'nov-srcset', image: block.settings.image %}|{{ slider_sizes }}-->
+                {%- endif -%}
                 <a href="{{ block.settings.link }}" class="w-100 image-slider__link">
                   <img
                     class="w-100"

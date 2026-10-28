@@ -39,6 +39,10 @@
                     Responsive slide image. The first slide is the hero / LCP image,
                     so it gets fetchpriority="high"; later slides load at low priority.
                   {%- endcomment -%}
+                  {%- if forloop.first -%}
+                    {%- comment -%} Marker read by layout/theme.liquid to emit a <link rel="preload"> for this (desktop LCP) image in <head> {%- endcomment -%}
+                    <!--LCPD|{{ block.settings.image | image_url: width: 1920 }}|{% render 'nov-srcset', image: block.settings.image %}|100vw-->
+                  {%- endif -%}
                   {%- capture slide_img -%}
                     <img
                       src="{{ block.settings.image | image_url: width: 1920 }}"

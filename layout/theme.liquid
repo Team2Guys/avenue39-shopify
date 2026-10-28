@@ -67,6 +67,26 @@
     {%- endcomment -%}
     {% render 'delayed-marketing-tags' %}
     <meta charset="utf-8">
+    {%- comment -%}
+      Hero image preload. The first slide of nov-slideshow (desktop LCP) and the first item of
+      nov-image-slider (mobile LCP) leave <!--LCPD|src|srcset|sizes--> / <!--LCPM|...--> markers
+      in the rendered template; reading them here lets the browser start the hero download from
+      <head> instead of ~150 KB further into the HTML.
+    {%- endcomment -%}
+    {%- if content_for_layout contains '<!--LCPM|' -%}
+      {%- assign lcp_m = content_for_layout | split: '<!--LCPM|' -%}
+      {%- assign lcp_m = lcp_m[1] | split: '-->' | first | split: '|' -%}
+      {%- if lcp_m.size == 3 and lcp_m[0] contains '/cdn/' -%}
+    <link rel="preload" as="image" href="{{ lcp_m[0] }}" imagesrcset="{{ lcp_m[1] }}" imagesizes="{{ lcp_m[2] }}" fetchpriority="high" media="(max-width: 767px)">
+      {%- endif -%}
+    {%- endif -%}
+    {%- if content_for_layout contains '<!--LCPD|' -%}
+      {%- assign lcp_d = content_for_layout | split: '<!--LCPD|' -%}
+      {%- assign lcp_d = lcp_d[1] | split: '-->' | first | split: '|' -%}
+      {%- if lcp_d.size == 3 and lcp_d[0] contains '/cdn/' -%}
+    <link rel="preload" as="image" href="{{ lcp_d[0] }}" imagesrcset="{{ lcp_d[1] }}" imagesizes="{{ lcp_d[2] }}" fetchpriority="high" media="(min-width: 768px)">
+      {%- endif -%}
+    {%- endif -%}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="zWttI0koSPy3RVDUFeuucyAT02aJoEnX5ZTO_BM_0H0" />
     <meta
