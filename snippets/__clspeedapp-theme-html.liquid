@@ -105,4 +105,9 @@
 	-%}
 {%- endunless -%}
 
+{%- comment -%} The Crazy Load pageview beacon is only useful while its kernel is enabled; otherwise it is a dead parser-blocking request before </body>. {%- endcomment -%}
+{%- if speedupkernel -%}
 {{ __clspeedapp-html | replace: '</body>', '<script src="https://app.crazyload.io/pageview?shop=avenue-339.myshopify.com"></script></body>'}}
+{%- else -%}
+{{ __clspeedapp-html }}
+{%- endif -%}

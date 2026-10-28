@@ -6,10 +6,13 @@
 {% comment %}
   Critical, render-blocking stylesheets (layout, grid, icons, sliders).
 {% endcomment %}
-{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
-{{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+{% comment %}
+  vendor-head.min.css = material-design-iconic-font.min.css + bootstrap.min.css + font-awesome.min.css
+  concatenated (one request instead of three). Rebuild it if any of those files change.
+{% endcomment %}
+{{ 'vendor-head.min.css' | asset_url | stylesheet_tag }}
 {{ 'common.scss.css' | asset_url | stylesheet_tag }}
-{{ 'owl.carousel.min.css' | asset_url | stylesheet_tag }}
+{% render 'owl-inline-css' %}
 {{ 'slick.scss.css' | asset_url | stylesheet_tag }}
 {{ 'jquery.mmenu.all.css' | asset_url | stylesheet_tag }}
 {% if template.name == 'collection' or template.name == 'search' %}

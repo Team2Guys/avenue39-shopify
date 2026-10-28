@@ -1,10 +1,14 @@
 {%- comment -%}
-  Loads the theme's Google Fonts in ONE request (families de-duplicated)
-  with display=swap, plus preconnect hints so the font CSS and files
-  start downloading early.
+  Theme fonts.
+  - Poppins (the theme's configured family) is self-hosted: its @font-face rules are
+    inlined by the 'poppins-fonts' snippet, so there is no fonts.googleapis.com request
+    on the critical path.
+  - Any other Google family configured in theme settings still loads from Google Fonts
+    in ONE de-duplicated request with display=swap.
 {%- endcomment -%}
 {%- assign google_families = '' -%}
 {%- assign base_family = '' -%}
+{%- assign header_family = '' -%}
 {%- assign base_weights = '400,500,600,700' -%}
 
 {%- if settings.type_base_family contains 'Google' -%}
@@ -20,12 +24,16 @@
     {%- unless base_weights contains header_weight -%}
       {%- assign base_weights = base_weights | append: ',' | append: header_weight -%}
     {%- endunless -%}
-  {%- else -%}
+  {%- elsif header_family != 'Poppins' -%}
     {%- capture google_families -%}{{ header_family | replace: ' ', '+' }}:{{ header_weight }},400,500,600,700{%- endcapture -%}
   {%- endif -%}
 {%- endif -%}
 
-{%- if base_family != '' -%}
+{%- if base_family == 'Poppins' or header_family == 'Poppins' -%}
+  {%- render 'poppins-fonts' -%}
+{%- endif -%}
+
+{%- if base_family != '' and base_family != 'Poppins' -%}
   {%- capture base_request -%}{{ base_family | replace: ' ', '+' }}:{{ base_weights }}{%- endcapture -%}
   {%- if google_families != '' -%}
     {%- assign google_families = base_request | append: '|' | append: google_families -%}
@@ -35,7 +43,6 @@
 {%- endif -%}
 
 {%- if google_families != '' -%}
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{ google_families }}&display=swap">
 {%- endif -%}

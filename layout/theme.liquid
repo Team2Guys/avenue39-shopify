@@ -100,9 +100,8 @@ src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"
       name="viewport"
       content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
     >
-    {%- comment -%} slick-carousel 1.8.1 CSS, self-hosted (was cdn.jsdelivr.net) {%- endcomment -%}
-    {{ 'slick-1.8.1.css' | asset_url | stylesheet_tag }}
-    {{ 'slick-theme-1.8.1.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} slick-carousel 1.8.1 CSS (was 2 requests to cdn.jsdelivr.net), now inlined {%- endcomment -%}
+    {% render 'slick-inline-css' %}
 
     <meta name="theme-color" content="{{ settings.color_button }}">
     <link rel="canonical" href="{{ canonical_url }}">
@@ -137,7 +136,7 @@ src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"
     
     {% include 'social-meta-tags' %}
     {% include 'google-fonts' %}
-    {% include 'icon-fonts' %}
+    {%- comment -%} Material Design Iconic Font CSS is bundled into vendor-head.min.css (loaded by nov-head-css) {%- endcomment -%}
 
     {% include 'nov-head-css' %}
     {% include 'nov-head-js' %}
