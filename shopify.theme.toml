@@ -1,0 +1,10 @@
+# Shopify CLI theme environments
+# `shopify theme dev` uses [environments.default] automatically.
+# Use `-e live` to target the published theme (e.g. shopify theme pull -e live).
+
+[environments.default]
+store = "old-avenue39.myshopify.com"
+
+[environments.live]
+store = "old-avenue39.myshopify.com"
+theme = "162069348581"

@@ -1,0 +1,16 @@
+{
+  "name": "avenue39-shopify",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Avenue39 Shopify theme (Vinova Minimart)",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "pull": "shopify theme pull -e live",
+    "push": "shopify theme push",
+    "check": "shopify theme check",
+    "list": "shopify theme list"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^5.0.0"
+  }
+}

@@ -1,0 +1,8 @@
+# Files that should never be pushed to the Shopify store
+node_modules/*
+package.json
+package-lock.json
+.gitignore
+.shopifyignore
+README.md
+shopify.theme.toml
