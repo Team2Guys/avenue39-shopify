@@ -2217,7 +2217,7 @@
       "nov_slideshow_PnB4RY": {
         "type": "nov-slideshow",
         "blocks": {
-          "image_6mkfi9": {
+          "image_cFf9ni": {
             "type": "image",
             "settings": {
               "image": "shopify://shop_images/68_off_7.webp",
@@ -2259,7 +2259,7 @@
               "top_position_desktop": "20",
               "top_position_t": "50",
               "top_position_m": "50",
-              "slider_link": "shopify://collections/summer-sale"
+              "slider_link": ""
             }
           },
           "image_XRU7qX": {
@@ -2540,7 +2540,7 @@
           }
         },
         "block_order": [
-          "image_6mkfi9",
+          "image_cFf9ni",
           "image_XRU7qX",
           "image_ULqEMR",
           "image_8gHNNt",
