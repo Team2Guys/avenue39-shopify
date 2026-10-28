@@ -15,12 +15,14 @@
   <head>
 
 <script>
-  gtag('event', 'conversion', {
-      'send_to': 'AW-16745195334/i04sCJXageEZEMbO3bA-',
-      'value': 1.0,
-      'currency': 'AED',
-      'transaction_id': ''
-  });
+  if (typeof gtag === 'function') {
+    gtag('event', 'conversion', {
+        'send_to': 'AW-16745195334/i04sCJXageEZEMbO3bA-',
+        'value': 1.0,
+        'currency': 'AED',
+        'transaction_id': ''
+    });
+  }
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,7 +34,10 @@
 {% include '__clspeedapp-html-css-critical' %}
 
 {% include '__clspeedapp-js-init' %}
+{%- comment -%} Crazy Load helpers (incl. a second render-blocking jQuery) are only needed when its kernel is on {%- endcomment -%}
+{%- if speedupkernel -%}
 {% include '__clspeedapp-js-functions' %}
+{%- endif -%}
 
 {%- unless is_admin_interface -%}
   {% include '__clspeedapp-js-frontend' %}
@@ -89,19 +94,18 @@ src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"
     </script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8">
-    <script src="//unpkg.com/alpinejs" defer></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="zWttI0koSPy3RVDUFeuucyAT02aJoEnX5ZTO_BM_0H0" />
     <meta
       name="viewport"
       content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
     >
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    {%- comment -%} slick-carousel 1.8.1 CSS, self-hosted (was cdn.jsdelivr.net) {%- endcomment -%}
+    {{ 'slick-1.8.1.css' | asset_url | stylesheet_tag }}
+    {{ 'slick-theme-1.8.1.css' | asset_url | stylesheet_tag }}
 
     <meta name="theme-color" content="{{ settings.color_button }}">
     <link rel="canonical" href="{{ canonical_url }}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     {% if settings.favicon != blank %}
       <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
@@ -140,13 +144,7 @@ src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"
     <script src="{{ 'shopify_global.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
     <meta name="google-site-verification" content="p7gCvlwPjb78FdS5ZUtnDCYLs1z3vbTrjt7BlM39fhc">
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "mgy3jsx4mu");
-</script>
+    {%- comment -%} Microsoft Clarity is already initialised above (same project id) {%- endcomment -%}
 
 
 
@@ -155,8 +153,15 @@ src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"
 <script>
 // Avenue39 Thank You Page Detection - Fixed Version
 (function() {
+    // Performance: this detection (which scans the whole page HTML several times)
+    // only runs on URLs/titles that can be a thank-you / checkout page.
+    // Storefront pages (home, collections, products) skip it entirely.
+    var __href = window.location.href.toLowerCase();
+    if (__href.indexOf('thank') === -1 && __href.indexOf('/checkouts/') === -1 && (document.title || '').toLowerCase().indexOf('thank') === -1) {
+        return;
+    }
     console.log('Avenue39 tracking script loaded');
-    
+
     function detectThankYouPage() {
         try {
             var url = window.location.href;
@@ -763,13 +768,13 @@ window.dataLayer.push({
 
 
     
-    {{ 'nuranium.js' | asset_url | script_tag }}
+    <script src="{{ 'nuranium.js' | asset_url }}" defer="defer"></script>
     <!-- {{ 'wishlist-ajax.js' | asset_url | script_tag }} -->
 
   <!-- crazy-load BEGIN BODY -->
 {% include '__clspeedapp-html-fonts' %}
 <!-- crazy-load END BODY -->
-{{'tiny-img-link-preloader.js' | asset_url | script_tag }}
+<script src="{{ 'tiny-img-link-preloader.js' | asset_url }}" defer="defer"></script>
 </body>
 
 </html>

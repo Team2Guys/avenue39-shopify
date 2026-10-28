@@ -9,7 +9,9 @@
     {% if section.settings.background_image != blank %}
       <img
         class="section-bg-img lazyload"
-        data-src="{{ section.settings.background_image | img_url: '1920x' }}"
+        data-src="{{ section.settings.background_image | image_url: width: 1920 }}"
+        data-srcset="{% render 'nov-srcset', image: section.settings.background_image %}"
+        data-sizes="auto"
         alt="{{ section.settings.title }}"
         loading="lazy"
       >

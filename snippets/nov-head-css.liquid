@@ -3,21 +3,36 @@
 * @author    Vinovathemes <vinovathemes@gmail.com>
 * @copyright 2013-2022 Vinovathemes SA
 {% endcomment %}
-
+{% comment %}
+  Critical, render-blocking stylesheets (layout, grid, icons, sliders).
+{% endcomment %}
 {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
 {{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
-{{ 'animate.min.css' | asset_url | stylesheet_tag }}
 {{ 'common.scss.css' | asset_url | stylesheet_tag }}
 {{ 'owl.carousel.min.css' | asset_url | stylesheet_tag }}
-{{ 'owl.theme.default.css' | asset_url | stylesheet_tag }}
 {{ 'slick.scss.css' | asset_url | stylesheet_tag }}
 {{ 'jquery.mmenu.all.css' | asset_url | stylesheet_tag }}
-{{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
-{{ 'jquery.ui.min.css' | asset_url | stylesheet_tag }}
+{% if template.name == 'collection' or template.name == 'search' %}
+  {{ 'jquery.ui.min.css' | asset_url | stylesheet_tag }}
+{% endif %}
 {{ 'layout.scss.css' | asset_url | stylesheet_tag }}
 {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-{{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
 {% if settings.enable_rtl == true %}
 {{ 'theme-rtl.scss.css' | asset_url | stylesheet_tag }}
 {% endif %}
 {{ 'responsive.scss.css' | asset_url | stylesheet_tag }}
+
+{% comment %}
+  Non-critical stylesheets (animations, lightboxes, popups, carousel nav theme).
+  Loaded without blocking the first paint: fetched as "print" media, then
+  switched to "all" once downloaded. <noscript> keeps them working without JS.
+{% endcomment %}
+{%- assign deferred_css = 'animate.min.css,owl.theme.default.css,jquery.fancybox.css,magnific-popup.css' -%}
+{%- unless template.name == 'collection' or template.name == 'search' -%}
+  {%- assign deferred_css = deferred_css | append: ',jquery.ui.min.css' -%}
+{%- endunless -%}
+{%- assign deferred_css = deferred_css | split: ',' -%}
+{%- for css in deferred_css -%}
+<link rel="stylesheet" href="{{ css | asset_url }}" media="print" onload="this.media='all'; this.onload=null;">
+<noscript>{{ css | asset_url | stylesheet_tag }}</noscript>
+{%- endfor -%}

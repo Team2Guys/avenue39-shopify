@@ -1,3 +1,28 @@
+{%- comment -%}
+  Items per view drive the <img sizes> hint so phones download ~1-column images
+  instead of the 1920px version.
+{%- endcomment -%}
+{%- assign items_desktop = section.settings.show_number | default: 3 | plus: 0 -%}
+{%- assign items_tablet = section.settings.number_tablet | default: 2 | plus: 0 -%}
+{%- assign items_mobile = section.settings.number_mobile | default: 1 | plus: 0 -%}
+{%- if items_desktop < 1 -%}{%- assign items_desktop = 1 -%}{%- endif -%}
+{%- if items_tablet < 1 -%}{%- assign items_tablet = 1 -%}{%- endif -%}
+{%- if items_mobile < 1 -%}{%- assign items_mobile = 1 -%}{%- endif -%}
+{%- capture slider_sizes -%}(max-width: 767px) {{ 100.0 | divided_by: items_mobile | round: 1 }}vw, (max-width: 1023px) {{ 100.0 | divided_by: items_tablet | round: 1 }}vw, {{ 100.0 | divided_by: items_desktop | round: 1 }}vw{%- endcapture -%}
+<style>
+  :where(.section-image-slider .image-slider__item img[width][height]) { height: auto; }
+  /* owl sets item images to display:block on init; apply it up front so the
+     pre-init layout matches the final one (no shift when the carousel starts). */
+  .section-image-slider .image-slider__item img { display: block; }
+  {%- if items_mobile == 1 -%}
+  /* On phones (1 item per view) show the first slide before the carousel script runs,
+     so the hero image paints with the first render instead of after all JS has loaded. */
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .nov-owl-carousel:not(.owl-loaded) { display: block; }
+    #shopify-section-{{ section.id }} .nov-owl-carousel:not(.owl-loaded) .image-slider__item:not(:first-child) { display: none; }
+  }
+  {%- endif -%}
+</style>
 <div
   class="section-image-slider distance{% if section.settings.class != blank %} {{ section.settings.class }}{% endif %}"
   data-section-id="{{ section.id }}"
@@ -27,6 +52,9 @@
     </div>
   {% endif %}
   {% if section.settings.special == true %}
+    {%- comment -%} Vue + carousel-3d are only needed for this 3D layout (initialised in global.js on document ready) {%- endcomment -%}
+    <script src="{{ 'vue.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'carousel-3d.umd.min.js' | asset_url }}" defer="defer"></script>
     <div class="block_content">
       {% if section.blocks.size > 0 %}
         <div id="nov-vue-carousel-3d">
@@ -94,7 +122,16 @@
             <div class="image-slider__item" {{ block.shopify_attributes }}>
               {% if block.settings.image != blank %}
                 <a href="{{ block.settings.link }}" class="w-100 image-slider__link">
-                  <img class="w-100" src="{{ block.settings.image | img_url: '1920x'}}" loading="lazy">
+                  <img
+                    class="w-100"
+                    src="{{ block.settings.image | image_url: width: 1920 }}"
+                    srcset="{% render 'nov-srcset', image: block.settings.image %}"
+                    sizes="{{ slider_sizes }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.cta_label | escape }}"
+                    {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                  >
               {% else %}
                 {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
               {% endif %}

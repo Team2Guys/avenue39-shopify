@@ -1,0 +1,21 @@
+{%- comment -%}
+  Outputs a srcset string for a Shopify image.
+
+  Usage:  srcset="{% render 'nov-srcset', image: block.settings.image %}"
+          srcset="{% render 'nov-srcset', image: image, max: 1024 %}"
+
+  Candidates stop at the image's own width (never upscaled) and are
+  capped at `max` (default 1920, matching the old img_url: '1920x').
+{%- endcomment -%}
+{%- assign max = max | default: 1920 | plus: 0 -%}
+{%- assign cap = image.width | default: max | plus: 0 -%}
+{%- if cap > max -%}{%- assign cap = max -%}{%- endif -%}
+{%- assign widths = '360,480,640,768,1024,1366,1600' | split: ',' -%}
+{%- capture out -%}
+  {%- for w in widths -%}
+    {%- assign wi = w | plus: 0 -%}
+    {%- if wi < cap -%}{{ image | image_url: width: wi }} {{ wi }}w, {% endif -%}
+  {%- endfor -%}
+  {{ image | image_url: width: cap }} {{ cap }}w
+{%- endcapture -%}
+{{- out | strip -}}

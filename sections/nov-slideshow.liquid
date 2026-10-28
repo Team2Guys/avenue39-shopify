@@ -1,3 +1,20 @@
+<style>
+  /* width/height attributes reserve the slide's space before the image loads (no layout shift);
+     :where() keeps this rule at zero specificity so any theme CSS height still wins. */
+  :where(.slideshow .slide-image img[width][height]) { height: auto; }
+  /* slick sets slide images to display:block on init; apply it up front so the
+     slideshow has the same height before and after init (no shift, stable LCP). */
+  .slideshow .slide-image img { display: block; }
+  /* The theme zeroes the slide <figure> margin only under .slick-slide (after init);
+     without this the pre-init figure keeps Bootstrap's bottom margin and the whole
+     page below the slideshow jumps up when the slider initialises. */
+  .slideshow .main-slider .item figure { margin: 0; }
+  /* The theme keeps .main-slider invisible (opacity 0) until the slider script initialises,
+     which delays the hero image's first paint until all JS has run. Show the first slide
+     immediately and hide the others until slick takes over (same final layout). */
+  .slideshow .main-slider:not(.slick-initialized) { opacity: 1; visibility: visible; }
+  .slideshow .main-slider:not(.slick-initialized) .item:not(:first-child) { display: none; }
+</style>
 <div class="distance{% if section.settings.class != blank %} {{ section.settings.class }}{% endif %}">
   {% if section.settings.has_fullwidth == false %}
     <div class="container">
@@ -18,12 +35,28 @@
             <div class="item image">
               <figure>
                 <div class="slide-image slide-media{% if section.settings.zoomImg == true %} ani_img{% endif %}">
+                  {%- comment -%}
+                    Responsive slide image. The first slide is the hero / LCP image,
+                    so it gets fetchpriority="high"; later slides load at low priority.
+                  {%- endcomment -%}
+                  {%- capture slide_img -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 1920 }}"
+                      srcset="{% render 'nov-srcset', image: block.settings.image %}"
+                      sizes="100vw"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      class="image-entity"
+                      alt="{{ block.settings.image.alt | default: 'slidershow' | escape }}"
+                      {% if forloop.first %}fetchpriority="high"{% else %}fetchpriority="low"{% endif %}
+                    >
+                  {%- endcapture -%}
                   {% if block.settings.slider_link != blank %}
                     <a href="{{ block.settings.slider_link }}" style="width: 100%;">
-                      <img src="{{ block.settings.image | img_url: '1920x' }}" class="image-entity" alt="slidershow">
+                      {{ slide_img }}
                     </a>
                   {% else %}
-                    <img src="{{ block.settings.image | img_url: '1920x' }}" class="image-entity" alt="slidershow">
+                    {{ slide_img }}
                   {% endif %}
                 </div>
 

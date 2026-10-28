@@ -1,12 +1,41 @@
-{% if settings.type_base_family contains 'Google' %}
+{%- comment -%}
+  Loads the theme's Google Fonts in ONE request (families de-duplicated)
+  with display=swap, plus preconnect hints so the font CSS and files
+  start downloading early.
+{%- endcomment -%}
+{%- assign google_families = '' -%}
+{%- assign base_family = '' -%}
+{%- assign base_weights = '400,500,600,700' -%}
+
+{%- if settings.type_base_family contains 'Google' -%}
   {%- assign type_base_parts = settings.type_base_family | split: '_' -%}
-  {% capture baseGoogleUrl %}{{ type_base_parts[1] }}:400,500,600,700{% endcapture %}
-  {{ '//fonts.googleapis.com/css?family=' | append: baseGoogleUrl | stylesheet_tag }}
-{% endif %}
-{% if settings.type_header_family contains 'Google' %}
-  {% unless settings.type_header_family contains type_base_parts[1] and settings.type_header_family contains '700' %}
-    {%- assign type_header_parts = settings.type_header_family | split: '_' -%}
-    {% capture headerGoogleUrl %}{{ type_header_parts[1] }}:{{ type_header_parts[2] }},400,500,600,700{% endcapture %}
-    {{ '//fonts.googleapis.com/css?family=' | append: headerGoogleUrl | stylesheet_tag }}
-  {% endunless %}
-{% endif %}
+  {%- assign base_family = type_base_parts[1] -%}
+{%- endif -%}
+
+{%- if settings.type_header_family contains 'Google' -%}
+  {%- assign type_header_parts = settings.type_header_family | split: '_' -%}
+  {%- assign header_family = type_header_parts[1] -%}
+  {%- assign header_weight = type_header_parts[2] -%}
+  {%- if header_family == base_family -%}
+    {%- unless base_weights contains header_weight -%}
+      {%- assign base_weights = base_weights | append: ',' | append: header_weight -%}
+    {%- endunless -%}
+  {%- else -%}
+    {%- capture google_families -%}{{ header_family | replace: ' ', '+' }}:{{ header_weight }},400,500,600,700{%- endcapture -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if base_family != '' -%}
+  {%- capture base_request -%}{{ base_family | replace: ' ', '+' }}:{{ base_weights }}{%- endcapture -%}
+  {%- if google_families != '' -%}
+    {%- assign google_families = base_request | append: '|' | append: google_families -%}
+  {%- else -%}
+    {%- assign google_families = base_request -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if google_families != '' -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{ google_families }}&display=swap">
+{%- endif -%}

@@ -1,3 +1,6 @@
+<style>
+  :where(.gallery-image__item img[width][height]) { height: auto; }
+</style>
 <div class="distance{% if section.settings.has_fullwidth == true %} full_width{% endif %}{% if section.settings.class != blank %} {{ section.settings.class }}{% endif %}">
   {% if section.settings.has_fullwidth == false %}
     <div class="container">
@@ -24,7 +27,7 @@
                 {% if block.settings.link_1 != blank %}
                   <a class="w-100" href="{{ block.settings.link_1 }}">
                 {% endif %}
-                <img class="w-100 lazyload" data-src="{{ block.settings.image_1 | img_url: '1920x' }}" alt="img" loading="lazy" >
+                <img class="w-100 lazyload" data-src="{{ block.settings.image_1 | image_url: width: 1920 }}" data-srcset="{% render 'nov-srcset', image: block.settings.image_1 %}" data-sizes="auto" width="{{ block.settings.image_1.width }}" height="{{ block.settings.image_1.height }}" alt="img" loading="lazy" >
                 {% if block.settings.link_1 != blank %}
                   </a>
                 {% endif %}
@@ -58,7 +61,7 @@
                 {% if block.settings.link_2 != blank %}
                   <a class="w-100" href="{{ block.settings.link_2 }}">
                 {% endif %}
-                <img class="w-100 lazyload" data-src="{{ block.settings.image_2 | img_url: '1920x' }}" alt="img" loading="lazy" >
+                <img class="w-100 lazyload" data-src="{{ block.settings.image_2 | image_url: width: 1920 }}" data-srcset="{% render 'nov-srcset', image: block.settings.image_2 %}" data-sizes="auto" width="{{ block.settings.image_2.width }}" height="{{ block.settings.image_2.height }}" alt="img" loading="lazy" >
 
                 {% if block.settings.link_2 != blank %}
                   </a>
@@ -93,7 +96,7 @@
                 {% if block.settings.link_3 != blank %}
                   <a class="w-100" href="{{ block.settings.link_3 }}">
                 {% endif %}
-                  <img class="w-100 img-fluid lazyload" data-src="{{ block.settings.image_3 | img_url: '1920x' }}" alt="image" loading="lazy" >
+                  <img class="w-100 img-fluid lazyload" data-src="{{ block.settings.image_3 | image_url: width: 1920 }}" data-srcset="{% render 'nov-srcset', image: block.settings.image_3 %}" data-sizes="auto" width="{{ block.settings.image_3.width }}" height="{{ block.settings.image_3.height }}" alt="image" loading="lazy" >
                 {% if block.settings.link_3 != blank %}
                   </a>
                 {% endif %}
@@ -127,7 +130,7 @@
                 {% if block.settings.link_4 != blank %}
                   <a class="w-100" href="{{ block.settings.link_4 }}">
                 {% endif %}
-                  <img class="w-100 img-fluid lazyload" data-src="{{ block.settings.image_4 | img_url: '1920x' }}" alt="" loading="lazy" >
+                  <img class="w-100 img-fluid lazyload" data-src="{{ block.settings.image_4 | image_url: width: 1920 }}" data-srcset="{% render 'nov-srcset', image: block.settings.image_4 %}" data-sizes="auto" width="{{ block.settings.image_4.width }}" height="{{ block.settings.image_4.height }}" alt="" loading="lazy" >
                 {% if block.settings.link_4 != blank %}
                   </a>
                 {% endif %}

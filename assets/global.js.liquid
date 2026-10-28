@@ -1471,7 +1471,9 @@ $(document).ready(function() {
     url: $(this).find('img').attr('data-zoom')
     });
 
-    // Vue js
+    // Vue js (3D carousel). Vue + carousel-3d are only loaded by the
+    // nov-image-slider section when its "special" layout is enabled.
+    if (window.Vue && window['carousel-3d'] && document.getElementById('nov-vue-carousel-3d')) {
     new Vue({
         el: '#nov-vue-carousel-3d',
         data: {
@@ -1487,6 +1489,7 @@ $(document).ready(function() {
             }
         }
     });
+    }
     $('#nov-vue-carousel-3d .btn_nav').click(function(){
         $('.btn_nav').removeClass('active');
         $(this).addClass('active');
