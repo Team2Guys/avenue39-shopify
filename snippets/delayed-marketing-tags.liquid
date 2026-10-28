@@ -1,0 +1,69 @@
+{%- comment -%}
+  Marketing tags (Google Tag Manager, Meta Pixel, Microsoft Clarity) loaded AFTER the
+  page is interactive instead of in the critical path.
+
+  How it works
+  - The stubs (window.dataLayer, window.fbq, window.clarity) are created immediately, so any
+    call made before the real scripts arrive (fbq('track'), dataLayer.push(...), clarity(...))
+    is queued and replayed by the vendor script once it loads. Nothing is lost.
+  - The real scripts are injected on the first user interaction (scroll, touch, mouse move,
+    key press, click, wheel) OR 5 seconds after the window "load" event, whichever comes first.
+  - Pixels therefore fire a few seconds later than before; visitors who leave within ~5 s
+    without touching the page are not tracked. This keeps the tags' ~3.5 s of main-thread
+    work out of First Paint / LCP / Total Blocking Time.
+
+  IDs: GTM-TCNZZ8XP · Meta Pixel 548519410929159 · Clarity mgy3jsx4mu
+{%- endcomment -%}
+<script>
+(function (w, d) {
+  /* ---- stubs: safe to call before the real scripts load ---- */
+  w.dataLayer = w.dataLayer || [];
+
+  if (!w.fbq) {
+    var n = w.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    };
+    if (!w._fbq) w._fbq = n;
+    n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+  }
+  w.fbq('init', '548519410929159');
+  w.fbq('track', 'PageView');
+
+  w.clarity = w.clarity || function () { (w.clarity.q = w.clarity.q || []).push(arguments); };
+
+  /* ---- deferred loading of the real scripts ---- */
+  var loaded = false;
+  function addScript(src) {
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = src;
+    d.head.appendChild(s);
+  }
+  function loadTags() {
+    if (loaded) return;
+    loaded = true;
+    /* Google Tag Manager (standard snippet, just started later) */
+    w.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    addScript('https://www.googletagmanager.com/gtm.js?id=GTM-TCNZZ8XP');
+    /* Meta Pixel */
+    addScript('https://connect.facebook.net/en_US/fbevents.js');
+    /* Microsoft Clarity */
+    addScript('https://www.clarity.ms/tag/mgy3jsx4mu');
+  }
+
+  var events = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click', 'wheel', 'pointerdown'];
+  function onFirstInteraction() {
+    for (var i = 0; i < events.length; i++) w.removeEventListener(events[i], onFirstInteraction);
+    loadTags();
+  }
+  for (var i = 0; i < events.length; i++) w.addEventListener(events[i], onFirstInteraction, { passive: true });
+
+  function armFallback() { w.setTimeout(loadTags, 5000); }
+  if (d.readyState === 'complete') armFallback();
+  else w.addEventListener('load', armFallback);
+
+  /* allow other scripts to force-load the tags, e.g. before navigating away */
+  w.__loadMarketingTags = loadTags;
+})(window, document);
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=548519410929159&ev=PageView&noscript=1"/></noscript>
