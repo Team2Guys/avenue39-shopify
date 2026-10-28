@@ -8,7 +8,7 @@
 {%- if items_desktop < 1 -%}{%- assign items_desktop = 1 -%}{%- endif -%}
 {%- if items_tablet < 1 -%}{%- assign items_tablet = 1 -%}{%- endif -%}
 {%- if items_mobile < 1 -%}{%- assign items_mobile = 1 -%}{%- endif -%}
-{%- capture slider_sizes -%}(max-width: 767px) {{ 100.0 | divided_by: items_mobile | round: 1 }}vw, (max-width: 1023px) {{ 100.0 | divided_by: items_tablet | round: 1 }}vw, {{ 100.0 | divided_by: items_desktop | round: 1 }}vw{%- endcapture -%}
+{%- capture slider_sizes -%}(max-width: 991px) {{ 100.0 | divided_by: items_mobile | round: 1 }}vw, (max-width: 1023px) {{ 100.0 | divided_by: items_tablet | round: 1 }}vw, {{ 100.0 | divided_by: items_desktop | round: 1 }}vw{%- endcapture -%}
 <style>
   :where(.section-image-slider .image-slider__item img[width][height]) { height: auto; }
   /* owl sets item images to display:block on init; apply it up front so the
@@ -17,7 +17,7 @@
   {%- if items_mobile == 1 -%}
   /* On phones (1 item per view) show the first slide before the carousel script runs,
      so the hero image paints with the first render instead of after all JS has loaded. */
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     #shopify-section-{{ section.id }} .nov-owl-carousel:not(.owl-loaded) { display: block; }
     #shopify-section-{{ section.id }} .nov-owl-carousel:not(.owl-loaded) .image-slider__item:not(:first-child) { display: none; }
   }
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function () {
         0: {
           items: parseInt(owl.data('items_mobile')) || 1
         },
-        768: {
+        992: {
           items: parseInt(owl.data('items_tablet')) || 2
         },
         1024: {

@@ -1434,7 +1434,7 @@ html {
 }
 /* Header Sticky -----------------------------------------------------------------------------------*/
 #header-sticky {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     position: fixed;
     width: 100%;
     top: -48px;
@@ -1674,7 +1674,7 @@ html {
       @include box-shadow(inset 0 0 0 3px $color-white);
     }
   }
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
     bottom: 55px;
   }
 }
@@ -1912,7 +1912,7 @@ body {
   position: relative;
   @include rtl-left(0);
   @include rtl-right(0);
-  @media(max-width: 767px) {
+  @media(max-width: 991px) {
     @include transition($transition-drawer);
   }
   &.canvasmenu-right {
@@ -1949,7 +1949,7 @@ body {
     @include opacity(0);
     visibility: hidden;
     @include transition(all 0.3s linear);
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
       @include rtl-left(0);
     }
     &.act {

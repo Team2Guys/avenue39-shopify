@@ -45,7 +45,7 @@
                             <a href="{{ item.url }}">
                               {{ item.product.title }}
                               {% if item.quantity > 1 %}
-                                <span class="d-md-none"
+                                <span class="d-lg-none"
                                   ><span class="visually-hidden">{{ 'cart.label.quantity' | t }}</span>(x
                                   {{- item.quantity -}}
                                   )</span
@@ -84,7 +84,7 @@
                       <div class="hidden">{{ 'cart.label.price' | t }}</div>
                       <div>{{ item.price | money }}</div>
                       {% for discount in item.discounts %}
-                        <div class="cart-item__discount d-md-none">{{ discount.title }}</div>
+                        <div class="cart-item__discount d-lg-none">{{ discount.title }}</div>
                       {% endfor %}
                     </div>
                     <div class="col-md-2 cart__update-wrapper mb-xs-20">
@@ -156,7 +156,7 @@
                 {% endfor %}
               </div>
 
-              <div class="button_cart d-md-flex align-items-center">
+              <div class="button_cart d-lg-flex align-items-center">
                 <input
                   type="submit"
                   name="checkout"

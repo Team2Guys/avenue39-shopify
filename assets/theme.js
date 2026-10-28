@@ -1012,7 +1012,7 @@
       autoWidth: m,
       responsive: {
         0: { items: p, loop: !0, autoHeight: !0, autoWidth: !1 },
-        768: { items: h, autoWidth: !1 },
+        992: { items: h, autoWidth: !1 },
         1200: { items: r, center: v },
       },
     });

@@ -1,6 +1,6 @@
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
   <header class="site-header {% if section.settings.stickymenu == true %}sticky-menu{% endif %}">
-    <div class="header-mobile d-md-none">
+    <div class="header-mobile d-lg-none">
       <div class="d-flex align-items-center">
         <!-- <div class="btn-mobile_vertical_menu"><i class="zmdi zmdi-sort-amount-asc"></i></div> -->
         <div class="mobile_logo text-center">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="header-top d-none d-md-block pt-35 pb-25 nv-pl-40 nv-pr-40">
+    <div class="header-top d-none d-lg-block pt-35 pb-25 nv-pl-40 nv-pr-40">
       <div class="row d-flex align-items-center position-relative">
         <div class="contentsticky_logo col-md-2">
           {% if section.settings.logo %}
@@ -197,7 +197,7 @@
           </div>
 
           <div class=" pt-3 d-flex justify-content-lg-center align-items-center ">
-            <div class="top_header d-none d-md-flex justify-content-between align-items-center">
+            <div class="top_header d-none d-lg-flex justify-content-between align-items-center">
               {% include 'nov-social' %}
             </div>
           </div>
@@ -451,7 +451,7 @@ li:has(a[href*="clearance"]) .site-nav__link:hover {
   {% if section.settings.stickymenu == true %}
     <div
       id="header-sticky"
-      class="d-none d-md-block"
+      class="d-none d-lg-block"
       {% if section.settings.background_color != blank %}
         style="background-color: {{ section.settings.background_color_sticky }};"
       {% endif %}
@@ -484,7 +484,7 @@ li:has(a[href*="clearance"]) .site-nav__link:hover {
 </script>
 
 <!--
-  <div class="h_sidebar d-none d-md-flex justify-content-between align-items-center">
+  <div class="h_sidebar d-none d-lg-flex justify-content-between align-items-center">
     <div class="title_vertical"><i class="zmdi zmdi-view-headline"></i></div>
     {% if section.settings.announcement != blank %}
       <div class="announcement">{{ section.settings.announcement }}</div>

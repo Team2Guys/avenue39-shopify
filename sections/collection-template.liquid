@@ -45,7 +45,7 @@
     </section>
 
     <style>
-      @media (max-width: 768px) {
+      @media (max-width: 991px) {
         .banner-desktop { display: none !important; }
         .banner-mobile { display: block !important; }
       }
@@ -190,7 +190,7 @@
         }
 
         /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
+        @media (max-width: 991px) {
           .collection-slider-container {
             /* Different aspect ratio for mobile - taller/more square */
             aspect-ratio: 5 / 2; /* 4:5 = 0.8:1 - good for mobile */
@@ -255,7 +255,7 @@
             clear: both;
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: 991px) {
             .collection-slider-container::before {
               padding-top: 125%; /* 5/4 = 1.25 = 125% */
             }
@@ -405,7 +405,7 @@
       {% endif %}
       <div class="filter_button{% if viewtype != 'canvas' %} d-lg-none{% endif %}">
         <i class="zmdi zmdi-tune"></i>
-        <span class="d-none d-md-inline-block">{{ 'collections.filters.button' | t }}</span>
+        <span class="d-none d-lg-inline-block">{{ 'collections.filters.button' | t }}</span>
       </div>
       <div class="bl_right d-flex align-items-center">
         <div class="gridlist-toggle order-2 order-md-0">

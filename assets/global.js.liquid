@@ -136,7 +136,7 @@ window.novtheme = window.novtheme || {};
 var isLoggedIn;
 isLoggedIn = false;
 var current_width = $(window).width(),
-    min_width = 768,
+    min_width = 992,
     responsive_mobile = current_width < min_width,
     flag_sticky = false;
 
@@ -276,7 +276,7 @@ $(window).on('resize', function() {
         novtheme.NovHeightBoxContent();
         novtheme.popupCart();
     }
-    if (current_width <= 768) {
+    if (current_width < 992) {
         if (flag_sticky == true) {
             novtheme.toggleSticky(false);
             $('#header-sticky').removeClass('sticky-menu-active');
@@ -454,7 +454,7 @@ novtheme.click_button_canvas_menu = function() {
 }
 novtheme.load_canvas_menu = function() {
     var $main_menu = $(".site-nav", "#AccessibleNav");
-    if (current_width <= 768) {
+    if (current_width < 992) {
         if ($("#canvas-main-menu").length < 1 && $main_menu.length > 0) {
             var $menu = $main_menu.parent().clone();
             $menu.attr("id", "canvas-main-menu");
@@ -512,11 +512,11 @@ novtheme.ThumbnailProduct = function() {
                 center: center,
                 margin: 10
             },
-            768: {
+            992: {
                 items: items_tablet,
                 margin: 10
             },
-            992: {
+            1024: {
                 items: items,
                 margin: margin
             },
@@ -564,11 +564,11 @@ novtheme.RelatedBlog = function() {
                 center: center,
                 margin: 10
             },
-            768: {
+            992: {
                 items: items_tablet,
                 margin: 10
             },
-            992: {
+            1024: {
                 items: items,
                 margin: margin
             },
@@ -855,7 +855,7 @@ novtheme.goToTop = function() {
     });
 }
 novtheme.goToTopMobile = function() {
-    if ($(window).width() < 768) {
+    if ($(window).width() < 992) {
         var timer;
         $(window).scroll(function() {
             if (timer) clearTimeout(timer)
@@ -1338,11 +1338,11 @@ $(document).ready(function() {
                 margin: 10,
                 nav: false
             },
-            768: {
+            992: {
                 items: items_tablet,
                 margin: margin
             },
-            992: {
+            1024: {
                 items: items,
                 margin: margin
             },

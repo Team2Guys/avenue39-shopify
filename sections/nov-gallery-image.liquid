@@ -35,15 +35,15 @@
         {% when 1 %}
           {%- assign gallery_sizes = '100vw' -%}
         {% when 2 %}
-          {%- assign gallery_sizes = '(max-width: 767px) 100vw, 50vw' -%}
+          {%- assign gallery_sizes = '(max-width: 991px) 100vw, 50vw' -%}
         {% when 3 %}
-          {%- assign gallery_sizes = '(max-width: 767px) 100vw, 33.4vw' -%}
+          {%- assign gallery_sizes = '(max-width: 991px) 100vw, 33.4vw' -%}
         {% when 4 %}
-          {%- assign gallery_sizes = '(max-width: 767px) 100vw, (max-width: 991px) 33.4vw, 25vw' -%}
+          {%- assign gallery_sizes = '(max-width: 991px) 100vw, (max-width: 991px) 33.4vw, 25vw' -%}
         {% when 5 %}
-          {%- assign gallery_sizes = '(max-width: 767px) 100vw, 20vw' -%}
+          {%- assign gallery_sizes = '(max-width: 991px) 100vw, 20vw' -%}
         {% else %}
-          {%- assign gallery_sizes = '(max-width: 767px) 50vw, (max-width: 991px) 33.4vw, 16.7vw' -%}
+          {%- assign gallery_sizes = '(max-width: 991px) 50vw, (max-width: 991px) 33.4vw, 16.7vw' -%}
       {% endcase %}
 
       {% for block in section.blocks %}
