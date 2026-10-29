@@ -5,6 +5,7 @@
   /* slick sets slide images to display:block on init; apply it up front so the
      slideshow has the same height before and after init (no shift, stable LCP). */
   .slideshow .slide-image img { display: block; }
+  .slideshow .slide-image picture { display: block; width: 100%; }
   /* The theme zeroes the slide <figure> margin only under .slick-slide (after init);
      without this the pre-init figure keeps Bootstrap's bottom margin and the whole
      page below the slideshow jumps up when the slider initialises. */
@@ -39,21 +40,40 @@
                     Responsive slide image. The first slide is the hero / LCP image,
                     so it gets fetchpriority="high"; later slides load at low priority.
                   {%- endcomment -%}
+                  {%- assign slide_mobile_image = block.settings.image_mobile -%}
                   {%- if forloop.first -%}
-                    {%- comment -%} Marker read by layout/theme.liquid to emit a <link rel="preload"> for this (desktop LCP) image in <head> {%- endcomment -%}
+                    {%- comment -%}
+                      Markers read by layout/theme.liquid to emit <link rel="preload"> tags in <head>:
+                      LCPD = desktop image (min-width: 992px), LCPS = mobile image (max-width: 991px, only when set).
+                    {%- endcomment -%}
                     <!--LCPD|{{ block.settings.image | image_url: width: 1920 }}|{% render 'nov-srcset', image: block.settings.image %}|100vw-->
+                    {%- if slide_mobile_image != blank -%}
+                    <!--LCPS|{{ slide_mobile_image | image_url: width: 1920 }}|{% render 'nov-srcset', image: slide_mobile_image %}|100vw-->
+                    {%- endif -%}
                   {%- endif -%}
                   {%- capture slide_img -%}
-                    <img
-                      src="{{ block.settings.image | image_url: width: 1920 }}"
-                      srcset="{% render 'nov-srcset', image: block.settings.image %}"
-                      sizes="100vw"
-                      width="{{ block.settings.image.width }}"
-                      height="{{ block.settings.image.height }}"
-                      class="image-entity"
-                      alt="{{ block.settings.image.alt | default: 'slidershow' | escape }}"
-                      {% if forloop.first %}fetchpriority="high"{% else %}fetchpriority="low"{% endif %}
-                    >
+                    <picture>
+                      {%- if slide_mobile_image != blank -%}
+                      {%- comment -%} Separate artwork for phones / portrait tablets; the browser picks this source below 992px {%- endcomment -%}
+                      <source
+                        media="(max-width: 991px)"
+                        srcset="{% render 'nov-srcset', image: slide_mobile_image %}"
+                        sizes="100vw"
+                        width="{{ slide_mobile_image.width }}"
+                        height="{{ slide_mobile_image.height }}"
+                      >
+                      {%- endif -%}
+                      <img
+                        src="{{ block.settings.image | image_url: width: 1920 }}"
+                        srcset="{% render 'nov-srcset', image: block.settings.image %}"
+                        sizes="100vw"
+                        width="{{ block.settings.image.width }}"
+                        height="{{ block.settings.image.height }}"
+                        class="image-entity"
+                        alt="{{ block.settings.image.alt | default: 'slidershow' | escape }}"
+                        {% if forloop.first %}fetchpriority="high"{% else %}fetchpriority="low"{% endif %}
+                      >
+                    </picture>
                   {%- endcapture -%}
                   {% if block.settings.slider_link != blank %}
                     <a href="{{ block.settings.slider_link }}" style="width: 100%;">
@@ -236,6 +256,12 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image Slideshow"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image (optional)",
+          "info": "Shown on screens narrower than 992px (phones, foldables, tablets in portrait). Leave empty to use the main image everywhere."
         },
         {
           "type": "header",

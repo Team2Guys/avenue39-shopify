@@ -73,18 +73,26 @@
       in the rendered template; reading them here lets the browser start the hero download from
       <head> instead of ~150 KB further into the HTML.
     {%- endcomment -%}
+    {%- comment -%} Mobile breakpoint is 992px (see nov-header / theme SCSS) {%- endcomment -%}
+    {%- if content_for_layout contains '<!--LCPS|' -%}
+      {%- assign lcp_s = content_for_layout | split: '<!--LCPS|' -%}
+      {%- assign lcp_s = lcp_s[1] | split: '-->' | first | split: '|' -%}
+      {%- if lcp_s.size == 3 and lcp_s[0] contains '/cdn/' -%}
+    <link rel="preload" as="image" href="{{ lcp_s[0] }}" imagesrcset="{{ lcp_s[1] }}" imagesizes="{{ lcp_s[2] }}" fetchpriority="high" media="(max-width: 991px)">
+      {%- endif -%}
+    {%- endif -%}
     {%- if content_for_layout contains '<!--LCPM|' -%}
       {%- assign lcp_m = content_for_layout | split: '<!--LCPM|' -%}
       {%- assign lcp_m = lcp_m[1] | split: '-->' | first | split: '|' -%}
       {%- if lcp_m.size == 3 and lcp_m[0] contains '/cdn/' -%}
-    <link rel="preload" as="image" href="{{ lcp_m[0] }}" imagesrcset="{{ lcp_m[1] }}" imagesizes="{{ lcp_m[2] }}" fetchpriority="high" media="(max-width: 767px)">
+    <link rel="preload" as="image" href="{{ lcp_m[0] }}" imagesrcset="{{ lcp_m[1] }}" imagesizes="{{ lcp_m[2] }}" fetchpriority="high" media="(max-width: 991px)">
       {%- endif -%}
     {%- endif -%}
     {%- if content_for_layout contains '<!--LCPD|' -%}
       {%- assign lcp_d = content_for_layout | split: '<!--LCPD|' -%}
       {%- assign lcp_d = lcp_d[1] | split: '-->' | first | split: '|' -%}
       {%- if lcp_d.size == 3 and lcp_d[0] contains '/cdn/' -%}
-    <link rel="preload" as="image" href="{{ lcp_d[0] }}" imagesrcset="{{ lcp_d[1] }}" imagesizes="{{ lcp_d[2] }}" fetchpriority="high" media="(min-width: 768px)">
+    <link rel="preload" as="image" href="{{ lcp_d[0] }}" imagesrcset="{{ lcp_d[1] }}" imagesizes="{{ lcp_d[2] }}" fetchpriority="high" media="(min-width: 992px)">
       {%- endif -%}
     {%- endif -%}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
