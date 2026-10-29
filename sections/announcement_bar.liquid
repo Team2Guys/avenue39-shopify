@@ -5,6 +5,8 @@
     { "type": "text", "id": "announcement_text_1", "label": "Announcement Text 1", "default": "Next Day Delivery in Dubai" },
     { "type": "text", "id": "announcement_text_2", "label": "Announcement Text 2", "default": "Free Shipping above AED 1,000" },
     { "type": "text", "id": "announcement_text_3", "label": "Announcement Text 3", "default": "Try Before You Buy" },
+    { "type": "text", "id": "announcement_text_4", "label": "Announcement Text 4 (full-width line)", "default": "CLOSING DOWN SALE • UP TO 70% OFF • EVERYTHING MUST GO • WHILE STOCKS LAST", "info": "Shown as a full-width line under the three boxes. Leave empty to hide." },
+    { "type": "color", "id": "announcement_text_4_color", "label": "Announcement Text 4 Color", "default": "#d0021b" },
     { "type": "color", "id": "background_color", "label": "Background Color", "default": "#ff0000" },
     { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" }
   ],
@@ -44,6 +46,13 @@
 @media (max-width: 991px) {
   .announce-box { margin-bottom: 10px; }
 }
+/* 4th text: full-width line under the three boxes */
+.announce-box--full .announce-inner {
+  color: {{ section.settings.announcement_text_4_color }};
+}
+@media (min-width: 992px) {
+  .announce-box--full { margin-top: 10px; }
+}
 </style>
 
 <div class="container-fluid announcement-bar px-2">
@@ -61,6 +70,12 @@
     <div class="col-12 col-md-4 announce-box">
       <div class="announce-inner">{{ section.settings.announcement_text_3 }}</div>
     </div>
+
+    {% if section.settings.announcement_text_4 != blank %}
+    <div class="col-12 announce-box announce-box--full">
+      <div class="announce-inner">{{ section.settings.announcement_text_4 }}</div>
+    </div>
+    {% endif %}
 
   </div>
 </div>
