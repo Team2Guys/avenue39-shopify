@@ -2207,12 +2207,14 @@
       "announcement_bar": {
         "type": "announcement_bar",
         "settings": {
+          "announcement_text_4": "CLOSING DOWN SALE • UP TO 70% OFF • EVERYTHING MUST GO • WHILE STOCKS LAST",
+          "announcement_text_4_color": "#ffffff",
+          "marquee_duration": 40,
+          "show_info_boxes": false,
           "announcement_text_1": "Next Day Delivery in Dubai",
           "announcement_text_2": "Free Shipping above AED 1,000",
           "announcement_text_3": "Try Before You Buy",
-          "announcement_text_4_color": "#FFFFFF",
-          "marquee_duration": 40,
-          "background_color": "#A9010C",
+          "background_color": "#a9010c",
           "text_color": "#000000"
         }
       },
@@ -2223,6 +2225,7 @@
             "type": "image",
             "settings": {
               "image": "shopify://shop_images/68_off_7.webp",
+              "image_mobile": "shopify://shop_images/Untitled_Design_4.webp",
               "caption_1": "",
               "color_cap1": "#000000",
               "fz_cap1": "",
