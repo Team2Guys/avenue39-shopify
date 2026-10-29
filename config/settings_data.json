@@ -2210,7 +2210,9 @@
           "announcement_text_1": "Next Day Delivery in Dubai",
           "announcement_text_2": "Free Shipping above AED 1,000",
           "announcement_text_3": "Try Before You Buy",
-          "background_color": "#afa183",
+          "announcement_text_4_color": "#FFFFFF",
+          "marquee_duration": 40,
+          "background_color": "#A9010C",
           "text_color": "#000000"
         }
       },

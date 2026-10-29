@@ -4,15 +4,15 @@
   "settings": [
     { "type": "header", "content": "Scrolling text" },
     { "type": "text", "id": "announcement_text_4", "label": "Scrolling text", "default": "CLOSING DOWN SALE • UP TO 70% OFF • EVERYTHING MUST GO • WHILE STOCKS LAST", "info": "Scrolls continuously across the bar. Leave empty to hide." },
-    { "type": "color", "id": "announcement_text_4_color", "label": "Scrolling text color", "default": "#d0021b" },
-    { "type": "range", "id": "marquee_duration", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 60, "step": 5, "unit": "s", "default": 30, "info": "Lower is faster." },
+    { "type": "color", "id": "announcement_text_4_color", "label": "Scrolling text color", "default": "#ffffff" },
+    { "type": "range", "id": "marquee_duration", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 90, "step": 5, "unit": "s", "default": 40, "info": "Lower is faster." },
     { "type": "header", "content": "Info boxes" },
     { "type": "checkbox", "id": "show_info_boxes", "label": "Show the three info boxes", "default": false },
     { "type": "text", "id": "announcement_text_1", "label": "Announcement Text 1", "default": "Next Day Delivery in Dubai" },
     { "type": "text", "id": "announcement_text_2", "label": "Announcement Text 2", "default": "Free Shipping above AED 1,000" },
     { "type": "text", "id": "announcement_text_3", "label": "Announcement Text 3", "default": "Try Before You Buy" },
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#ff0000" },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#A9010C" },
     { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" }
   ],
   "presets": [{ "name": "Announcement Bar" }]
@@ -57,9 +57,9 @@
   overflow: hidden;
   white-space: nowrap;
   color: {{ section.settings.announcement_text_4_color }};
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.6;
   padding: 2px 0;
@@ -76,6 +76,8 @@
 }
 .announce-marquee__item {
   padding: 0 2.5em;
+  /* thin divider between repeats */
+  border-left: 1px solid {{ section.settings.announcement_text_4_color | color_modify: 'alpha', 0.55 }};
 }
 .announce-marquee:hover .announce-marquee__track {
   animation-play-state: paused;
