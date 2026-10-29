@@ -2,11 +2,16 @@
 {
   "name": "Announcement Bar",
   "settings": [
+    { "type": "header", "content": "Scrolling text" },
+    { "type": "text", "id": "announcement_text_4", "label": "Scrolling text", "default": "CLOSING DOWN SALE • UP TO 70% OFF • EVERYTHING MUST GO • WHILE STOCKS LAST", "info": "Scrolls continuously across the bar. Leave empty to hide." },
+    { "type": "color", "id": "announcement_text_4_color", "label": "Scrolling text color", "default": "#d0021b" },
+    { "type": "range", "id": "marquee_duration", "label": "Scroll speed (seconds per loop)", "min": 10, "max": 60, "step": 5, "unit": "s", "default": 30, "info": "Lower is faster." },
+    { "type": "header", "content": "Info boxes" },
+    { "type": "checkbox", "id": "show_info_boxes", "label": "Show the three info boxes", "default": false },
     { "type": "text", "id": "announcement_text_1", "label": "Announcement Text 1", "default": "Next Day Delivery in Dubai" },
     { "type": "text", "id": "announcement_text_2", "label": "Announcement Text 2", "default": "Free Shipping above AED 1,000" },
     { "type": "text", "id": "announcement_text_3", "label": "Announcement Text 3", "default": "Try Before You Buy" },
-    { "type": "text", "id": "announcement_text_4", "label": "Announcement Text 4 (full-width line)", "default": "CLOSING DOWN SALE • UP TO 70% OFF • EVERYTHING MUST GO • WHILE STOCKS LAST", "info": "Shown as a full-width line under the three boxes. Leave empty to hide." },
-    { "type": "color", "id": "announcement_text_4_color", "label": "Announcement Text 4 Color", "default": "#d0021b" },
+    { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background_color", "label": "Background Color", "default": "#ff0000" },
     { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" }
   ],
@@ -46,103 +51,82 @@
 @media (max-width: 991px) {
   .announce-box { margin-bottom: 10px; }
 }
-/* 4th text: full-width line under the three boxes */
-.announce-box--full .announce-inner {
+
+/* Continuously scrolling sale text (pure CSS, pauses on hover) */
+.announce-marquee {
+  overflow: hidden;
+  white-space: nowrap;
   color: {{ section.settings.announcement_text_4_color }};
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  padding: 2px 0;
 }
-@media (min-width: 992px) {
-  .announce-box--full { margin-top: 10px; }
+.announce-marquee__track {
+  display: inline-flex;
+  width: max-content;
+  animation: announce-marquee {{ section.settings.marquee_duration | default: 30 }}s linear infinite;
+  will-change: transform;
+}
+.announce-marquee__group {
+  display: inline-flex;
+  flex: none;
+}
+.announce-marquee__item {
+  padding: 0 2.5em;
+}
+.announce-marquee:hover .announce-marquee__track {
+  animation-play-state: paused;
+}
+@keyframes announce-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .announce-marquee__track { animation: none; }
 }
 </style>
 
 <div class="container-fluid announcement-bar px-2">
-<div class="container">
+
+  {% if section.settings.announcement_text_4 != blank %}
+    {%- comment -%}
+      Two identical groups scroll by exactly one group width (-50%), so the loop is seamless.
+      Only the first copy is exposed to screen readers.
+    {%- endcomment -%}
+    <div class="announce-marquee" role="region" aria-label="{{ section.settings.announcement_text_4 | escape }}">
+      <div class="announce-marquee__track">
+        {% for group in (1..2) %}
+          <div class="announce-marquee__group"{% if group > 1 %} aria-hidden="true"{% endif %}>
+            {% for copy in (1..4) %}
+              <span class="announce-marquee__item"{% if group == 1 and copy > 1 %} aria-hidden="true"{% endif %}>{{ section.settings.announcement_text_4 }}</span>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_info_boxes %}
+  <div class="container">
     <div class="row text-center justify-content-center">
 
-    <div class="col-12 col-md-4 announce-box">
-      <div class="announce-inner">{{ section.settings.announcement_text_1 }}</div>
-    </div>
+      <div class="col-12 col-md-4 announce-box">
+        <div class="announce-inner">{{ section.settings.announcement_text_1 }}</div>
+      </div>
 
-    <div class="col-12 col-md-4 announce-box">
-      <div class="announce-inner">{{ section.settings.announcement_text_2 }}</div>
-    </div>
+      <div class="col-12 col-md-4 announce-box">
+        <div class="announce-inner">{{ section.settings.announcement_text_2 }}</div>
+      </div>
 
-    <div class="col-12 col-md-4 announce-box">
-      <div class="announce-inner">{{ section.settings.announcement_text_3 }}</div>
-    </div>
+      <div class="col-12 col-md-4 announce-box">
+        <div class="announce-inner">{{ section.settings.announcement_text_3 }}</div>
+      </div>
 
-    {% if section.settings.announcement_text_4 != blank %}
-    <div class="col-12 announce-box announce-box--full">
-      <div class="announce-inner">{{ section.settings.announcement_text_4 }}</div>
     </div>
-    {% endif %}
-
   </div>
-</div>
-</div>
-
-
-
-
-
-
-
-{% comment %} {% schema %}
-{
-  "name": "Announcement Bar",
-  "settings": [
-    {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Announcement Text",
-      "default": "Get 10% off on your first order!"
-    },
-    {
-      "type": "url",
-      "id": "announcement_link",
-      "label": "Link (Optional)"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#ff0000"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#ffffff"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Announcement Bar"
-    }
-  ]
-}
-{% endschema %}
-
-<style>
-  .announcement-bar {
-    background-color: {{ section.settings.background_color }};
-    color: {{ section.settings.text_color }};
-    text-align: center;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .announcement-bar a {
-    color: {{ section.settings.text_color }};
-    text-decoration: underline;
-  }
-</style>
-
-<div class="announcement-bar">
-  {% if section.settings.announcement_link != blank %}
-    <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_text }}</a>
-  {% else %}
-    {{ section.settings.announcement_text }}
   {% endif %}
-</div> {% endcomment %}
+
+</div>
