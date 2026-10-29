@@ -22,6 +22,7 @@
     border-radius: 3px;
     pointer-events: none;
   }
+  .product-single__notice { font-weight: 700; color: #222; font-size: 14px; line-height: 1.5; margin: -5px 0 18px; }
 </style>
 <div class="TopContent mb-95 mb-xs-60{% if variantCount > 1 and viewtype == 'type7' %} thumb_all_variant{% endif %}">
   <div class="product-single row position-static">
@@ -613,6 +614,7 @@
     <div class="block_information position-static col-md-6 col-xs-12 mt-xs-30 pro_sticky">
       <div class="info_content">
         <h1 itemprop="name" class="product-single__title">{{ product.title }}</h1>
+        <p class="product-single__notice">Items may have minor scratches or imperfections. Priced to sell - no further discounts.</p>
         <div class="product-single__meta">
           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             <meta itemprop="priceCurrency" content="{{ shop.currency }}">
