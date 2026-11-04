@@ -376,8 +376,15 @@
       {%- assign banner_desktop = collection.metafields.custom.collection_banner_image.value.preview_image -%}
       {%- assign banner_mobile = collection.metafields.custom.mobile_banner.value.preview_image -%}
       {%- assign banner_link = collection.metafields.custom.collection_banner_link -%}
-      {%- if banner_link != blank -%}
-        <a href="{{ banner_link }}" style="width: 100%; display: block;">
+      {%- comment -%} Furniture Bundles only: when no link metafield is set, clicking the banner smooth-scrolls down to the products. {%- endcomment -%}
+      {%- assign banner_scrolls = false -%}
+      {%- assign banner_href = banner_link -%}
+      {%- if banner_href == blank and collection.handle == 'furniture-bundles' -%}
+        {%- assign banner_scrolls = true -%}
+        {%- assign banner_href = '#main-collection-filters' -%}
+      {%- endif -%}
+      {%- if banner_href != blank -%}
+        <a href="{{ banner_href }}"{% if banner_scrolls %} class="collection-banner__scroll" aria-label="Scroll down to the bundles"{% endif %} style="width: 100%; display: block;">
       {%- endif -%}
         <picture style="display: block; width: 100%;">
           {%- if banner_mobile != blank -%}
@@ -414,8 +421,26 @@
             >
           {%- endif -%}
         </picture>
-      {%- if banner_link != blank -%}
+      {%- if banner_href != blank -%}
         </a>
+      {%- endif -%}
+      {%- if banner_scrolls -%}
+        <script>
+          (function () {
+            var banner = document.querySelector('.collection-banner__scroll');
+            if (!banner) return;
+            banner.addEventListener('click', function (event) {
+              var target = document.getElementById('main-collection-filters');
+              if (!target) return;
+              event.preventDefault();
+              var offset = 0;
+              var stickyHeader = document.getElementById('header-sticky');
+              if (stickyHeader && document.querySelector('.site-header.sticky-menu')) offset = stickyHeader.offsetHeight;
+              var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+              window.scrollTo({ top: top, behavior: 'smooth' });
+            });
+          })();
+        </script>
       {%- endif -%}
       <style>
         @media (min-width: 641px) { .collection-banner__mobile-only { display: none !important; } }
