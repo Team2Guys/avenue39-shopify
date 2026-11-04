@@ -73,6 +73,7 @@
 {% endcomment %}
 {%- if collection.metafields.custom.collection_banner_image != blank
   or collection.metafields.custom.collection_slider != blank
+  or collection.metafields.custom.mobile_banner != blank
 -%}
   <section class="collection-banner" style="width: 100%;">
     {%- if collection.handle == 'summer-sale' and collection.metafields.custom.collection_banner_image != blank -%}
@@ -361,15 +362,60 @@
         });
       </script>
 
-    {%- elsif collection.metafields.custom.collection_banner_image != blank -%}
-      <!-- Other collections → link to Summer Sale -->
-      <a href="/collections/summer-sale" style="width: 100%; display: block;">
-        <img
-          src="{{ collection.metafields.custom.collection_banner_image | img_url: 'master' }}"
-          alt="{{ collection.title }}"
-          style="width: 100%; height: auto; display: block;"
-        >
+    {%- elsif collection.metafields.custom.collection_banner_image != blank
+      or collection.metafields.custom.mobile_banner != blank
+    -%}
+      {%- comment -%}
+        Other collections.
+        Desktop (>= 992px): custom.collection_banner_image.
+        Mobile  (<= 991px): custom.mobile_banner when set, otherwise the desktop banner.
+        Only a mobile banner set: shown on mobile only, nothing on desktop.
+        Neither set: the section is not rendered at all (outer condition).
+        Link: custom.collection_banner_link when set, else the Summer Sale page (unchanged).
+      {%- endcomment -%}
+      {%- assign banner_desktop = collection.metafields.custom.collection_banner_image.value.preview_image -%}
+      {%- assign banner_mobile = collection.metafields.custom.mobile_banner.value.preview_image -%}
+      {%- assign banner_link = collection.metafields.custom.collection_banner_link | default: '/collections/summer-sale' -%}
+      <a href="{{ banner_link }}" style="width: 100%; display: block;">
+        <picture style="display: block; width: 100%;">
+          {%- if banner_mobile != blank -%}
+            <source
+              media="(max-width: 991px)"
+              srcset="{% render 'nov-srcset', image: banner_mobile, max: 1200 %}"
+              sizes="100vw"
+              width="{{ banner_mobile.width }}"
+              height="{{ banner_mobile.height }}"
+            >
+          {%- endif -%}
+          {%- if banner_desktop != blank -%}
+            <img
+              src="{{ banner_desktop | image_url: width: 1920 }}"
+              srcset="{% render 'nov-srcset', image: banner_desktop %}"
+              sizes="100vw"
+              width="{{ banner_desktop.width }}"
+              height="{{ banner_desktop.height }}"
+              alt="{{ banner_desktop.alt | default: collection.title | escape }}"
+              fetchpriority="high"
+              style="width: 100%; height: auto; display: block;"
+            >
+          {%- else -%}
+            <img
+              class="collection-banner__mobile-only"
+              src="{{ banner_mobile | image_url: width: 1200 }}"
+              srcset="{% render 'nov-srcset', image: banner_mobile, max: 1200 %}"
+              sizes="100vw"
+              width="{{ banner_mobile.width }}"
+              height="{{ banner_mobile.height }}"
+              alt="{{ banner_mobile.alt | default: collection.title | escape }}"
+              fetchpriority="high"
+              style="width: 100%; height: auto; display: block;"
+            >
+          {%- endif -%}
+        </picture>
       </a>
+      <style>
+        @media (min-width: 992px) { .collection-banner__mobile-only { display: none !important; } }
+      </style>
     {%- endif -%}
   </section>
 {%- endif -%}
