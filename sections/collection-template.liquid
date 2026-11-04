@@ -367,8 +367,8 @@
     -%}
       {%- comment -%}
         Other collections.
-        Desktop (>= 992px): custom.collection_banner_image.
-        Mobile  (<= 991px): custom.mobile_banner when set, otherwise the desktop banner.
+        Desktop (>= 641px): custom.collection_banner_image.
+        Mobile  (<= 640px): custom.mobile_banner when set, otherwise the desktop banner.
         Only a mobile banner set: shown on mobile only, nothing on desktop.
         Neither set: the section is not rendered at all (outer condition).
         Link: only when custom.collection_banner_link is set; otherwise the banner is not clickable.
@@ -382,7 +382,7 @@
         <picture style="display: block; width: 100%;">
           {%- if banner_mobile != blank -%}
             <source
-              media="(max-width: 991px)"
+              media="(max-width: 640px)"
               srcset="{% render 'nov-srcset', image: banner_mobile, max: 1200 %}"
               sizes="100vw"
               width="{{ banner_mobile.width }}"
@@ -418,7 +418,7 @@
         </a>
       {%- endif -%}
       <style>
-        @media (min-width: 992px) { .collection-banner__mobile-only { display: none !important; } }
+        @media (min-width: 641px) { .collection-banner__mobile-only { display: none !important; } }
       </style>
     {%- endif -%}
   </section>
