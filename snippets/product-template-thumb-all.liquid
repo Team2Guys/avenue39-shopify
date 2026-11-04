@@ -25,6 +25,7 @@
   .product-single__clearance { font-weight: 600; color: #A9010C; font-size: 14px; line-height: 1.5; margin: -5px 0 18px; }
   .product-single__condition .product__condition { font-size: 12px; font-weight: 500; line-height: 1.5; color: #222; }
   .product-single__condition .product__condition strong { font-weight: 700; text-transform: uppercase; }
+  .product-single__include .product__include { font-size: 12px; font-weight: 500; line-height: 20px; color: #222; }
 </style>
 <div class="TopContent mb-95 mb-xs-60{% if variantCount > 1 and viewtype == 'type7' %} thumb_all_variant{% endif %}">
   <div class="product-single row position-static">
@@ -705,6 +706,12 @@
                   {% endfor %}
                 </p>
               {% endif %}
+              {%- if product.metafields.custom.include_bundle != blank -%}
+                <p class="product-single__cat product-single__include">
+                  <span class="label control-label">Include:</span>
+                  <span class="product__include">{{ product.metafields.custom.include_bundle | escape | newline_to_br }}</span>
+                </p>
+              {%- endif -%}
               {% if section.settings.show_tags %}
                 <p itemprop="tags" class="product-single__tags">
                   <span class="label control-label">{{ 'products.product.lable_tags' | t }}:</span>
