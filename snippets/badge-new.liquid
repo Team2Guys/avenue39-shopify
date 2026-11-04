@@ -1,0 +1,14 @@
+{%- comment -%}
+  "New" badge on product cards. Products in the Furniture Bundles collection get a red
+  "Bundle Offer" badge instead (whether or not they are new); other products are unchanged.
+  Usage: {% render 'badge-new', product: product, is_new: <boolean> %}
+{%- endcomment -%}
+{%- assign is_bundle_product = false -%}
+{%- for bundle_collection in product.collections -%}
+  {%- if bundle_collection.handle == 'furniture-bundles' -%}{%- assign is_bundle_product = true -%}{%- break -%}{%- endif -%}
+{%- endfor -%}
+{%- if is_bundle_product -%}
+  <div class="badge badge--sale-rt badge--bundle">Bundle Offer</div>
+{%- elsif is_new -%}
+  <div class="badge badge--sale-rt">{{ 'products.product.new' | t }}</div>
+{%- endif -%}

@@ -49,6 +49,7 @@
   .product-single .product-single__price .product-price__price { margin-right: 25px; }
   .product-single__saved { flex: 1 1 220px; font-size: 13px; font-weight: 500; line-height: 1.4; color: #222; }
   .product-single__saved strong { color: #A9010C; font-weight: 700; }
+  .product-single__saved-line { display: block; }
 </style>
 <div class="TopContent mb-95 mb-xs-60{% if variantCount > 1 and viewtype == 'type7' %} thumb_all_variant{% endif %}">
   <div class="product-single row position-static">
@@ -800,7 +801,7 @@
       </span>
     </span>
   {% endif %}
-  {%- comment -%} "You just saved 56% (AED 6,700) + AED 400 Bundle Save": discount from compare-at price, bundle saving from custom.bundle_save {%- endcomment -%}
+  {%- comment -%} "You just saved 56% (AED 6,700)" / "+ AED 400 Bundle Saving" (two lines): discount from compare-at price, bundle saving from custom.bundle_save {%- endcomment -%}
   {%- assign bundle_save_raw = product.metafields.custom.bundle_save -%}
   {%- assign has_discount = false -%}
   {%- if current_variant.compare_at_price > current_variant.price -%}{%- assign has_discount = true -%}{%- endif -%}
@@ -808,9 +809,13 @@
     {%- assign saved_pct = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
     {%- assign saved_amt = current_variant.compare_at_price | minus: current_variant.price -%}
     {%- assign bundle_save_cents = bundle_save_raw | remove: 'AED' | remove: 'aed' | remove: 'Dhs.' | remove: 'Dhs' | remove: ',' | strip | times: 100 -%}
-    <span class="product-single__saved">You just saved
-      {%- if has_discount %} <strong>{{ saved_pct }}%</strong> (AED {{ saved_amt | money_without_currency }}){% endif -%}
-      {%- if bundle_save_raw != blank %}{% if has_discount %} +{% endif %} <strong>{% if bundle_save_cents > 0 %}AED {{ bundle_save_cents | money_without_currency }}{% else %}{{ bundle_save_raw | escape }}{% endif %}</strong> Bundle Save{% endif -%}
+    <span class="product-single__saved">
+      {%- if has_discount -%}
+        <span class="product-single__saved-line">You just saved <strong>{{ saved_pct }}%</strong> (AED {{ saved_amt | money_without_currency }})</span>
+      {%- endif -%}
+      {%- if bundle_save_raw != blank -%}
+        <span class="product-single__saved-line">{% if has_discount %}+{% else %}You just saved{% endif %} <strong>{% if bundle_save_cents > 0 %}AED {{ bundle_save_cents | money_without_currency }}{% else %}{{ bundle_save_raw | escape }}{% endif %}</strong> Bundle Saving</span>
+      {%- endif -%}
     </span>
   {%- endif -%}
 </p>

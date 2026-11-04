@@ -8284,6 +8284,18 @@ effects the :hover style. This forces the style to be applied.
 			@include rtl-right(5px);
 		}
 		.badge_sale {
+			/* Red "Bundle Offer" badge (Furniture Bundles products) in place of the green "New" badge */
+			.badge--sale-rt.badge--bundle {
+				background: #A9010C;
+				max-width: none;
+				white-space: nowrap;
+				font-size: 11px;
+				letter-spacing: 0.05em;
+				padding: 6px 10px;
+				&:before {
+					border-color: transparent transparent darken(#A9010C, 20%) transparent;
+				}
+			}
 			.badge--sale-rt {
 				position: absolute;
 				top: 10px;

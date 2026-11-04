@@ -424,13 +424,17 @@
   </section>
 {%- endif -%}
 
+{%- comment -%} Page heading: the Furniture Bundles collection is headed "Closing Down Bundle Deals"; every other collection uses its title. {%- endcomment -%}
+{%- assign collection_heading = collection.title -%}
+{%- if collection.handle == 'furniture-bundles' -%}{%- assign collection_heading = 'Closing Down Bundle Deals' -%}{%- endif -%}
+
 <div id="main-collection-filters" data-id="{{ section.id }}">
   <div class="collection-{{ viewtype }}">
     {% if viewtype != 'full_width' %}
       <div class="container">
     {% endif %}
     {% if viewtype == 'canvas' and collection.handle != '11-11-day-sale' %}
-      <h1 class="collection_title d-none d-lg-block mt-4 mb-4 text-center">{{ collection.title }}</h1>
+      <h1 class="collection_title d-none d-lg-block mt-4 mb-4 text-center">{{ collection_heading }}</h1>
       <style>
         /* Centre the title vertically between the banner and the filter bar (desktop only; the title is hidden below 992px). */
         @media (min-width: 992px) {
@@ -458,7 +462,7 @@
     </div>
     <div class="d-flex align-items-center pt-60 pb-60 pb-lg-30 ">
       {% if viewtype != 'canvas' %}
-        <div class="collection_title d-none d-lg-block">{{ collection.title }}</div>
+        <div class="collection_title d-none d-lg-block">{{ collection_heading }}</div>
       {% endif %}
       <div class="filter_button{% if viewtype != 'canvas' %} d-lg-none{% endif %}">
         <i class="zmdi zmdi-tune"></i>
@@ -569,9 +573,9 @@
                               {% assign date_now = 'now' | date: '%s' %}
                               {% assign difference = date_now | minus: date_created %}
                               {% assign date_end = settings.time_newproduct | times: 86400 %}
-                              {% if difference < date_end and settings.show_new %}
-                                <div class="badge badge--sale-rt">{{ 'products.product.new' | t }}</div>
-                              {% endif %}
+                              {% assign is_new = false %}
+                              {% if difference < date_end and settings.show_new %}{% assign is_new = true %}{% endif %}
+                              {% render 'badge-new', product: product, is_new: is_new %}
                               {% if product.compare_at_price > product.price and settings.show_compare_price %}
                                 <span class="badge badge--sale-pt"
                                   >-

@@ -22,7 +22,7 @@
     {% if product.compare_at_price > product.price %}
       <div class="badge_sale">
         {% if product.compare_at_price > product.price %}
-          <div class="badge badge--sale-rt">{{ 'products.product.new' | t }}</div>
+          {% render 'badge-new', product: product, is_new: true %}
         {% endif %}
         {% if product.compare_at_price > product.price %}
           <span class="badge badge--sale-pt"
