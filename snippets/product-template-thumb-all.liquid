@@ -26,6 +26,29 @@
   .product-single__condition .product__condition { font-size: 12px; font-weight: 500; line-height: 1.5; color: #222; }
   .product-single__condition .product__condition strong { font-weight: 700; text-transform: uppercase; }
   .product-single__include .product__include { font-size: 12px; font-weight: 500; line-height: 20px; color: #222; }
+  /* "While stocks last" badge (top-left of the main image, Furniture Bundles products only) */
+  .product-single__stock-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    background: #A9010C;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 10px;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  /* "You just saved ..." line beside the price */
+  /* Sits to the right of the price (wrapping onto two lines) when the column has room, otherwise drops below it. */
+  .product-single .product-single__price { flex-wrap: wrap; row-gap: 6px; }
+  .product-single .product-single__price .product-price__price { margin-right: 25px; }
+  .product-single__saved { flex: 1 1 220px; font-size: 13px; font-weight: 500; line-height: 1.4; color: #222; }
+  .product-single__saved strong { color: #A9010C; font-weight: 700; }
 </style>
 <div class="TopContent mb-95 mb-xs-60{% if variantCount > 1 and viewtype == 'type7' %} thumb_all_variant{% endif %}">
   <div class="product-single row position-static">
@@ -69,6 +92,13 @@
       -->
 
       <div class="product-single__photos pro_sticky">
+        {%- assign is_bundle_product = false -%}
+        {%- for bundle_collection in product.collections -%}
+          {%- if bundle_collection.handle == 'furniture-bundles' -%}{%- assign is_bundle_product = true -%}{%- break -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if is_bundle_product and product.available -%}
+          <span class="product-single__stock-badge">While stocks last</span>
+        {%- endif -%}
         {%- if current_variant.compare_at_price > current_variant.price -%}
           {%- assign single_discount_pct = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
           <span class="product-single__badge" aria-label="{{ single_discount_pct }}% off">-{{ single_discount_pct }}%</span>
@@ -770,6 +800,19 @@
       </span>
     </span>
   {% endif %}
+  {%- comment -%} "You just saved 56% (AED 6,700) + AED 400 Bundle Save": discount from compare-at price, bundle saving from custom.bundle_save {%- endcomment -%}
+  {%- assign bundle_save_raw = product.metafields.custom.bundle_save -%}
+  {%- assign has_discount = false -%}
+  {%- if current_variant.compare_at_price > current_variant.price -%}{%- assign has_discount = true -%}{%- endif -%}
+  {%- if has_discount or bundle_save_raw != blank -%}
+    {%- assign saved_pct = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round -%}
+    {%- assign saved_amt = current_variant.compare_at_price | minus: current_variant.price -%}
+    {%- assign bundle_save_cents = bundle_save_raw | remove: 'AED' | remove: 'aed' | remove: 'Dhs.' | remove: 'Dhs' | remove: ',' | strip | times: 100 -%}
+    <span class="product-single__saved">You just saved
+      {%- if has_discount %} <strong>{{ saved_pct }}%</strong> (AED {{ saved_amt | money_without_currency }}){% endif -%}
+      {%- if bundle_save_raw != blank %}{% if has_discount %} +{% endif %} <strong>{% if bundle_save_cents > 0 %}AED {{ bundle_save_cents | money_without_currency }}{% else %}{{ bundle_save_raw | escape }}{% endif %}</strong> Bundle Save{% endif -%}
+    </span>
+  {%- endif -%}
 </p>
 
         {% comment %} <p class="product-single__price product-single__price-{{ section.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %} d-flex align-items-center">
