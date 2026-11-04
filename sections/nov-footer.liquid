@@ -466,9 +466,10 @@
     <div class="container">
       <div class="d-flex align-items-center {% if section.settings.currency == true %}justify-content-between{% else %}justify-content-center{% endif %} d-xs-block text-xs-center">
         <div class="copyright mb-sm-20">{{ section.settings.copyright }}</div>
-        {% if section.settings.currency == true and settings.show_multiple_currencies == true %}
-          {% include 'nov-block-currency', type: 'dropdown' %}
-        {% endif %}
+        {%- comment -%}
+          Footer currency selector removed: the multi-currency script is no longer
+          loaded, so the dropdown rendered empty.
+        {%- endcomment -%}
       </div>
     </div>
   </div>
