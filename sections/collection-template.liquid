@@ -371,12 +371,14 @@
         Mobile  (<= 991px): custom.mobile_banner when set, otherwise the desktop banner.
         Only a mobile banner set: shown on mobile only, nothing on desktop.
         Neither set: the section is not rendered at all (outer condition).
-        Link: custom.collection_banner_link when set, else the Summer Sale page (unchanged).
+        Link: only when custom.collection_banner_link is set; otherwise the banner is not clickable.
       {%- endcomment -%}
       {%- assign banner_desktop = collection.metafields.custom.collection_banner_image.value.preview_image -%}
       {%- assign banner_mobile = collection.metafields.custom.mobile_banner.value.preview_image -%}
-      {%- assign banner_link = collection.metafields.custom.collection_banner_link | default: '/collections/summer-sale' -%}
-      <a href="{{ banner_link }}" style="width: 100%; display: block;">
+      {%- assign banner_link = collection.metafields.custom.collection_banner_link -%}
+      {%- if banner_link != blank -%}
+        <a href="{{ banner_link }}" style="width: 100%; display: block;">
+      {%- endif -%}
         <picture style="display: block; width: 100%;">
           {%- if banner_mobile != blank -%}
             <source
@@ -412,7 +414,9 @@
             >
           {%- endif -%}
         </picture>
-      </a>
+      {%- if banner_link != blank -%}
+        </a>
+      {%- endif -%}
       <style>
         @media (min-width: 992px) { .collection-banner__mobile-only { display: none !important; } }
       </style>
