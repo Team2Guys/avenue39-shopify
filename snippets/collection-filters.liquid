@@ -143,6 +143,41 @@
                 </div>
               </div>
             </div>
+          {% when 'boolean' %}
+            {%- comment -%} True/false metafield filters (Search & Discovery) {%- endcomment -%}
+            <div class="js-filter" data-index="{{ forloop.index }}">
+              <div class="facets__label position-relative act"><i class="zmdi zmdi-format-subject"></i>{{ filter.label | escape }}</div>
+              <div class="facets__content">
+                <ul class="facets__list list-unstyled pt-10 mb-30" role="list">
+                  {%- assign bool_keys = 'true_value,false_value' | split: ',' -%}
+                  {%- for bool_key in bool_keys -%}
+                    {%- assign value = filter[bool_key] -%}
+                    {%- if value == blank -%}{%- continue -%}{%- endif -%}
+                    <li class="list-menu__item facets__item">
+                      <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="facet-checkbox d-flex align-items-center{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}">
+                        <input type="checkbox"
+                        name="{{ value.param_name }}"
+                        value="{{ value.value }}"
+                        id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                        {% if value.active %}checked{% endif %}
+                        {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                        >
+                        <span class="custom-checkbox"><i class="zmdi zmdi-check"></i></span>
+                        <span class="filter-option-value">{{ value.label | escape }}</span>
+                        <span class="value_count">{{ value.count }}</span>
+                      </label>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+                <div class="d-flex justify-content-end pb-30">
+                  <facet-remove>
+                    <a href="{{ filter.url_to_remove }}" class="facets__reset">
+                      {{ 'collections.filters.reset' | t }}
+                    </a>
+                  </facet-remove>
+                </div>
+              </div>
+            </div>
           {% endcase %}
         {%- endfor -%}
         
