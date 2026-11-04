@@ -146,7 +146,7 @@
           {% endcase %}
         {%- endfor -%}
         
-        {% if section.settings.show_tags %}
+        {% if section.settings.show_tags and collection.all_tags.size > 0 %}
           <div class="facets__tag">
             <div class="facets__label position-relative act"><i class="zmdi zmdi-format-subject"></i>{{ 'collections.filters.filter_tags' | t }}</div>
             <div class="facets__content">

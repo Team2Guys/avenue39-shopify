@@ -964,7 +964,7 @@
           "background_color": "#222832",
           "bg_copy": "#222832",
           "copyright": "Copyright © 2026. All rights reserved.",
-          "currency": true
+          "currency": false
         }
       },
       "nov-sidebar-dropdown": {
