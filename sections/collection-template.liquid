@@ -431,6 +431,13 @@
     {% endif %}
     {% if viewtype == 'canvas' and collection.handle != '11-11-day-sale' %}
       <h1 class="collection_title d-none d-lg-block mt-4 mb-4 text-center">{{ collection.title }}</h1>
+      <style>
+        /* Centre the title vertically between the banner and the filter bar (desktop only; the title is hidden below 992px). */
+        @media (min-width: 992px) {
+          .collection-canvas h1.collection_title { margin: 45px 0 !important; }
+          .collection-canvas h1.collection_title ~ .d-flex.pt-60 { padding-top: 0 !important; }
+        }
+      </style>
     {% endif %}
     <div class="row">
       {% if section.settings.banner != blank %}
