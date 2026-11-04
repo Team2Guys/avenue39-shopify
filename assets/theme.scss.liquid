@@ -1276,6 +1276,12 @@ a {
 		text-decoration: underline;
 	}
 }
+/* Links inside the page content: re-assert the theme link colour at a slightly
+   higher specificity, so a global a { color } injected by footer HTML blocks
+   cannot hide them (e.g. product description links). Hover still applies. */
+main a {
+	color: $theme-color-default;
+}
 i {
 	display: inline-block;
 }
