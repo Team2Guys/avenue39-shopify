@@ -15,6 +15,79 @@
      immediately and hide the others until slick takes over (same final layout). */
   .slideshow .main-slider:not(.slick-initialized) { opacity: 1; visibility: visible; }
   .slideshow .main-slider:not(.slick-initialized) .item:not(:first-child) { display: none; }
+
+  /* Furniture Bundles slide: real "Shop Bundle Offers" button over the banner artwork (the artwork
+     has no button). The slideshow is full-width, so vw sizes scale with the artwork; positions are
+     percentages of the slide image. Desktop artwork >= 992px, mobile artwork below (theme breakpoint). */
+  .slideshow .slide-image { position: relative; }
+  .slideshow .bundle-cta__btn,
+  .slideshow .bundle-cta__more {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #b3121b;
+    color: #fff;
+    font-family: Garamond, "EB Garamond", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0.25em 0.9em rgba(0, 0, 0, 0.28);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .slideshow .bundle-cta__btn:hover,
+  .slideshow .bundle-cta__btn:focus-visible,
+  .slideshow .bundle-cta__more:hover,
+  .slideshow .bundle-cta__more:focus-visible {
+    background-color: #8e0e15;
+    color: #fff;
+    text-decoration: none;
+  }
+  .slideshow .bundle-cta__btn:focus-visible,
+  .slideshow .bundle-cta__more:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  /* Desktop artwork: one button in the left text column, under the headline */
+  .slideshow .bundle-cta__btn {
+    left: 5.9%;
+    top: 56.8%;
+    font-size: 1.55vw;
+    padding: 0.72em 1.7em 0.66em;
+    border-radius: 0.5vw;
+  }
+  .slideshow .bundle-cta__btn:hover { transform: translateY(-1px); }
+  .slideshow .bundle-cta__chevron,
+  .slideshow .bundle-cta__more { display: none; }
+  @media (max-width: 991px) {
+    /* Mobile artwork: centred button under the headline + "see more" pill at the bottom */
+    .slideshow .bundle-cta__btn {
+      left: 50%;
+      top: 17.6%;
+      transform: translateX(-50%);
+      font-size: 2.7vw;
+      padding: 0.62em 1.5em 0.56em;
+      border-radius: 1.2vw;
+    }
+    .slideshow .bundle-cta__btn:hover { transform: translateX(-50%) translateY(-1px); }
+    .slideshow .bundle-cta__chevron { display: inline-block; font-size: 1.3em; line-height: 0.75; }
+    .slideshow .bundle-cta__more {
+      display: inline-flex;
+      left: 50%;
+      top: 91.6%;
+      transform: translateX(-50%);
+      font-size: 2.8vw;
+      padding: 0.5em 1.6em 0.45em;
+      border-radius: 2vw;
+    }
+    .slideshow .bundle-cta__more:hover { transform: translateX(-50%) translateY(-1px); }
+    .slideshow .bundle-cta__more svg { width: 1.1em; height: 1.1em; flex: none; }
+  }
 </style>
 <div class="distance{% if section.settings.class != blank %} {{ section.settings.class }}{% endif %}">
   {% if section.settings.has_fullwidth == false %}
@@ -82,6 +155,17 @@
                   {% else %}
                     {{ slide_img }}
                   {% endif %}
+                  {%- comment -%}
+                    Furniture Bundles slide: the banner artwork has no button baked in, so a real
+                    "Shop Bundle Offers" button is drawn over it (desktop: under the headline text;
+                    mobile: under the headline, plus a "Click to see more bundles" pill at the bottom).
+                    Both link where the slide links. Positions/sizes live in the <style> block above.
+                  {%- endcomment -%}
+                  {%- assign slide_link = block.settings.slider_link | default: '' -%}
+                  {%- if slide_link contains 'furniture-bundles' -%}
+                    <a class="bundle-cta__btn" href="{{ slide_link }}">Shop Bundle Offers<span class="bundle-cta__chevron" aria-hidden="true">&rsaquo;</span></a>
+                    <a class="bundle-cta__more" href="{{ slide_link }}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7 2v16l4.3-3.7 2.7 5.7 2.5-1.1-2.7-5.6 5.2-.3z"/></svg>Click to see more bundles</a>
+                  {%- endif -%}
                 </div>
 
                 <figcaption class="caption">
