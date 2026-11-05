@@ -207,9 +207,10 @@
   </header>
   <style>
 
-    /* Change 11.11 Day Sale menu item to red color */
+    /* Red menu items: Ramadan Sale, Clearance, Bundle Sale (furniture-bundles) */
 .site-nav__link[href*="ramadan-sale"],
 .site-nav__link[href*="clearance"],
+.site-nav__link[href*="furniture-bundles"],
 .site-nav__link:contains("11.11 Day Sale") {
     color: #ff0000 !important;
     font-weight: bold;
@@ -217,12 +218,14 @@
 
 /* Alternative method using data attributes if the above doesn't work */
 li:has(a[href*="ramadan-sale"]) .site-nav__link,
-li:has(a[href*="clearance"]) .site-nav__link {
+li:has(a[href*="clearance"]) .site-nav__link,
+li:has(a[href*="furniture-bundles"]) .site-nav__link {
     color: #ff0000 !important;
     font-weight: bold;
 }
 li:has(a[href*="ramadan-sale"]) .site-nav__link:hover,
-li:has(a[href*="clearance"]) .site-nav__link:hover {
+li:has(a[href*="clearance"]) .site-nav__link:hover,
+li:has(a[href*="furniture-bundles"]) .site-nav__link:hover {
     color: #afa183 !important;
     font-weight: bold;
 }
@@ -230,7 +233,8 @@ li:has(a[href*="clearance"]) .site-nav__link:hover {
 
 /* For mobile menu as well */
 #canvas-main-menu .site-nav__link[href*="ramadan-sale"],
-#canvas-main-menu .site-nav__link[href*="clearance"] {
+#canvas-main-menu .site-nav__link[href*="clearance"],
+#canvas-main-menu .site-nav__link[href*="furniture-bundles"] {
     color: #ff0000 !important;
     font-weight: bold;
 }
