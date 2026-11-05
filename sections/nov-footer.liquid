@@ -227,6 +227,7 @@
   }
 </style>
 
+{%- if section.settings.show_feedback -%}
 <div class="feedback-trigger" id="openFeedbackBtn">Feedback</div>
 <div class="feedback-overlay" id="feedbackModal">
   <div class="feedback-box feedback-font-serif">
@@ -329,6 +330,7 @@
     radioButton.checked = true;
   }
 </script>
+{%- endif -%}
 
   {% if section.settings.show_p %}
     <div class="f_p">
@@ -519,6 +521,17 @@
   "name": "Footer",
   "class": "nov-footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Feedback button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_feedback",
+      "label": "Show the floating Feedback button",
+      "info": "Shows the vertical Feedback tab on the right edge of every page and the feedback form it opens.",
+      "default": false
+    },
     {
       "type": "header",
       "content": "Policy"
