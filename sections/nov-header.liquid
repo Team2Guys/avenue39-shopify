@@ -239,51 +239,78 @@ li:has(a[href*="furniture-bundles"]) .site-nav__link:hover {
     font-weight: bold;
 }
 
-     .mm-panels>.mm-panel:before, .canvas-menu #canvas-main-menu .show_sub {
-     display:none;
-   }
-    .canvas-menu #canvas-main-menu .mm-panel .mm-listview > li .mm-next {
-  position: relative;
-    padding-left: 30px;
-    line-height: normal;
-    transform: rotate(179deg);
-    color: white;
-    background: white;
-}
-    .canvas-menu .site-nav>li{
-      text-align:end;
+    /* Mobile off-canvas menu (the drawer that opens from the right): a standard list,
+       text on the left and the submenu chevron on the right, under a compact header row
+       with a title and a proper close button. The theme's own rules in layout.scss.liquid
+       already style the sub-panels (back arrow + title), so only the top level is set here. */
+    .mm-panels > .mm-panel:before,
+    .canvas-menu #canvas-main-menu .show_sub { display: none; }
+    .canvas-menu .canvas-header-box {
+      height: 56px;
+      padding: 0 12px 0 20px;
+      border-bottom: 1px solid #ececec;
     }
-    .mm-listview .mm-next+a{
-      margin-right:10px;
+    .canvas-menu .canvas-header-box .menu-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #222;
     }
-
-.canvas-menu #canvas-main-menu .mm-panel .mm-listview > li .mm-next::before {
-  /* content: "\f2f6"; */
-  font-family: Material-Design-Iconic-Font;
-  font-size: 30px ;
-  color: #e78282;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-    .site-nav__link.site-nav__link--main{
-          width: 100%;
-    text-align: end;
+    .canvas-menu .canvas-header-box .close-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      background: #afa183;
+      color: #fff;
+      font-size: 18px;
+      line-height: 1;
     }
-.canvas-header-box.d-flex.justify-content-center.align-items-center .close-box{
-  background: #afa183;
-    padding: 0px 7px;
-    color: white;
-}
-.canvas-menu #canvas-main-menu .mm-panel .mm-listview > li .mm-next::after {
-  /* display: none; /* remove default right arrow */ */
-  font-size: 30px ;
-}
-    .canvas-menu .site-nav>li{
-      display:flex;
-          justify-content: end;
-          text-decoration: none;
+    .canvas-menu #canvas-main-menu { top: 56px; }
+    .canvas-menu #canvas-main-menu .mm-panel .mm-listview > li {
+      display: block;
+      position: relative;
+      text-align: left;
+      margin-bottom: 0;
+    }
+    .canvas-menu #canvas-main-menu .mm-panel .mm-listview > li > a.site-nav__link {
+      display: block;
+      width: auto;
+      text-align: left;
+    }
+    .canvas-menu #canvas-main-menu .mm-listview .mm-next + a { margin-right: 50px; } /* room for the chevron */
+    .canvas-menu #canvas-main-menu .mm-panel .mm-listview > li > .mm-next {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50px;
+      height: auto;
+      padding: 0;
+      margin: 0;
+      transform: none;
+      background: transparent;
+      color: #b3b4b3;
+    }
+    .canvas-menu #canvas-main-menu .mm-panel .mm-listview > li > .mm-next:before { display: none; }
+    .canvas-menu #canvas-main-menu .mm-panel .mm-listview > li > .mm-next:after {
+      content: "\f2fb"; /* zmdi-chevron-right */
+      font-family: "Material-Design-Iconic-Font";
+      font-size: 24px;
+      color: #b3b4b3;
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      width: auto;
+      height: auto;
+      margin: 0;
+      border: 0;
+      line-height: 1;
+      transform: translateY(-50%);
     }
 
     .site-header__wishlist-icon {
