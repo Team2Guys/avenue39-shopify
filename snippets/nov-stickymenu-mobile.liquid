@@ -47,12 +47,10 @@
 
 <div id="stickymenu_bottom_mobile" class="d-flex align-items-center justify-content-center d-lg-none text-center">
   <div class="stickymenu-item"><a href="/"><i class="icon-home"></i><span>{{ 'sticky_mobile.home.title' | t }}</span></a></div>
-  <!-- {% if settings.wishlist_enable %}
-  <div class="stickymenu-item"><a href="/pages/wishlist" onclick="toggleWishlist(this, '{{ product.handle }}'); return false;"><i class="icon-wishlist"></i><span>{{ 'sticky_mobile.wishlist.title' | t }}</span></a></div>
-  {% endif %} -->
   {% if settings.wishlist_enable %}
   <div class="stickymenu-item">
-    <a href="/pages/wishlist" onclick="toggleWishlist(this, '{{ product.handle }}'); return false;">
+    {%- comment -%} Plain link, like the header icon: the old onclick toggled the current product and blocked navigation {%- endcomment -%}
+    <a href="/pages/wishlist" title="Go to Wishlist">
       <i class="icon-wishlist"></i>
       <span>{{ 'sticky_mobile.wishlist.title' | t }}</span>
       <span class="WishlistCount" data-wishlist-count>0</span>

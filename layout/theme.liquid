@@ -226,6 +226,11 @@
   .whatsapp-float{ width: 54px; height: 54px; }
   .whatsapp-icon{ width: 28px; height: 28px; }
 }
+/* Below 992px the sticky bottom menu (#stickymenu_bottom_mobile, ~48px tall) is shown,
+   so lift the button above it instead of letting it sit on top of the menu. */
+@media (max-width: 991px){
+  .whatsapp-float{ bottom: calc(62px + env(safe-area-inset-bottom)); }
+}
 </style>
 
 
