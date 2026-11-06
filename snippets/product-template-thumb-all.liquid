@@ -985,7 +985,10 @@
                     name="quantity"
                     value="1"
                     min="1"
-                    max="{{ current_variant.inventory_quantity }}"
+                    {% comment %} max only when stock is tracked, limited and positive: max="0" made the field invalid and iOS focused it (keypad) {% endcomment %}
+                    {% if current_variant.inventory_management == 'shopify' and current_variant.inventory_policy == 'deny' and current_variant.inventory_quantity > 0 %}
+                      max="{{ current_variant.inventory_quantity }}"
+                    {% endif %}
                     step="1"
                     class="quantity-selector product-form__input"
                     pattern="[0-9]*"
