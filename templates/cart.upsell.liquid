@@ -4,7 +4,7 @@
   <span>{{ 'cart.general.total_cart' | t: total_cart: cart.item_count }}</span>
 </div>
 <div class="cart-message">
-  <i class="zmdi zmdi-notifications-active"></i>
+  <i class="zmdi zmdi-check-circle"></i>
   {{ 'cart.general.cart_message_html' | t: cart_title: cart.items[0].title }}
 </div>
 <div class="cart__popup_content shopify form_jas_agree">
@@ -13,7 +13,7 @@
       {% for item in cart.items %}
         <div id="{{ item.id }}" class="cart__popup-item d-flex align-items-center cart_item">
           <div class="cart__popup-remove">
-            <a href="/cart/change?line={{ forloop.index }}&quantity=0" data-product-id="{{ item.id }}"
+            <a href="/cart/change?line={{ forloop.index }}&quantity=0" data-product-id="{{ item.id }}" aria-label="Remove {{ item.product.title | escape }}" title="Remove"
               ><i class="fa fa-trash-o" aria-hidden="true"></i
             ></a>
           </div>
@@ -68,7 +68,9 @@
                 step="1"
                 value="{{ item.quantity }}"
                 min="1"
-                max="{{ item.product.variants[0].inventory_quantity }}"
+                {% if item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' and item.variant.inventory_quantity > 0 %}
+                  max="{{ item.variant.inventory_quantity }}"
+                {% endif %}
                 pattern="[0-9]*"
               >
               <a class="cart__popup-qty cart__popup-qty--plus" href="javascript:void(0);"
