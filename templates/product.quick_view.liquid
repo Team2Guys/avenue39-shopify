@@ -136,8 +136,8 @@
             <div class="available_product d-flex">
               <span class="label available_name">{{ 'products.product.availability' | t }} :</span>
               <span class="product__available in-stock d-flex align-items-center">
-                <!-- <span>{{ "products.product.in_stock" | t }}</span> -->
-                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <span>{{ 'products.product.in_stock' | t }}</span>
               </span>
             </div>
           {% endunless %}
@@ -161,6 +161,9 @@
                 {% endfor %}
               </span>
             </p>
+            {% assign qv_tag_count = 0 %}
+            {% for tag in product.tags %}{% if tag != 'upsell' %}{% assign qv_tag_count = qv_tag_count | plus: 1 %}{% endif %}{% endfor %}
+            {% if qv_tag_count > 0 %}
             <p itemprop="tags" class="product-single__tags">
               <span class="label">{{ 'products.product.lable_tags' | t }}:</span>
               <span class="pr-lt__tags">
@@ -176,8 +179,9 @@
                 {% endfor %}
               </span>
             </p>
+            {% endif %}
 
-            <div class="short-desc">{{ product.description | truncate: 150 }}</div>
+            <div class="short-desc">{{ product.description | strip_html | truncate: 160 }}</div>
           </div>
 
           <form
@@ -221,7 +225,9 @@
                     name="quantity"
                     value="1"
                     min="1"
-                    max="{{ current_variant.inventory_quantity }}"
+                    {% if current_variant.inventory_management == 'shopify' and current_variant.inventory_policy == 'deny' and current_variant.inventory_quantity > 0 %}
+                      max="{{ current_variant.inventory_quantity }}"
+                    {% endif %}
                     step="1"
                     class="quantity-selector product-form__input"
                     pattern="[0-9]*"
@@ -284,7 +290,7 @@
 {% endif %}
 
             </div>
-            <div>
+            <div class="qv-actions">
               <div class="product-form__item product-form__item--submit">
                 <button
                   data-handle="{{ product.handle }}"
@@ -310,6 +316,7 @@
                   {% endform %}
                 </div>
               {% endif %}
+              <a href="{{ product.url }}" class="qv-view-details">View full details <i class="zmdi zmdi-long-arrow-right" aria-hidden="true"></i></a>
             </div>
           </form>
         </div>

@@ -14142,3 +14142,202 @@ effects the :hover style. This forces the style to be applied.
   .wishlist-page .wrapper-wishlist .wishlist-content .item-product .formAddToCart .btnAddToCart { height: 40px; line-height: 40px !important; }
   .wishlist-page .wrapper-wishlist .wishlist-content .item-product .formAddToCart .btnAddToCart span { font-size: 11px; }
 }
+
+/* ==================================================================================================
+   Quick view popup (templates/product.quick_view.liquid, opened by nuranium.js into #content_quickview):
+   rounded card, square image panel, info panel that uses the viewport height with the actions pinned
+   at the bottom. Appended after the original ".open_gl_quick_view" rules so it wins on equal specificity.
+   ================================================================================================ */
+.open_gl_quick_view #content_quickview {
+  max-width: 900px;
+  margin: 24px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+}
+.open_gl_quick_view #content_quickview button.nov-close {
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f2f2f2;
+  color: #222;
+  font-size: 22px;
+  line-height: 36px;
+  text-align: center;
+  opacity: 1;
+}
+.open_gl_quick_view #content_quickview button.nov-close:hover { background: #e4e4e4; color: #000; transform: none; }
+.open_gl_quick_view #content_quickview .product-single { align-items: stretch; }
+/* image panel */
+.open_gl_quick_view #content_quickview .product-single .product-single__photos {
+  display: flex;
+  align-items: center;
+  background: #f6f6f6;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__photos #productThumbs { width: 100%; }
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .thumbItem img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-prev,
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.95;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-prev { left: 12px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-next { right: 12px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-prev i,
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-next i {
+  width: auto;
+  height: auto;
+  line-height: 1;
+  border-radius: 0;
+  background: transparent;
+  color: #222;
+  font-size: 14px;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-prev:hover i,
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-next:hover i { background: transparent; color: #afa183; }
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-prev.disabled,
+.open_gl_quick_view #content_quickview .product-single .product-single__photos .owl-nav .owl-next.disabled { opacity: 0.35; }
+/* info panel */
+.open_gl_quick_view #content_quickview .product-single .product-single__info {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 48px);
+  margin-top: 0 !important;
+  padding: 28px 28px 0;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info::-webkit-scrollbar { width: 4px; opacity: 1; visibility: visible; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info::-webkit-scrollbar-track { background: transparent; opacity: 1; visibility: visible; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info::-webkit-scrollbar-thumb { background: #d6d6d6; opacity: 1; visibility: visible; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-single__title {
+  margin: 0 36px 10px 0;
+  font-size: 20px;
+  line-height: 1.3;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-single__price-qv { margin: 0 0 14px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-price__price { font-size: 22px; color: #111; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info s#ComparePrice-qv { margin-left: 10px; font-size: 14px; color: #9a9a9a; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product { margin-bottom: 12px; align-items: center; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .label { min-width: 96px; margin-right: 0; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .product__available {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .product__available > span { margin: 0; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .product__available.in-stock { background: #eef9f1; color: #1f8a3b; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .product__available.in-stock i { color: #1f8a3b; font-size: 13px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .product__available.sold-out { background: #fdecec; color: #c62828; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .available_product .product__available.sold-out i { color: #c62828; font-size: 13px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .group-single { border: 0; padding: 0; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .group-single .label { min-width: 96px; font-size: 10px; color: #8a8a8a; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .group-single .product-single__sku .label-sku { margin-left: 0; font-size: 12px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .group-single .product-single__cat a,
+.open_gl_quick_view #content_quickview .product-single .product-single__info .group-single .product-single__tags a { font-size: 12px; color: #555; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .short-desc { margin-top: 14px; font-size: 13px; line-height: 1.6; color: #666; }
+/* form */
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv { display: flex; flex-direction: column; margin-top: 16px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .group-quantity {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 6px;
+  border: 0;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .quick_view_qty {
+  width: 120px;
+  margin: 8px 0 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .quick_view_qty .quantity-selector { height: 40px; background: #fff; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .group-quantity .productWishList .btnProductWishlist { margin: 0; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .qv-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  margin-top: 10px;
+  padding: 12px 0 24px;
+  background: #fff;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--submit { margin-bottom: 10px; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--submit .btn.product-form__cart-submit {
+  height: 48px;
+  line-height: 48px;
+  border-radius: 10px;
+  border-color: #111;
+  background: #111;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--submit .btn.product-form__cart-submit span#AddToCartText {
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--submit .btn.product-form__cart-submit:hover { background: #afa183; border-color: #afa183; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--checkout .shopify-payment-button__button {
+  border: 1px solid #111;
+  border-radius: 10px;
+  background: #fff;
+  color: #111;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--checkout .shopify-payment-button__button:hover { background: #111; border-color: #111; color: #fff; }
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .qv-view-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+}
+.open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .qv-view-details:hover { color: #afa183; }
+@media (max-width: 767px) {
+  /* the page scrolls on phones (magnific fixedContentPos is off), so the card must not clip:
+     an overflow:hidden ancestor would stop the sticky action bar from sticking to the viewport */
+  .open_gl_quick_view #content_quickview { max-width: none; margin: 10px 2px; border-radius: 14px; overflow: visible; }
+  .open_gl_quick_view #content_quickview .product-single .product-single__photos { border-radius: 14px 14px 0 0; overflow: hidden; }
+  .open_gl_quick_view #content_quickview .product-single .product-single__info { border-radius: 0 0 14px 14px; background: #fff; }
+  .open_gl_quick_view #content_quickview .product-single .product-single__info { max-height: none; overflow: visible; padding: 18px 18px 0; }
+  .open_gl_quick_view #content_quickview .product-single .product-single__info .product-single__title { font-size: 18px; }
+  /* phones: pin the actions to the bottom of the screen (the page scrolls behind the card, and a
+     sticky element could not move because its containing block, the form, is too short) */
+  .open_gl_quick_view #content_quickview .product-single .product-single__info { padding-bottom: 150px; }
+  .open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .qv-actions {
+    position: fixed;
+    left: 2px;
+    right: 2px;
+    bottom: 0;
+    z-index: 6;
+    margin: 0;
+    padding: 10px 16px 12px;
+    border-radius: 14px 14px 0 0;
+    background: #fff;
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.1);
+  }
+  .open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .product-form__item--submit { margin-bottom: 8px; }
+  .open_gl_quick_view #content_quickview .product-single .product-single__info .product-form-qv .qv-view-details { margin-top: 8px; }
+}
