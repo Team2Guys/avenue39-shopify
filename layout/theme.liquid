@@ -231,6 +231,8 @@
 @media (max-width: 991px){
   .whatsapp-float{ bottom: calc(62px + env(safe-area-inset-bottom)); }
 }
+/* Hide the bubble while the quick view popup is open: it sat on top of the fixed action bar on phones. */
+.open_gl_quick_view .whatsapp-float{ display: none; }
 </style>
 
 
