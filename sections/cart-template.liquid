@@ -1,8 +1,9 @@
 <div class="page-width" data-section-id="{{ section.id }}" data-section-type="cart-template">
   <div class="container">
     {% if cart.item_count > 0 %}
-      <div class="section-header">
+      <div class="section-header cart-page__header">
         <div class="title-block">{{ 'cart.general.title' | t }}</div>
+        <span class="cart-page__count">{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</span>
       </div>
 
       <form action="/cart" method="post" novalidate class="cart">
@@ -34,7 +35,7 @@
                       <a href="{{ item.url | within: collections.all }}">
                         <img
                           class="cart__image lazyload"
-                          data-src="{{ item | img_url: '90x' }}"
+                          data-src="{{ item | img_url: '180x' }}"
                           alt="{{ item.title | escape }}"
                           loading="lazy"
                         >
@@ -105,7 +106,9 @@
                           value="{{ item.quantity }}"
                           step="1"
                           min="1"
-                          max="{{ item.variant.inventory_quantity }}"
+                          {% if item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' and item.variant.inventory_quantity > 0 %}
+                            max="{{ item.variant.inventory_quantity }}"
+                          {% endif %}
                           pattern="[0-9]*"
                         >
                         <input type="button" class="js-qty__adjust plus js-qty__adjust--plus" value="+">
@@ -156,19 +159,10 @@
                 {% endfor %}
               </div>
 
-              <div class="button_cart d-lg-flex align-items-center">
-                <input
-                  type="submit"
-                  name="checkout"
-                  class="btn btn--small-wide"
-                  value="{{ 'cart.general.proceed_to_checkout' | t }}"
-                >
-                {% if additional_checkout_buttons %}
-                  <div class="additional-checkout-buttons mt-0 mt-xs-10">
-                    {{ content_for_additional_checkout_buttons }}
-                  </div>
-                {% endif %}
-                <a href="collections/all" class="btn cart__update cart__continue--large mt-xs-10">
+              {% comment %} The checkout button lives in the order summary card (right column); this row only keeps the way back to the shop {% endcomment %}
+              <div class="button_cart cart__continue-row">
+                <a href="/collections/all" class="btn cart__update cart__continue--large">
+                  <i class="zmdi zmdi-arrow-left" aria-hidden="true"></i>
                   {{- 'cart.general.continue_shopping' | t -}}
                 </a>
               </div>
@@ -273,7 +267,7 @@
           <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 data-sticky_column mt-md-40">
             <div class="cart__layout_right">
               <div class="cart__heading">
-                <span>{{ 'cart.general.total_cart_page' | t: total_cart: cart.item_count }}</span>
+                <span>Order Summary</span>
               </div>
               <div class="grid">
                 <div class="grid__item">
@@ -336,6 +330,20 @@
                       {{ 'cart.general.freeshipping_notice_html' | t: freeshipping_value: freeshipping_value_notice }}
                     </div>
                   {% endif %}
+                  <div class="cart__summary-actions">
+                    <input
+                      type="submit"
+                      name="checkout"
+                      class="btn btn--small-wide cart__checkout"
+                      value="{{ 'cart.general.proceed_to_checkout' | t }}"
+                    >
+                    {% if additional_checkout_buttons %}
+                      <div class="additional-checkout-buttons">
+                        {{ content_for_additional_checkout_buttons }}
+                      </div>
+                    {% endif %}
+                    <p class="cart__secure"><i class="zmdi zmdi-lock" aria-hidden="true"></i> Secure checkout</p>
+                  </div>
                 </div>
                 {% if section.settings.cart_notes_enable %}
                   <div class="grid__item cart-note">
@@ -357,6 +365,7 @@
 
     {% else %}
       <div class="empty-page-content">
+        <div class="empty-page-content__icon"><i class="zmdi zmdi-shopping-cart" aria-hidden="true"></i></div>
         <h1 class="mb-30">{{ 'cart.general.empty' | t }}</h1>
         <div class="cart--empty-message mb-20">
           <p>{{ 'cart.general.empty_text_1' | t }}</p>

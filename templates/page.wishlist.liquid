@@ -3,8 +3,9 @@
 <main class="main-content" id="MainContent" role="main" tabindex="-1">
   <div class="wishlist-page">
     <div class="container">
-      <div class="title_block pt-10">
+      <div class="title_block pt-10 wishlist-page__header">
         <h1>{{ 'wishlist.wishlist.wishlists_title' | t }}</h1>
+        <span class="wishlist-page__count"><span class="WishlistCount">0</span> items</span>
       </div>
       <div class="wrapper-wishlist">
         <div class="wishlist-product" data-wishlist-content>
@@ -50,6 +51,28 @@
               </div>
             </div>
             <div class="wishlist-content" data-wishlist-container></div>
+            <div class="wishlist-empty" data-wishlist-empty hidden>
+              <i class="zmdi zmdi-favorite-outline" aria-hidden="true"></i>
+              <h2>Your wishlist is empty</h2>
+              <p>Save the pieces you love and find them here anytime.</p>
+              <a href="/collections/all" class="btn">Continue shopping</a>
+            </div>
+            <script>
+              // Show the empty state when the (localStorage) wishlist has no products; re-check after removals.
+              (function () {
+                var empty = document.querySelector('[data-wishlist-empty]');
+                if (!empty) return;
+                function check() {
+                  var list = [];
+                  try { list = JSON.parse(localStorage.getItem('wishListsArr') || '[]'); } catch (e) { list = []; }
+                  list = Array.isArray(list) ? list.filter(function (h) { return typeof h === 'string' && h.trim() !== ''; }) : [];
+                  empty.hidden = list.length > 0;
+                }
+                check();
+                document.addEventListener('wishlist:removed', function () { setTimeout(check, 350); });
+                document.addEventListener('wishlist:added', check);
+              })();
+            </script>
           </div>
         </div>
       </div>
